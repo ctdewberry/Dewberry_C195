@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource(first_screen.fxml));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/first_screen.fxml"));
         stage.setTitle("First Screen");
         stage.setScene(new Scene(root, 800, 600));
         stage.show();
@@ -18,6 +18,7 @@ public class main extends Application {
     public static void main(String[] args){
         launch(args);
     }
+
 }
 
 //test test 123
