@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class FirstScreen implements Initializable {
+public class LogIn implements Initializable {
     public Label TheLabel;
 
     @Override
