@@ -21,6 +21,6 @@ public class FirstScreen implements Initializable {
     public void onButtonAction(ActionEvent actionEvent) {
         System.out.println("Button has been pressed");
 
-        TheLabel.setText("label text has been changed this many times");
+        TheLabel.setText("label text has been changed this many times ");
         }
 }
