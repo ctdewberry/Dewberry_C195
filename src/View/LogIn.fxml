@@ -45,22 +45,27 @@
             <Font size="34.0" />
          </font>
       </Button>
-      <Button layoutX="153.0" layoutY="500.0" mnemonicParsing="false" text="Customers">
+      <Button layoutX="41.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionCustomers" text="Customers">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="327.0" layoutY="500.0" mnemonicParsing="false" text="Appointments">
+      <Button layoutX="215.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionAppointments" text="Appointments">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="536.0" layoutY="500.0" mnemonicParsing="false" text="Reports">
+      <Button layoutX="424.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionReports" text="Reports">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
       <TextField layoutX="63.0" layoutY="205.0" />
       <TextField layoutX="63.0" layoutY="274.0" />
+      <Button layoutX="689.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
