@@ -7,25 +7,24 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="530.0" prefWidth="351.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerModify">
+<AnchorPane prefHeight="530.0" prefWidth="351.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerModify">
     <children>
         <Label layoutX="41.0" layoutY="24.0" text="Modify Customer">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <Button layoutX="47.0" layoutY="418.0" mnemonicParsing="false" text="Add/Update"/>
-        <Button layoutX="153.0" layoutY="418.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel"/>
-        <Label layoutX="47.0" layoutY="83.0" text="Customer ID"/>
-        <Label layoutX="47.0" layoutY="126.0" text="Name"/>
-        <Label layoutX="49.0" layoutY="184.0" text="Address"/>
-        <Label layoutX="49.0" layoutY="249.0" text="Postal Code"/>
-        <Label layoutX="49.0" layoutY="311.0" text="Phone Number"/>
-        <TextField layoutX="49.0" layoutY="149.0"/>
-        <TextField layoutX="48.0" layoutY="211.0"/>
-        <TextField layoutX="49.0" layoutY="277.0"/>
-        <TextField layoutX="49.0" layoutY="338.0"/>
-        <Text layoutX="139.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="autoGenCustID"/>
+        <Button layoutX="47.0" layoutY="418.0" mnemonicParsing="false" text="Modify Customer" />
+        <Button layoutX="174.0" layoutY="418.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
+        <Label layoutX="47.0" layoutY="83.0" text="Customer ID" />
+        <Label layoutX="47.0" layoutY="126.0" text="Name" />
+        <Label layoutX="49.0" layoutY="184.0" text="Address" />
+        <Label layoutX="49.0" layoutY="249.0" text="Postal Code" />
+        <Label layoutX="49.0" layoutY="311.0" text="Phone Number" />
+        <TextField layoutX="49.0" layoutY="149.0" />
+        <TextField layoutX="48.0" layoutY="211.0" />
+        <TextField layoutX="49.0" layoutY="277.0" />
+        <TextField layoutX="49.0" layoutY="338.0" />
+        <Text layoutX="139.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="autoGenCustID" />
     </children>
 </AnchorPane>

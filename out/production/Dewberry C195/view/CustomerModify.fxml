@@ -14,8 +14,8 @@
                 <Font size="20.0" />
             </font>
         </Label>
-        <Button layoutX="47.0" layoutY="418.0" mnemonicParsing="false" text="Add/Update" />
-        <Button layoutX="153.0" layoutY="418.0" mnemonicParsing="false" text="Cancel" />
+        <Button layoutX="47.0" layoutY="418.0" mnemonicParsing="false" text="Modify Customer" />
+        <Button layoutX="174.0" layoutY="418.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
         <Label layoutX="47.0" layoutY="83.0" text="Customer ID" />
         <Label layoutX="47.0" layoutY="126.0" text="Name" />
         <Label layoutX="49.0" layoutY="184.0" text="Address" />
