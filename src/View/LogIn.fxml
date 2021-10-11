@@ -5,10 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LogIn">
    <children>
-      <Label layoutX="178.0" layoutY="27.0" prefHeight="98.0" prefWidth="390.0" text="First Screen">
+      <Label layoutX="56.0" layoutY="32.0" prefHeight="88.0" prefWidth="232.0" text="Log In">
          <font>
             <Font size="64.0" />
          </font>
