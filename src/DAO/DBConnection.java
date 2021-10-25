@@ -12,12 +12,12 @@ public class DBConnection {
     //    private static final String dbName = "NJ86YG@"; //NOTE: Adding the dbName
     private static final String dbName = "client_schedule"; //NOTE: Adding the dbName
     //    private static final String ipAddress = "//wgudb.ucertify.com:3366/";
-    private static final String ipAddress = "jdbc:mysql://localhost:3306/" + dbName;
+    private static final String ipAddress = "//localhost:3306/";
 
     //This will ultimately build: *jdbc:mysot://wgudb.ucertify.com:3386/WJ96YGO"
     private static final String jdbcURL = protocol + vendorName + ipAddress + dbName;
     //private static final String jdbcURL = protocol + vendorName + ipAddress + dbName + "?connectionTinezone=SERVER"; //v8.6.23
-    private static final String MYSQLJBCDriver = "com.mysql.jdbc.Driver";
+    private static final String MYSQLJBCDriver = "com.mysql.cj.jdbc.Driver";
     private static final String username = "sqlUser";
     private static final String password = "Passw0rd!";
 
@@ -35,6 +35,10 @@ public class DBConnection {
             e.printStackTrace();
             //System.out.println(e.getMessage());
         }
+        return conn;
+    }
+
+    public static Connection getConnection(){
         return conn;
     }
 

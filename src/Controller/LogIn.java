@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import DAO.Query;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,6 +66,7 @@ public class LogIn implements Initializable {
 
     @FXML
     void onActionReports(ActionEvent event) throws IOException {
+        Query.testAccess();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/Reports.fxml"));
