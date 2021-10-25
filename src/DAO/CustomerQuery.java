@@ -1,15 +1,41 @@
 package DAO;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
-import Controller.CustomersScreen;
 import Model.CustomerModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class CustomerQuery {
+
+    public static String getNextAppointment(int currCust) {
+
+        String customerNextAppointment = null;
+
+        try {
+//                String sql = "SELECT appointments.Start from appointments WHERE Customer_ID=" + currCust;
+                String sql = "select appointments.Start from appointments WHERE Customer_ID=" +currCust + " ORDER BY Start ASC LIMIT 1";
+
+                PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next()) {
+//                customerNextAppointment = String.valueOf(rs.getDate("Start")) + String.valueOf(rs.getTime("Start"));
+                customerNextAppointment = rs.getDate("Start") + " " + rs.getTime("Start");
+
+//                customerNextAppointment = String.valueOf(rs.getTime("Start"));
+            } else {
+                    customerNextAppointment = "No upcoming appointments";
+                }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return customerNextAppointment;
+
+    }
 
 
     public static ObservableList<CustomerModel> getAllCustomers() {

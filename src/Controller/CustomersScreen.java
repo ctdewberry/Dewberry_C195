@@ -73,6 +73,9 @@ public class CustomersScreen implements Initializable {
     @FXML
     private Text customerPostal;
 
+    @FXML
+    private Text nextAppointment;
+
 
 
     @FXML
@@ -111,17 +114,11 @@ public class CustomersScreen implements Initializable {
 
 
         customerTableView.setItems(DAO.CustomerQuery.getAllCustomers());
-
         custIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-
         custNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-
         custAddressCol.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
-
         custCodeCol.setCellValueFactory(new PropertyValueFactory<>("customerCode"));
-
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
-
         customerTableView.setOnMouseClicked(e -> updateSelectedCustomer());
 
     }
@@ -135,6 +132,10 @@ public class CustomersScreen implements Initializable {
         customerAddress.setText(selectedCustomer.get(currentCustomer).getCustomerAddress());
         customerPostal.setText(selectedCustomer.get(currentCustomer).getCustomerCode());
         customerPhone.setText(selectedCustomer.get(currentCustomer).getCustomerPhone());
+        nextAppointment.setText(CustomerQuery.getNextAppointment(selectedCustomer.get(currentCustomer).getCustomerID()));
+
+//        selectedCustomer.get(currentCustomer).getCustomerID()
+        //select appointments.Start, appointments.Customer_ID from appointments WHERE Customer_ID=1
     }
 
 }
