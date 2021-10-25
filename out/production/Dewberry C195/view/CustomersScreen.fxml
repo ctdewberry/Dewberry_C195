@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomersScreen">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomersScreen">
     <children>
         <Button layoutX="34.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
         <Label layoutX="108.0" layoutY="19.0" text="Customers">
@@ -33,10 +33,10 @@
         <TableView fx:id="customerTableView" layoutX="31.0" layoutY="75.0" prefHeight="426.0" prefWidth="395.0">
             <columns>
                 <TableColumn fx:id="custIDCol" prefWidth="29.0" text="ID" />
-                <TableColumn fx:id="custNameCol" prefWidth="78.0" text="Name" />
-            <TableColumn fx:id="custAddressCol" prefWidth="118.0" text="Address" />
-            <TableColumn fx:id="custCodeCol" prefWidth="88.0" text="Postal Code" />
-            <TableColumn fx:id="custPhoneCol" prefWidth="81.0" text="Phone" />
+                <TableColumn fx:id="custNameCol" prefWidth="114.0" text="Name" />
+            <TableColumn fx:id="custAddressCol" prefWidth="82.0" text="Address" />
+            <TableColumn fx:id="custCodeCol" prefWidth="81.0" text="Postal Code" />
+            <TableColumn fx:id="custPhoneCol" prefWidth="88.0" text="Phone" />
             </columns>
         </TableView>
         <Label layoutX="493.0" layoutY="42.0" text="Customer Details">
