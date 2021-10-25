@@ -8,40 +8,37 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Appointments">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Appointments">
     <children>
-        <Button layoutX="34.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionBack" text="Back"/>
+        <Button layoutX="34.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
         <Label layoutX="108.0" layoutY="19.0" text="Appointments">
             <font>
-                <Font size="31.0"/>
+                <Font size="31.0" />
             </font>
         </Label>
         <Button layoutX="31.0" layoutY="522.0" mnemonicParsing="false" onAction="#onActionAddAppointment" text="Add">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Button>
-        <Button layoutX="328.0" layoutY="522.0" mnemonicParsing="false" onAction="#onActionDeleteAppointment"
-                text="Delete">
+        <Button layoutX="328.0" layoutY="522.0" mnemonicParsing="false" onAction="#onActionDeleteAppointment" text="Delete">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Button>
-        <Button layoutX="144.0" layoutY="522.0" mnemonicParsing="false" onAction="#onActionModifyAppointment"
-                text="Update">
+        <Button layoutX="144.0" layoutY="522.0" mnemonicParsing="false" onAction="#onActionModifyAppointment" text="Update">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Button>
-        <TableView layoutX="31.0" layoutY="103.0" prefHeight="401.0" prefWidth="395.0">
+        <TableView fx:id="appointmentsTableView" layoutX="31.0" layoutY="103.0" prefHeight="401.0" prefWidth="395.0">
             <columns>
-                <TableColumn maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="C1"/>
-                <TableColumn maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="C2"/>
+                <TableColumn maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="C1" />
+                <TableColumn maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="C2" />
             </columns>
         </TableView>
-        <RadioButton layoutX="48.0" layoutY="70.0" mnemonicParsing="false" text="Current Week"/>
-        <RadioButton layoutX="169.0" layoutY="70.0" mnemonicParsing="false" text="Current Month"/>
-        <RadioButton layoutX="295.0" layoutY="70.0" mnemonicParsing="false" text="All Appointments"/>
+        <RadioButton layoutX="48.0" layoutY="70.0" mnemonicParsing="false" text="Current Week" />
+        <RadioButton layoutX="169.0" layoutY="70.0" mnemonicParsing="false" text="Current Month" />
+        <RadioButton layoutX="295.0" layoutY="70.0" mnemonicParsing="false" text="All Appointments" />
     </children>
 </AnchorPane>
