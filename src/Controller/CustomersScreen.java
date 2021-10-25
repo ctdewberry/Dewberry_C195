@@ -3,8 +3,12 @@ package Controller;
 import DAO.CustomerQuery;
 import Model.CustomerList;
 import Model.CustomerModel;
+import com.sun.javafx.UnmodifiableArrayList;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 //import javafx.fxml.FXML;
 //import javafx.fxml.FXMLLoader;
 //import javafx.fxml.Initializable;
@@ -101,6 +105,15 @@ public class CustomersScreen implements Initializable {
 
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
 
+        customerTableView.setOnMouseClicked(e -> updateSelectedCustomer());
 
     }
+
+    private void updateSelectedCustomer() {
+        int currentCustomer = customerTableView.getSelectionModel().getSelectedIndex();
+        ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();
+        System.out.println(selectedCustomer.get(currentCustomer).getCustomerName());
+    }
+
 }
+

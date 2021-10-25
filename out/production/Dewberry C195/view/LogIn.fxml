@@ -6,68 +6,65 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LogIn">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LogIn">
     <children>
         <Label layoutX="56.0" layoutY="32.0" prefHeight="88.0" prefWidth="232.0" text="Log In">
             <font>
-                <Font size="64.0"/>
+                <Font size="64.0" />
             </font>
         </Label>
         <Label layoutX="56.0" layoutY="167.0" text="Username">
             <font>
-                <Font size="27.0"/>
+                <Font size="27.0" />
             </font>
         </Label>
         <Label layoutX="57.0" layoutY="240.0" text="Password">
             <font>
-                <Font size="28.0"/>
+                <Font size="28.0" />
             </font>
         </Label>
-        <Label layoutX="634.0" layoutY="39.0" text="Location:"/>
-        <Label layoutX="640.0" layoutY="68.0" text="LOCATION_DATA"/>
-        <Label layoutX="459.0" layoutY="134.0" text="Next Appointment">
+        <Label layoutX="634.0" layoutY="39.0" text="Location:" />
+        <Label layoutX="640.0" layoutY="68.0" text="LOCATION_DATA" />
+        <Label layoutX="598.0" layoutY="134.0" text="Next Appointment">
             <font>
-                <Font size="27.0"/>
+                <Font size="27.0" />
             </font>
         </Label>
-        <Label layoutX="468.0" layoutY="179.0" text="NEXT_APPOINTMENT_DATA">
+        <Label layoutX="607.0" layoutY="179.0" text="NEXT_APPOINTMENT_DATA">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <Label layoutX="462.0" layoutY="382.0" text="LOGIN_SUCCESS_YES_NO">
+        <Label layoutX="601.0" layoutY="382.0" text="LOGIN_SUCCESS_YES_NO">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <Button layoutX="63.0" layoutY="362.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="178.0"
-                text="Log In">
+        <Button layoutX="63.0" layoutY="362.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="178.0" text="Log In">
             <font>
-                <Font size="34.0"/>
+                <Font size="34.0" />
             </font>
         </Button>
         <Button layoutX="41.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionCustomers" text="Customers">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Button>
-        <Button layoutX="215.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionAppointments"
-                text="Appointments">
+        <Button layoutX="215.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionAppointments" text="Appointments">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Button>
         <Button layoutX="424.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionReports" text="Reports">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Button>
-        <TextField layoutX="63.0" layoutY="205.0"/>
-        <TextField layoutX="63.0" layoutY="274.0"/>
-        <Button layoutX="689.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit">
+        <TextField layoutX="63.0" layoutY="205.0" />
+        <TextField layoutX="63.0" layoutY="274.0" />
+        <Button layoutX="828.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Button>
     </children>
