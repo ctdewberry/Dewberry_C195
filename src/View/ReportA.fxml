@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="554.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReportA">
+<AnchorPane prefHeight="554.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReportA">
     <children>
         <Text layoutX="26.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Report Type A:" />
         <Text layoutX="30.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This report will show you the number of appointments by type and month" />
