@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 
@@ -56,6 +57,22 @@ public class CustomersScreen implements Initializable {
 
     @FXML
     private TableColumn<CustomerModel, String> custPhoneCol;
+
+    @FXML
+    private Text customerAddress;
+
+    @FXML
+    private Text customerID;
+
+    @FXML
+    private Text customerName;
+
+    @FXML
+    private Text customerPhone;
+
+    @FXML
+    private Text customerPostal;
+
 
 
     @FXML
@@ -113,6 +130,11 @@ public class CustomersScreen implements Initializable {
         int currentCustomer = customerTableView.getSelectionModel().getSelectedIndex();
         ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();
         System.out.println(selectedCustomer.get(currentCustomer).getCustomerName());
+        customerID.setText(String.valueOf(selectedCustomer.get(currentCustomer).getCustomerID()));
+        customerName.setText(selectedCustomer.get(currentCustomer).getCustomerName());
+        customerAddress.setText(selectedCustomer.get(currentCustomer).getCustomerAddress());
+        customerPostal.setText(selectedCustomer.get(currentCustomer).getCustomerCode());
+        customerPhone.setText(selectedCustomer.get(currentCustomer).getCustomerPhone());
     }
 
 }
