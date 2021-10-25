@@ -33,7 +33,7 @@ public class CustomerAdd implements Initializable {
         if (result.get() == ButtonType.OK) {
 
             stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
+            scene = FXMLLoader.load(getClass().getResource("/View/CustomersScreen.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
         }

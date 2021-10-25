@@ -7,13 +7,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.scene.control.TableColumn;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Customers implements Initializable {
+public class CustomersScreen implements Initializable {
 
     /**
      * The Stage.
@@ -24,10 +27,27 @@ public class Customers implements Initializable {
      */
     Parent scene;
 
-    /**
-     * The Error messages.
-     * Array list for gathering error messages when user tries to modify a part
-     */
+
+    @FXML
+    private TableView<CustomersScreen> customerTableView;
+
+    @FXML
+    private TableColumn<?, ?> custIDCol;
+
+    @FXML
+    private TableColumn<?, ?> custNameCol;
+
+    @FXML
+    private TableColumn<?, ?> custAddressCol;
+
+    @FXML
+    private TableColumn<?, ?> custCodeCol;
+
+    @FXML
+    private TableColumn<?, ?> custPhoneCol;
+
+}
+
 
     @FXML
     void onActionBack(ActionEvent event) throws IOException {
@@ -62,6 +82,18 @@ public class Customers implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    customerTableView.setItems(DAO.CustomerQuery.getAllCustomers());
+
+    custIDCol.setCellFactory(new PropertyValueFactory<>("id"));
+
+    custNameCol.setCellFactory(new PropertyValueFactory<>("name"));;
+
+    custAddressCol.setCellFactory(new PropertyValueFactory<>("address"));;
+
+    custCodeCol.setCellFactory(new PropertyValueFactory<>("code"));;
+
+    custPhoneCol.setCellFactory(new PropertyValueFactory<>("phone"));;
 
     }
 }
