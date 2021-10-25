@@ -1,28 +1,26 @@
 package Model;
 
-public class Customers {
-    private int id;
+public class CustomerModel {
+    private int customerID;
     private String customerName;
-    private String address;
-    private String postalCode;
-    private String phone;
+    private String customerAddress;
+    private String customerCode;
+    private String customerPhone;
 
-
-    public Customers(int id, String customerName, String address, String postalCode, String phone) {
-        this.id = id;
+    public CustomerModel(int customerID, String customerName, String customerAddress, String customerCode, String customerPhone) {
+        this.customerID = customerID;
         this.customerName = customerName;
-        this.address = address;
-        this.postalCode = postalCode;
-        this.phone = phone;
+        this.customerAddress = customerAddress;
+        this.customerCode = customerCode;
+        this.customerPhone = customerPhone;
     }
 
-
-    public int getId() {
-        return id;
+    public int getCustomerID() {
+        return customerID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
     }
 
     public String getCustomerName() {
@@ -33,27 +31,40 @@ public class Customers {
         this.customerName = customerName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCustomerAddress() {
+        return customerAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
-    public String getPostalCode() {
-        return postalCode;
+    public String getCustomerCode() {
+        return customerCode;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getCustomerPhone() {
+        return customerPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
     }
 }
+
+
+
+//    public CustomerModel(int customerID, String customerName, String customerAddress, String customerCode, String customerPhone) {
+//        this.id = id;
+//        this.customerName = customerName;
+//        this.address = address;
+//        this.postalCode = postalCode;
+//        this.phone = phone;
+//    }
+
+
+

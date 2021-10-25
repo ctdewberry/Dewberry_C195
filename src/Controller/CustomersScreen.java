@@ -1,5 +1,9 @@
 package Controller;
 
+import DAO.CustomerQuery;
+import Model.CustomerList;
+import Model.CustomerModel;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,24 +33,22 @@ public class CustomersScreen implements Initializable {
 
 
     @FXML
-    private TableView<CustomersScreen> customerTableView;
+    private TableView<CustomerModel> customerTableView;
 
     @FXML
-    private TableColumn<?, ?> custIDCol;
+    private TableColumn<CustomerModel, Integer> custIDCol;
 
     @FXML
-    private TableColumn<?, ?> custNameCol;
+    private TableColumn<CustomerModel, String> custNameCol;
 
     @FXML
-    private TableColumn<?, ?> custAddressCol;
+    private TableColumn<CustomerModel, String> custAddressCol;
 
     @FXML
-    private TableColumn<?, ?> custCodeCol;
+    private TableColumn<CustomerModel, String> custCodeCol;
 
     @FXML
-    private TableColumn<?, ?> custPhoneCol;
-
-}
+    private TableColumn<CustomerModel, String> custPhoneCol;
 
 
     @FXML
@@ -83,17 +85,19 @@ public class CustomersScreen implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    customerTableView.setItems(DAO.CustomerQuery.getAllCustomers());
 
-    custIDCol.setCellFactory(new PropertyValueFactory<>("id"));
+        customerTableView.setItems(DAO.CustomerQuery.getAllCustomers());
 
-    custNameCol.setCellFactory(new PropertyValueFactory<>("name"));;
+        custIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
-    custAddressCol.setCellFactory(new PropertyValueFactory<>("address"));;
+        custNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
 
-    custCodeCol.setCellFactory(new PropertyValueFactory<>("code"));;
+        custAddressCol.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
 
-    custPhoneCol.setCellFactory(new PropertyValueFactory<>("phone"));;
+        custCodeCol.setCellValueFactory(new PropertyValueFactory<>("customerCode"));
+
+        custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+
 
     }
 }

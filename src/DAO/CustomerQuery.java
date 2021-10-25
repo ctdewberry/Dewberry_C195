@@ -5,16 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Controller.CustomersScreen;
-import Model.Customers;
+import Model.CustomerModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class CustomerQuery {
 
 
-    public static ObservableList<CustomersScreen> getAllCustomers() {
+    public static ObservableList<CustomerModel> getAllCustomers() {
 
-        ObservableList<CustomersScreen> customerList = FXCollections.observableArrayList();
+        ObservableList<CustomerModel> customerList = FXCollections.observableArrayList();
 
         try {
             String sql = "SELECT * from customers";
@@ -33,7 +33,7 @@ public class CustomerQuery {
                 String customerCode = rs.getString("Postal_Code");
                 String customerPhone = rs.getString("Phone");
 
-                Customers C = new Customers(customerID, customerName, customerAddress, customerCode, customerPhone);
+                CustomerModel C = new CustomerModel(customerID, customerName, customerAddress, customerCode, customerPhone);
                 customerList.add(C);
 
             }
@@ -41,6 +41,7 @@ public class CustomerQuery {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         return customerList;
 
     }
