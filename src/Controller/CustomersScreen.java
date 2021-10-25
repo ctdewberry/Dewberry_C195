@@ -105,6 +105,15 @@ public class CustomersScreen implements Initializable {
     }
 
     @FXML
+    void onActionViewSchedule(ActionEvent event) throws IOException {
+
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/CustomerSchedule.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
+    @FXML
     void initialize() {
 
     }
@@ -134,8 +143,6 @@ public class CustomersScreen implements Initializable {
         customerPhone.setText(selectedCustomer.get(currentCustomer).getCustomerPhone());
         nextAppointment.setText(CustomerQuery.getNextAppointment(selectedCustomer.get(currentCustomer).getCustomerID()));
 
-//        selectedCustomer.get(currentCustomer).getCustomerID()
-        //select appointments.Start, appointments.Customer_ID from appointments WHERE Customer_ID=1
     }
 
 }
