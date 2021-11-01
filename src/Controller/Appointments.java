@@ -33,8 +33,9 @@ public class Appointments implements Initializable {
     void onActionBack(ActionEvent event) throws IOException {
 
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/LogIn.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/View/MainPage.fxml"));
         stage.setScene(new Scene(scene));
+        stage.setTitle("Main Page");
         stage.show();
     }
 
@@ -44,6 +45,7 @@ public class Appointments implements Initializable {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/AppointmentsAdd.fxml"));
         stage.setScene(new Scene(scene));
+        stage.setTitle("Add Appointments");
         stage.show();
     }
 
@@ -53,6 +55,7 @@ public class Appointments implements Initializable {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/AppointmentsModify.fxml"));
         stage.setScene(new Scene(scene));
+        stage.setTitle("Modify Appointments");
         stage.show();
     }
 

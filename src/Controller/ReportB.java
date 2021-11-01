@@ -35,6 +35,7 @@ public class ReportB implements Initializable {
             stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/Reports.fxml"));
             stage.setScene(new Scene(scene));
+            stage.setTitle("Reports");
             stage.show();
         }
     }
@@ -44,6 +45,8 @@ public class ReportB implements Initializable {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/ReportBResults.fxml"));
         stage.setScene(new Scene(scene));
+        stage.setTitle("Report Results");
+
         stage.show();
     }
 

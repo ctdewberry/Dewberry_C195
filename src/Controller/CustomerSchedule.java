@@ -27,6 +27,7 @@ public class CustomerSchedule implements Initializable {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/CustomersScreen.fxml"));
         stage.setScene(new Scene(scene));
+        stage.setTitle("Customers");
         stage.show();
     }
 

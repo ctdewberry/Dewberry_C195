@@ -49,7 +49,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-        <Button layoutX="774.0" layoutY="489.0" mnemonicParsing="false" text="View Schedule" />
+        <Button layoutX="747.0" layoutY="522.0" mnemonicParsing="false" onAction="#onActionViewSchedule" text="View Schedule" />
       <Label layoutX="690.0" layoutY="139.0" text="Customer Name">
          <font>
             <Font name="System Bold" size="12.0" />

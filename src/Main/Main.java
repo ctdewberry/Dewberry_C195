@@ -12,12 +12,20 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+    private static Main instance;
+    public static Main getInstance() {
+        return instance;
+    }
+
+    private Stage primaryStage;
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage primaryStage) throws Exception {
+        instance = this;
+        this.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/View/LogIn.fxml"));
-        stage.setTitle("Log In");
-        stage.setScene(new Scene(root, 1000, 600));
-        stage.show();
+        this.primaryStage.setTitle("Log In");
+        this.primaryStage.setScene(new Scene(root, 600, 400));
+        this.primaryStage.show();
     }
 
     public static void main(String[] args) {
@@ -26,6 +34,10 @@ public class Main extends Application {
         launch(args);
         DBConnection.closeConnection();
     }
+
+//    public void updateTitle(String title) {
+//        primaryStage.setTitle(title);
+//    }
 
 }
 

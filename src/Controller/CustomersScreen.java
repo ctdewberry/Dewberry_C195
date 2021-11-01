@@ -1,14 +1,9 @@
 package Controller;
 
 import DAO.CustomerQuery;
-import Model.CustomerList;
 import Model.CustomerModel;
-import com.sun.javafx.UnmodifiableArrayList;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 //import javafx.fxml.FXML;
 //import javafx.fxml.FXMLLoader;
 //import javafx.fxml.Initializable;
@@ -82,8 +77,9 @@ public class CustomersScreen implements Initializable {
     void onActionBack(ActionEvent event) throws IOException {
 
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/LogIn.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/View/MainPage.fxml"));
         stage.setScene(new Scene(scene));
+        stage.setTitle("Main Menu");
         stage.show();
     }
 
@@ -92,6 +88,7 @@ public class CustomersScreen implements Initializable {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/CustomerAdd.fxml"));
         stage.setScene(new Scene(scene));
+        stage.setTitle("Add Customer");
         stage.show();
     }
 
@@ -101,6 +98,7 @@ public class CustomersScreen implements Initializable {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/CustomerModify.fxml"));
         stage.setScene(new Scene(scene));
+        stage.setTitle("Modify Customer");
         stage.show();
     }
 
@@ -110,6 +108,7 @@ public class CustomersScreen implements Initializable {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/CustomerSchedule.fxml"));
         stage.setScene(new Scene(scene));
+        stage.setTitle("View Schedule");
         stage.show();
     }
 

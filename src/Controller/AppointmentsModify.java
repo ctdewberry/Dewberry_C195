@@ -35,6 +35,7 @@ public class AppointmentsModify implements Initializable {
             stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
             stage.setScene(new Scene(scene));
+            stage.setTitle("Appointments");
             stage.show();
         }
     }
