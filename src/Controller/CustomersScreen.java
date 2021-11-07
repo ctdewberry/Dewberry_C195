@@ -132,15 +132,20 @@ public class CustomersScreen implements Initializable {
     }
 
     private void updateSelectedCustomer() {
-        int currentCustomer = customerTableView.getSelectionModel().getSelectedIndex();
-        ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();
-        System.out.println(selectedCustomer.get(currentCustomer).getCustomerName());
-        customerID.setText(String.valueOf(selectedCustomer.get(currentCustomer).getCustomerID()));
-        customerName.setText(selectedCustomer.get(currentCustomer).getCustomerName());
-        customerAddress.setText(selectedCustomer.get(currentCustomer).getCustomerAddress());
-        customerPostal.setText(selectedCustomer.get(currentCustomer).getCustomerCode());
-        customerPhone.setText(selectedCustomer.get(currentCustomer).getCustomerPhone());
-        nextAppointment.setText(CustomerQuery.getNextAppointment(selectedCustomer.get(currentCustomer).getCustomerID()));
+        try {
+            int currentCustomer = customerTableView.getSelectionModel().getSelectedIndex();
+            ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();
+            System.out.println(selectedCustomer.get(currentCustomer).getCustomerName());
+            customerID.setText(String.valueOf(selectedCustomer.get(currentCustomer).getCustomerID()));
+            customerName.setText(selectedCustomer.get(currentCustomer).getCustomerName());
+            customerAddress.setText(selectedCustomer.get(currentCustomer).getCustomerAddress());
+            customerPostal.setText(selectedCustomer.get(currentCustomer).getCustomerCode());
+            customerPhone.setText(selectedCustomer.get(currentCustomer).getCustomerPhone());
+            nextAppointment.setText(CustomerQuery.getNextAppointment(selectedCustomer.get(currentCustomer).getCustomerID()));
+        }
+        catch (Exception e) {
+            System.out.println("caught it");
+        }
 
     }
 
