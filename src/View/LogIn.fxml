@@ -30,14 +30,14 @@
             <Font size="34.0" />
          </font>
       </Button>
-      <TextField layoutX="37.0" layoutY="163.0" />
-      <TextField layoutX="37.0" layoutY="232.0" />
+      <TextField fx:id="username" layoutX="37.0" layoutY="163.0" />
+      <TextField fx:id="password" layoutX="37.0" layoutY="232.0" />
       <Button layoutX="415.0" layoutY="292.0" mnemonicParsing="false" onAction="#onActionExit" prefHeight="72.0" prefWidth="132.0" text="Exit">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Label layoutX="302.0" layoutY="145.0" text="LOGIN_SUCCESS_YES_NO">
+      <Label fx:id="loginSuccess" layoutX="302.0" layoutY="145.0" text="Please enter login credentials">
          <font>
             <Font size="20.0" />
          </font>
