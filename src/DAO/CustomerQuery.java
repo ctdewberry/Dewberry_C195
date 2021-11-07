@@ -1,6 +1,10 @@
 package DAO;
 
 import java.sql.*;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import Model.CustomerModel;
 import javafx.collections.FXCollections;
@@ -11,14 +15,20 @@ public class CustomerQuery {
     public static String getNextAppointment(int currCust) {
 
         String customerNextAppointment = null;
+//        Timestamp tempTime = null;
+//        Timestamp customerNextAppointment = null;
 
         try {
                 String sql = "select appointments.Start from appointments WHERE Customer_ID=" +currCust + " ORDER BY Start ASC LIMIT 1";
                 PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                customerNextAppointment = rs.getDate("Start") + " " + rs.getTime("Start");
-            } else {
+//                customerNextAppointment = rs.getDate("Start") + " " + rs.getTime("Start");
+//                    tempTime = rs.getTimestamp("Start");
+//                    customerNextAppointment = String.valueOf(rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a z")));
+                    customerNextAppointment = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a z"));
+
+                } else {
                     customerNextAppointment = "No upcoming appointments";
                 }
         } catch (SQLException throwables) {
