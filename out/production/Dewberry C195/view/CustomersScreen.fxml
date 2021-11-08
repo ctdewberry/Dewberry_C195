@@ -10,87 +10,45 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomersScreen">
     <children>
-        <Button layoutX="34.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
-        <Label layoutX="108.0" layoutY="19.0" text="Customers">
+        <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
+        <Label layoutX="88.0" layoutY="14.0" text="Customers">
             <font>
                 <Font size="31.0" />
             </font>
         </Label>
-        <Button layoutX="70.0" layoutY="522.0" mnemonicParsing="false" onAction="#onActionAddCustomer" text="Add">
+        <Button layoutX="14.0" layoutY="520.0" mnemonicParsing="false" onAction="#onActionAddCustomer" text="Add">
             <font>
                 <Font size="24.0" />
             </font>
         </Button>
-        <Button layoutX="463.0" layoutY="522.0" mnemonicParsing="false" text="Delete">
+        <Button layoutX="400.0" layoutY="520.0" mnemonicParsing="false" text="Delete">
             <font>
                 <Font size="24.0" />
             </font>
         </Button>
-        <Button layoutX="216.0" layoutY="522.0" mnemonicParsing="false" onAction="#onActionModifyCustomer" text="Update">
+        <Button layoutX="128.0" layoutY="520.0" mnemonicParsing="false" onAction="#onActionModifyCustomer" text="Update">
             <font>
                 <Font size="24.0" />
             </font>
         </Button>
-        <TableView fx:id="customerTableView" layoutX="31.0" layoutY="75.0" prefHeight="426.0" prefWidth="577.0">
+        <TableView fx:id="customerTableView" layoutX="14.0" layoutY="64.0" prefHeight="440.0" prefWidth="970.0">
             <columns>
-                <TableColumn fx:id="custIDCol" prefWidth="29.0" text="ID" />
+                <TableColumn fx:id="custIDCol" prefWidth="34.0" text="ID" />
                 <TableColumn fx:id="custNameCol" prefWidth="133.0" text="Name" />
-            <TableColumn fx:id="custAddressCol" prefWidth="172.0" text="Address" />
+            <TableColumn fx:id="custAddressCol" prefWidth="167.0" text="Address" />
             <TableColumn fx:id="custCodeCol" prefWidth="78.0" text="Postal Code" />
-            <TableColumn fx:id="custPhoneCol" prefWidth="164.0" text="Phone" />
+            <TableColumn fx:id="custPhoneCol" prefWidth="132.0" text="Phone" />
+            <TableColumn fx:id="custDivisionIDCol" prefWidth="98.0" text="Division ID" />
+            <TableColumn fx:id="custDivisionCol" prefWidth="157.0" text="Division" />
+            <TableColumn fx:id="custCountryIDCol" prefWidth="71.0" text="Country ID" />
+            <TableColumn fx:id="custCountryCol" prefWidth="99.0" text="Country" />
             </columns>
         </TableView>
-        <Label layoutX="686.0" layoutY="23.0" text="Customer Details">
-            <font>
-                <Font size="26.0" />
-            </font>
-        </Label>
-        <Label layoutX="690.0" layoutY="93.0" text="Customer ID">
+      <Label layoutX="698.0" layoutY="528.0" text="Customers Next Appointment">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-        <Button layoutX="747.0" layoutY="522.0" mnemonicParsing="false" onAction="#onActionViewSchedule" text="View Schedule" />
-      <Label layoutX="690.0" layoutY="139.0" text="Customer Name">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
-      <Label layoutX="690.0" layoutY="183.0" text="Customer Address">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
-      <Label layoutX="690.0" layoutY="233.0" text="Customer Postal Code">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
-      <Label layoutX="690.0" layoutY="280.0" text="Customer Phone">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
-      <Label layoutX="691.0" layoutY="373.0" text="Customers Next Appointment">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
-      <Text fx:id="customerID" layoutX="690.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a customer">
-         <font>
-            <Font name="System Italic" size="12.0" />
-         </font></Text>
-      <Text fx:id="customerName" layoutX="690.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a customer">
-         <font>
-            <Font name="System Italic" size="12.0" />
-         </font></Text>
-      <Text fx:id="customerAddress" layoutX="690.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a customer">
-         <font>
-            <Font name="System Italic" size="12.0" />
-         </font></Text>
-      <Text fx:id="customerPostal" layoutX="690.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a customer">
-         <font>
-            <Font name="System Italic" size="12.0" />
-         </font></Text>
-      <Text fx:id="customerPhone" layoutX="691.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a customer">
-         <font>
-            <Font name="System Italic" size="12.0" />
-         </font></Text>
-      <Text fx:id="nextAppointment" layoutX="691.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a customer">
+      <Text fx:id="nextAppointment" layoutX="698.0" layoutY="562.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a customer">
          <font>
             <Font name="System Italic" size="12.0" />
          </font>

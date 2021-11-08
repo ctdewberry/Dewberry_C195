@@ -103,7 +103,7 @@ public class MainPage implements Initializable {
 
     @FXML
     void onActionReports(ActionEvent event) throws IOException {
-        Query.testAccess();
+//        Query.testAccess();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/Reports.fxml"));
