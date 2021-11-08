@@ -54,19 +54,21 @@ public class CustomersScreen implements Initializable {
     private TableColumn<CustomerModel, String> custPhoneCol;
 
     @FXML
-    private Text customerAddress;
+    private TableColumn<CustomerModel, Integer> custDivisionIDCol;
 
     @FXML
-    private Text customerID;
+    private TableColumn<CustomerModel, String> custDivisionCol;
 
     @FXML
-    private Text customerName;
+    private TableColumn<CustomerModel, Integer> custCountryIDCol;
 
     @FXML
-    private Text customerPhone;
+    private TableColumn<CustomerModel, String> custCountryCol;
 
-    @FXML
-    private Text customerPostal;
+
+
+
+
 
     @FXML
     private Text nextAppointment;
@@ -127,6 +129,10 @@ public class CustomersScreen implements Initializable {
         custAddressCol.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
         custCodeCol.setCellValueFactory(new PropertyValueFactory<>("customerCode"));
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+        custDivisionIDCol.setCellValueFactory(new PropertyValueFactory<>("customerDivisionID"));
+        custDivisionCol.setCellValueFactory(new PropertyValueFactory<>("customerDivision"));
+        custCountryIDCol.setCellValueFactory(new PropertyValueFactory<>("customerCountryID"));
+        custCountryCol.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
         customerTableView.setOnMouseClicked(e -> refreshSelectedCustomer());
 
     }
@@ -135,11 +141,6 @@ public class CustomersScreen implements Initializable {
         try {
             int currentCustomer = customerTableView.getSelectionModel().getSelectedIndex();
             ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();
-            customerID.setText(String.valueOf(selectedCustomer.get(currentCustomer).getCustomerID()));
-            customerName.setText(selectedCustomer.get(currentCustomer).getCustomerName());
-            customerAddress.setText(selectedCustomer.get(currentCustomer).getCustomerAddress());
-            customerPostal.setText(selectedCustomer.get(currentCustomer).getCustomerCode());
-            customerPhone.setText(selectedCustomer.get(currentCustomer).getCustomerPhone());
             nextAppointment.setText(CustomerQuery.getNextAppointment(selectedCustomer.get(currentCustomer).getCustomerID()));
         }
         catch (Exception e) {
