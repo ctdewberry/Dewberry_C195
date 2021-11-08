@@ -107,7 +107,7 @@ public class AppointmentQuery {
     public static ObservableList<AppointmentModel> getNextAppointment(){
         ObservableList<AppointmentModel> nextAppointmentList = FXCollections.observableArrayList();
         try {
-            String sql = "select Appointment_ID, Start, Type from appointments WHERE Start > CURRENT_TIMESTAMP() ORDER By Start ASC LIMIT 1;";
+            String sql = "select Appointment_ID, Start, Type, User_ID from appointments WHERE (Start > CURRENT_TIMESTAMP()) AND User_ID = " +UserDaoImpl.getCurrentUserID() + " ORDER By Start ASC LIMIT 1;";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -136,7 +136,7 @@ public class AppointmentQuery {
     public static String checkNextAppointmentTime(){
     String isApptSoon = null;
         try {
-            String sql = "select Appointment_ID, Start, Type from appointments WHERE Start > CURRENT_TIMESTAMP() ORDER By Start ASC LIMIT 1;";
+            String sql = "select Appointment_ID, Start, Type, User_ID from appointments WHERE (Start > CURRENT_TIMESTAMP()) AND User_ID = " +UserDaoImpl.getCurrentUserID() + " ORDER By Start ASC LIMIT 1;";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {

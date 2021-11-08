@@ -75,6 +75,7 @@ public class LogIn implements Initializable {
 //        System.out.println(username.getText());
         UserDaoImpl.testCredentials(username.getText(), password.getText());
         if (loggedIn) {
+            UserDaoImpl.setCredentials(username.getText());
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/MainPage.fxml"));
             loader.load();
