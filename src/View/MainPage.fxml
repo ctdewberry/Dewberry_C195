@@ -59,9 +59,9 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text fx:id="nextApptID" layoutX="532.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Text fx:id="nextApptDate" layoutX="532.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Text fx:id="nextApptTime" layoutX="532.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Text fx:id="nextApptType" layoutX="532.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="nextApptID" layoutX="532.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments" />
+      <Text fx:id="nextApptDate" layoutX="532.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments" />
+      <Text fx:id="nextApptTime" layoutX="532.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments" />
+      <Text fx:id="nextApptType" layoutX="532.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments" />
     </children>
 </AnchorPane>

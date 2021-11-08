@@ -5,7 +5,12 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import DAO.AppointmentQuery;
+import DAO.CustomerQuery;
 import DAO.Query;
+import Model.AppointmentModel;
+import Model.CustomerModel;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,10 +29,10 @@ public class MainPage implements Initializable {
     Parent scene;
 
     @FXML
-    private Text nextApptDate;
+    private Text nextApptID;
 
     @FXML
-    private Text nextApptID;
+    private Text nextApptDate;
 
     @FXML
     private Text nextApptTime;
@@ -129,6 +134,9 @@ public class MainPage implements Initializable {
         }
     }
 
+//    public void static nextAppointmentSoon() {
+//        System.out.println("next appointment");
+//    }
 
     @FXML
     void initialize() {
@@ -137,6 +145,18 @@ public class MainPage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<AppointmentModel> upcomingAppointment = DAO.AppointmentQuery.getNextAppointment();
+        nextApptID.setText(String.valueOf(upcomingAppointment.get(0).getAppointmentID()));
+        nextApptDate.setText(String.valueOf(upcomingAppointment.get(0).getStartDate()));
+        nextApptTime.setText(String.valueOf(upcomingAppointment.get(0).getStartTime()));
+        nextApptType.setText(String.valueOf(upcomingAppointment.get(0).getType()));
+//        if (AppointmentQuery.checkNextAppointmentTime()) {
+//            System.out.println("progress");
+//        } else {
+//            System.out.println("no go");
+//        }
+        upcomingAppointments.setText(AppointmentQuery.checkNextAppointmentTime());
+
 
     }
 
