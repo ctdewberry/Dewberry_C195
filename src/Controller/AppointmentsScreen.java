@@ -94,17 +94,23 @@ public class AppointmentsScreen implements Initializable {
 
 
     @FXML
-    void onClickAllAppointments(ActionEvent event) {
+    void onClickAllAppointments(ActionEvent event) throws IOException {
+        appointmentsTableView.setItems(DAO.AppointmentQuery.getAllAppointments());
+        appointmentsTableView.getSortOrder().add(apptIDCol);
 
     }
 
     @FXML
-    void onClickCurrentMonth(ActionEvent event) {
+    void onClickCurrentMonth(ActionEvent event) throws IOException {
+        appointmentsTableView.setItems(DAO.AppointmentQuery.getMonthlyAppointments());
+        appointmentsTableView.getSortOrder().add(apptIDCol);
 
     }
 
     @FXML
-    void onClickCurrentWeek(ActionEvent event) {
+    void onClickCurrentWeek(ActionEvent event) throws IOException{
+        appointmentsTableView.setItems(DAO.AppointmentQuery.getWeeklyAppointments());
+        appointmentsTableView.getSortOrder().add(apptIDCol);
 
     }
 
@@ -166,6 +172,7 @@ public class AppointmentsScreen implements Initializable {
         apptEndTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        appointmentsTableView.getSortOrder().add(apptIDCol);
 
     }
 }
