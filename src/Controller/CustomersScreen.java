@@ -127,11 +127,11 @@ public class CustomersScreen implements Initializable {
         custAddressCol.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
         custCodeCol.setCellValueFactory(new PropertyValueFactory<>("customerCode"));
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
-        customerTableView.setOnMouseClicked(e -> updateSelectedCustomer());
+        customerTableView.setOnMouseClicked(e -> refreshSelectedCustomer());
 
     }
 
-    private void updateSelectedCustomer() {
+    private void refreshSelectedCustomer() {
         try {
             int currentCustomer = customerTableView.getSelectionModel().getSelectedIndex();
             ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();

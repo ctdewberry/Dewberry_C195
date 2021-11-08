@@ -1,0 +1,54 @@
+package DAO;
+
+import java.sql.*;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
+import Model.AppointmentModel;
+import Model.CustomerModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+
+public class AppointmentQuery {
+
+    public static ObservableList<AppointmentModel> getAllAppointments() {
+        ObservableList<AppointmentModel> appointmentList = FXCollections.observableArrayList();
+        try {
+            String sql = "select a.Appointment_ID, a.Title, a.Description, a.Location, a.Contact_ID, c.Contact_Name, a.Type, a.Start, a.End, a.Customer_ID, a.User_ID FROM appointments as a join contacts as c on a.Contact_ID = c.Contact_ID";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentID = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                int contactID = rs.getInt("Contact_ID");
+                String contactName = rs.getString("Contact_Name");
+                String type = rs.getString("Type");
+                String startDate = "test";
+                String startTime = "test";
+                String endDate = "test";
+                String endTime = "test";
+                int customerID = rs.getInt("Customer_ID");
+                int userID = rs.getInt("User_ID");
+                AppointmentModel A = new AppointmentModel(appointmentID, title, description, location, contactName, type, startDate, startTime, endDate, endTime, customerID, userID, contactID);
+                appointmentList.add(A);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return appointmentList;
+    }
+}
+
+//    private int appointmentID;
+//    private String type;
+//    private String startDate;
+//    private String startTime;
+//    private String endTime;
+//    private int customerID;
+//    private int userID;
+//    private int contactID;

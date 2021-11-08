@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -21,6 +22,21 @@ public class MainPage implements Initializable {
     Stage stage;
 
     Parent scene;
+
+    @FXML
+    private Text nextApptDate;
+
+    @FXML
+    private Text nextApptID;
+
+    @FXML
+    private Text nextApptTime;
+
+    @FXML
+    private Text nextApptType;
+
+    @FXML
+    private Text upcomingAppointments;
 
     @FXML
     void onActionCustomers(ActionEvent event) throws IOException {
@@ -65,10 +81,10 @@ public class MainPage implements Initializable {
     void onActionAppointments(ActionEvent event) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/Appointments.fxml"));
+        loader.setLocation(getClass().getResource("/view/AppointmentsScreen.fxml"));
         loader.load();
 
-        Appointments Appointments = loader.getController();
+        AppointmentsScreen AppointmentsScreen = loader.getController();
 
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 
