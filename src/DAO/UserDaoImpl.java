@@ -14,10 +14,9 @@ public class UserDaoImpl {
             PreparedStatement searchUsername = DBConnection.getConnection().prepareStatement(userSearch);
             ResultSet rs = searchUsername.executeQuery();
             if (rs.next()) {
-                System.out.println("found it");
                 LogIn.logInUser();
             } else {
-                System.out.println("not found");
+                System.out.println("No matching credentials found");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

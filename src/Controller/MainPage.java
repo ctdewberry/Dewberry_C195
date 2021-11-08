@@ -134,9 +134,7 @@ public class MainPage implements Initializable {
         }
     }
 
-//    public void static nextAppointmentSoon() {
-//        System.out.println("next appointment");
-//    }
+
 
     @FXML
     void initialize() {

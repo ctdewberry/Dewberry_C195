@@ -141,8 +141,6 @@ public class AppointmentQuery {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 ZonedDateTime timeAppt = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault());
-                System.out.println(timeAppt);
-                System.out.println(isApptSoon);
                 timeDiff = Math.toIntExact(Duration.between(ZonedDateTime.now(), timeAppt).getSeconds() / 60);
                 if (timeDiff <= 15) {
                     isApptSoon = "Your next appointment is within 15 minutes";

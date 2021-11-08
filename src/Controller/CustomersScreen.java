@@ -135,7 +135,6 @@ public class CustomersScreen implements Initializable {
         try {
             int currentCustomer = customerTableView.getSelectionModel().getSelectedIndex();
             ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();
-            System.out.println(selectedCustomer.get(currentCustomer).getCustomerName());
             customerID.setText(String.valueOf(selectedCustomer.get(currentCustomer).getCustomerID()));
             customerName.setText(selectedCustomer.get(currentCustomer).getCustomerName());
             customerAddress.setText(selectedCustomer.get(currentCustomer).getCustomerAddress());
@@ -144,7 +143,7 @@ public class CustomersScreen implements Initializable {
             nextAppointment.setText(CustomerQuery.getNextAppointment(selectedCustomer.get(currentCustomer).getCustomerID()));
         }
         catch (Exception e) {
-            System.out.println("caught it");
+            System.out.println("No selected customers");
         }
 
     }
