@@ -150,11 +150,6 @@ public class MainPage implements Initializable {
         nextApptDate.setText(String.valueOf(upcomingAppointment.get(0).getStartDate()));
         nextApptTime.setText(String.valueOf(upcomingAppointment.get(0).getStartTime()));
         nextApptType.setText(String.valueOf(upcomingAppointment.get(0).getType()));
-//        if (AppointmentQuery.checkNextAppointmentTime()) {
-//            System.out.println("progress");
-//        } else {
-//            System.out.println("no go");
-//        }
         upcomingAppointments.setText(AppointmentQuery.checkNextAppointmentTime());
 
 

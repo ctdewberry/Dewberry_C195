@@ -1,16 +1,14 @@
 package DAO;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 import Model.AppointmentModel;
 import Model.CustomerModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 
 public class AppointmentQuery {
@@ -29,7 +27,7 @@ public class AppointmentQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = rs.getString("Contact_Name");
                 String type = rs.getString("Type");
-                String startDate =  rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
+                String startDate = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
                 String startTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
                 String endDate = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
                 String endTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
@@ -44,7 +42,7 @@ public class AppointmentQuery {
         return allAppointmentsList;
     }
 
-    public static ObservableList<AppointmentModel> getWeeklyAppointments(){
+    public static ObservableList<AppointmentModel> getWeeklyAppointments() {
         ObservableList<AppointmentModel> weeklyAppointmentsList = FXCollections.observableArrayList();
         try {
             String sql = "select a.Appointment_ID, a.Title, a.Description, a.Location, a.Contact_ID, c.Contact_Name, a.Type, a.Start, a.End, a.Customer_ID, a.User_ID FROM appointments as a join contacts as c on a.Contact_ID = c.Contact_ID WHERE YEARWEEK(Start) = YEARWEEK(NOW())";
@@ -58,7 +56,7 @@ public class AppointmentQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = rs.getString("Contact_Name");
                 String type = rs.getString("Type");
-                String startDate =  rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
+                String startDate = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
                 String startTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
                 String endDate = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
                 String endTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
@@ -74,7 +72,7 @@ public class AppointmentQuery {
         return weeklyAppointmentsList;
     }
 
-    public static ObservableList<AppointmentModel> getMonthlyAppointments(){
+    public static ObservableList<AppointmentModel> getMonthlyAppointments() {
         ObservableList<AppointmentModel> monthlyAppointmentsList = FXCollections.observableArrayList();
         try {
             String sql = "select a.Appointment_ID, a.Title, a.Description, a.Location, a.Contact_ID, c.Contact_Name, a.Type, a.Start, a.End, a.Customer_ID, a.User_ID FROM appointments as a join contacts as c on a.Contact_ID = c.Contact_ID WHERE(month(Start) = month(NOW()))";
@@ -88,7 +86,7 @@ public class AppointmentQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = rs.getString("Contact_Name");
                 String type = rs.getString("Type");
-                String startDate =  rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
+                String startDate = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
                 String startTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
                 String endDate = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
                 String endTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
@@ -104,10 +102,10 @@ public class AppointmentQuery {
         return monthlyAppointmentsList;
     }
 
-    public static ObservableList<AppointmentModel> getNextAppointment(){
+    public static ObservableList<AppointmentModel> getNextAppointment() {
         ObservableList<AppointmentModel> nextAppointmentList = FXCollections.observableArrayList();
         try {
-            String sql = "select Appointment_ID, Start, Type, User_ID from appointments WHERE (Start > CURRENT_TIMESTAMP()) AND User_ID = " +UserDaoImpl.getCurrentUserID() + " ORDER By Start ASC LIMIT 1;";
+            String sql = "select Appointment_ID, Start, Type, User_ID from appointments WHERE (Start > CURRENT_TIMESTAMP()) AND User_ID = " + UserDaoImpl.getCurrentUserID() + " ORDER By Start ASC LIMIT 1;";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -118,7 +116,7 @@ public class AppointmentQuery {
                 int contactID = 0;
                 String contactName = null;
                 String type = rs.getString("Type");
-                String startDate =  rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
+                String startDate = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
                 String startTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
                 String endDate = null;
                 String endTime = null;
@@ -133,21 +131,31 @@ public class AppointmentQuery {
 
         return nextAppointmentList;
     }
-    public static String checkNextAppointmentTime(){
-    String isApptSoon = null;
+
+    public static String checkNextAppointmentTime() {
+        String isApptSoon = null;
+        Integer timeDiff = 0;
         try {
-            String sql = "select Appointment_ID, Start, Type, User_ID from appointments WHERE (Start > CURRENT_TIMESTAMP()) AND User_ID = " +UserDaoImpl.getCurrentUserID() + " ORDER By Start ASC LIMIT 1;";
+            String sql = "select Appointment_ID, Start, Type, User_ID from appointments WHERE (Start > CURRENT_TIMESTAMP()) AND User_ID = " + UserDaoImpl.getCurrentUserID() + " ORDER By Start ASC LIMIT 1;";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 ZonedDateTime timeAppt = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault());
-                isApptSoon = timeAppt.toString();
-//                timeDiff = timeAppt - ZonedDateTime.now();
-//                System.out.println(timeAppt - ZonedDateTime.now());
-//            rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a z"));
+                System.out.println(timeAppt);
+                System.out.println(isApptSoon);
+                timeDiff = Math.toIntExact(Duration.between(ZonedDateTime.now(), timeAppt).getSeconds() / 60);
+                if (timeDiff <= 15) {
+                    isApptSoon = "Your next appointment is within 15 minutes";
+                    Alert alertAppointmentSoon = new Alert(Alert.AlertType.INFORMATION);
+                    alertAppointmentSoon.setTitle("Upcoming Appointment");
+                    alertAppointmentSoon.setHeaderText("Your next appointment is within 15 minutes");
+                    alertAppointmentSoon.showAndWait();
+                } else {
+                    isApptSoon = "No upcoming appointments";
+                }
+
             } else {
-                isApptSoon = "negative";
-                System.out.println("yo");
+                isApptSoon = "No upcoming appointments";
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
