@@ -14,6 +14,10 @@ package Controller;
 
         import java.io.IOException;
         import java.net.URL;
+        import java.time.LocalDateTime;
+        import java.time.ZoneId;
+        import java.time.ZonedDateTime;
+        import java.time.format.DateTimeFormatter;
         import java.util.Optional;
         import java.util.ResourceBundle;
 
@@ -32,6 +36,9 @@ public class LogIn implements Initializable {
     public static void logOutUser(){
         loggedIn = false;
     }
+
+    @FXML
+    private Label userLocation;
 
     @FXML
     private TextField username;
@@ -95,6 +102,15 @@ public class LogIn implements Initializable {
 
     }
 
+    private static String getUserTimeZone(){
+        ZonedDateTime localDateTime = ZonedDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy z");
+        String userLocalDateTime = formatter.format(localDateTime);
+        return userLocalDateTime;
+    }
+
+
+
     @FXML
     void initialize() {
 
@@ -102,6 +118,7 @@ public class LogIn implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userLocation.setText(getUserTimeZone());
 
     }
 

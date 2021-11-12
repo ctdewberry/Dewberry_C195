@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -18,5 +19,6 @@
         <Text layoutX="42.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please choose a report type" />
         <Button layoutX="480.0" layoutY="94.0" mnemonicParsing="false" onAction="#onActionReportOptions" text="Report Options" />
       <ChoiceBox fx:id="reportTypeBox" layoutX="256.0" layoutY="94.0" prefHeight="27.0" prefWidth="214.0" />
+        <BorderPane fx:id="mainPain" layoutX="79.0" layoutY="177.0" prefHeight="345.0" prefWidth="798.0" />
     </children>
 </AnchorPane>

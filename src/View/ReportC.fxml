@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="554.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReportC">
+<AnchorPane prefHeight="554.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" >
     <children>
         <Text layoutX="26.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Report Type C:" />
         <Text layoutX="30.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This report will show you all appointments created" />
@@ -13,8 +13,8 @@
         <ComboBox layoutX="247.0" layoutY="148.0" prefWidth="150.0" />
         <Text layoutX="67.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User" />
         <Text layoutX="264.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact" />
-        <Button layoutX="67.0" layoutY="464.0" mnemonicParsing="false" onAction="#onActionRunReportC" text="Run Report" />
-        <Button layoutX="322.0" layoutY="464.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
+<!--        <Button layoutX="67.0" layoutY="464.0" mnemonicParsing="false" onAction="#onActionRunReportC" text="Run Report" />-->
+<!--        <Button layoutX="322.0" layoutY="464.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />-->
         <Text layoutX="30.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="by a specified user for a specified contact" />
     </children>
 </AnchorPane>
