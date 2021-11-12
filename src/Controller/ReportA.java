@@ -40,6 +40,17 @@ public class ReportA implements Initializable {
         }
     }
 
+
+    @FXML
+    private Button testButton;
+
+//    @FXML
+//    void onActionTest(ActionEvent event) {
+//
+//        System.out.println("testButton");
+//    }
+
+
     @FXML
     void onActionRunReportA(ActionEvent event) throws IOException  {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

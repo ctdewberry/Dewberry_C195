@@ -1,28 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReportAResults">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Button layoutX="44.0" layoutY="34.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
-        <Label layoutX="118.0" layoutY="29.0" text="Reports">
-            <font>
-                <Font size="31.0" />
-            </font>
-        </Label>
-        <Text layoutX="42.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please choose a report type" />
-        <Button layoutX="480.0" layoutY="94.0" mnemonicParsing="false" onAction="#onActionReportOptions" text="Report Options" />
         <Text layoutX="55.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For the month of: " />
         <Text layoutX="55.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For  the appointment type of:" />
         <Text layoutX="55.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There were this many appointments:" />
         <Label layoutX="75.0" layoutY="186.0" text="Month" />
         <Label layoutX="76.0" layoutY="237.0" text="AppointmentType" />
         <Label layoutX="77.0" layoutY="297.0" text="numberOfAppointments" />
-      <ChoiceBox fx:id="reportTypeBox" layoutX="256.0" layoutY="94.0" prefHeight="27.0" prefWidth="214.0" />
     </children>
 </AnchorPane>

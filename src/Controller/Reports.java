@@ -37,6 +37,9 @@ public class Reports implements Initializable {
 
 
     @FXML
+    private ReportA ReportA;
+
+    @FXML
     private BorderPane mainPain;
 
     @FXML
@@ -113,6 +116,8 @@ public class Reports implements Initializable {
                     e.printStackTrace();
 
                 }
+                reportTypeBox.getSelectionModel().select(0);
+
                 break;
             case 1:
                 try {
@@ -123,6 +128,8 @@ public class Reports implements Initializable {
                     e.printStackTrace();
 
                 }
+                reportTypeBox.getSelectionModel().select(1);
+
                 break;
             case 2:
                 try {
@@ -133,6 +140,8 @@ public class Reports implements Initializable {
                     e.printStackTrace();
 
                 }
+                reportTypeBox.getSelectionModel().select(2);
+
                 break;
         }
 
@@ -142,6 +151,18 @@ public class Reports implements Initializable {
 
     }
 
+    @FXML
+    void onActionTest(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportAResults.fxml"));
+            loader.setController(this);
+            mainPain.setCenter(loader.load());
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        System.out.println("testButton");
+    }
 
     @FXML
     void initialize() {

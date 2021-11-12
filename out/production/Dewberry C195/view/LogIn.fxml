@@ -23,8 +23,8 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Label layoutX="322.0" layoutY="46.0" text="Location:" />
-      <Label layoutX="328.0" layoutY="75.0" text="LOCATION_DATA" />
+      <Label layoutX="322.0" layoutY="46.0" text="Date and time zone:" />
+      <Label fx:id="userLocation" layoutX="328.0" layoutY="75.0" text="USER_DATE_AND_TIME_ZONE" />
       <Button layoutX="23.0" layoutY="292.0" mnemonicParsing="false" onAction="#onActionLogin" prefHeight="51.0" prefWidth="178.0" text="Log In">
          <font>
             <Font size="34.0" />
