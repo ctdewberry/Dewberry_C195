@@ -7,6 +7,9 @@ import javafx.collections.ObservableList;
 
 
 import java.sql.*;
+import java.time.Month;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -44,6 +47,26 @@ public class ReportsQuery {
             throwables.printStackTrace();
         }
         return ReportTypeOptions;
+    }
+    public static Integer ReportATotalsQuery(Month reportMonth, Integer reportYear, String reportType){
+        int ReportATotals = 0;
+        try {
+            String sql = "select count(*) from appointments where Type = '" + reportType + "' and year(Start) = " + reportYear + " and month(Start) = " +reportMonth;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ReportATotals = rs.getInt(1);
+                System.out.println(ReportATotals);
+//                System.out.println(Reports.chosenTypeForReport);
+
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ReportATotals;
     }
 
 }

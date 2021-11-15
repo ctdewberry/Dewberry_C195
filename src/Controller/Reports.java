@@ -18,9 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -135,12 +133,14 @@ public class Reports implements Initializable {
 
     @FXML
     void onActionRunReportA(ActionEvent event) {
-        String chosenMonth = choiceBoxMonth.getSelectionModel().getSelectedItem().toString();
-        String selectedMonth = YearMonth.parse(chosenMonth,DateTimeFormatter.ofPattern("MM-yyyy")).getMonth().name().toString();
-        String selectedYear = String.valueOf(YearMonth.parse(chosenMonth,DateTimeFormatter.ofPattern("MM-yyyy")).getYear());
+        String chosenMonthYear = choiceBoxMonth.getSelectionModel().getSelectedItem().toString();
+        String selectedMonthString = YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getMonth().name().toString();
+        String selectedYearString = String.valueOf(YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getYear());
+        Month selectedMonth = YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getMonth();
+        Integer selectedYear = YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getYear();
 
         String chosenType = choiceBoxType.getSelectionModel().getSelectedItem().toString();
-//        System.out.println(selectedMonth + " " +selectedYear);
+//        System.out.println(selectedMonthString + " " +selectedYearString);
 
 
 
@@ -151,8 +151,12 @@ public class Reports implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportAResults.fxml"));
             loader.setController(this);
             mainPain.setCenter(loader.load());
-            reportAMonthChoice.setText(selectedMonth + " " +selectedYear);
+            reportAMonthChoice.setText(selectedMonthString + " " +selectedYearString);
             reportATypeChoice.setText(chosenType);
+            System.out.println(selectedMonth);
+            System.out.println(selectedYear);
+            System.out.println(chosenType);
+//            reportATotalAppointments.setText(String.valueOf(ReportsQuery.ReportATotalsQuery(selectedMonth,selectedYear,chosenType)));
 
         } catch (Exception e) {
             e.printStackTrace();
