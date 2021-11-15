@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.AppointmentModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,8 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,54 +29,91 @@ public class ReportBResults implements Initializable {
      */
     Parent scene;
 
-    /**
-     * The Error messages.
-     * Array list for gathering error messages when user tries to modify a part
-     */
+    @FXML
+    private ComboBox comboBoxContact = new ComboBox();
 
     @FXML
-    void onActionBack(ActionEvent event) throws IOException {
+    private Button runReportB;
 
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/MainPage.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.setTitle("Main Menu");
+    @FXML
+    private TableView<AppointmentModel> reportContactTableView;
 
-        stage.show();
-    }
+    @FXML
+    private TableColumn<AppointmentModel, Integer> apptIDCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptTitleCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptDescCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptLocCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptTypeCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptStartDateCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptStartTimeCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptEndDateCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptEndTimeCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, Integer> apptCustIDCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, Integer> apptUserIDCol;
+
+//    @FXML
+//    void onActionBack(ActionEvent event) throws IOException {
+//
+//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+//        scene = FXMLLoader.load(getClass().getResource("/View/MainPage.fxml"));
+//        stage.setScene(new Scene(scene));
+//        stage.setTitle("Main Menu");
+//
+//        stage.show();
+//    }
 
     @FXML
     private ChoiceBox reportTypeBox;
 
-    @FXML
-    void onActionReportOptions(ActionEvent event) throws IOException {
-//        String selectedReportType = (String) reportTypeBox.getValue();
-//        System.out.println(selectedReportType);
-//        System.out.println(reportTypeList.indexOf(reportTypeBox.getValue()));
-
-        int selectedReportIndex = reportTypeList.indexOf(reportTypeBox.getValue());
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-
-        switch (selectedReportIndex) {
-            case 0:
-                scene = FXMLLoader.load(getClass().getResource("/view/ReportA.fxml"));
-                break;
-            case 1:
-                scene = FXMLLoader.load(getClass().getResource("/view/ReportB.fxml"));
-                break;
-            case 2:
-                scene = FXMLLoader.load(getClass().getResource("/view/ReportC.fxml"));
-                break;
-        }
-
-        stage.setScene(new Scene(scene));
-        stage.setTitle("Reports");
-
-        stage.show();
-
-
-
-    }
+//    @FXML
+//    void onActionReportOptions(ActionEvent event) throws IOException {
+////        String selectedReportType = (String) reportTypeBox.getValue();
+////        System.out.println(selectedReportType);
+////        System.out.println(reportTypeList.indexOf(reportTypeBox.getValue()));
+//
+//        int selectedReportIndex = reportTypeList.indexOf(reportTypeBox.getValue());
+//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+//
+//        switch (selectedReportIndex) {
+//            case 0:
+//                scene = FXMLLoader.load(getClass().getResource("/view/ReportA.fxml"));
+//                break;
+//            case 1:
+//                scene = FXMLLoader.load(getClass().getResource("/view/ReportB.fxml"));
+//                break;
+//            case 2:
+//                scene = FXMLLoader.load(getClass().getResource("/view/ReportC.fxml"));
+//                break;
+//        }
+//
+//        stage.setScene(new Scene(scene));
+//        stage.setTitle("Reports");
+//
+//        stage.show();
+//
+//
+//
+//    }
 
 
     @FXML

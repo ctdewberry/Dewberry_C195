@@ -48,6 +48,23 @@ public class ReportsQuery {
         }
         return ReportTypeOptions;
     }
+
+    public static ObservableList<String> ReportContactChoices(){
+        ObservableList<String> ReportContactOptions = FXCollections.observableArrayList();
+        try {
+            String sql = "select distinct Contact_Name from contacts";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ReportContactOptions.add(rs.getString("Contact_Name"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ReportContactOptions;
+    }
     public static Integer ReportATotalsQuery(Integer reportMonth, Integer reportYear, String reportType){
         int ReportATotals = 0;
         try {

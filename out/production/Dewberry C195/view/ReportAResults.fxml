@@ -10,11 +10,11 @@
          <font>
             <Font size="30.0" />
          </font></Text>
-        <Text layoutX="60.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For  the appointment type of:">
+        <Text layoutX="60.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For the appointment type of:">
          <font>
             <Font size="30.0" />
          </font></Text>
-        <Text layoutX="60.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There were this many appointments:">
+        <Text layoutX="60.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There are this many appointments:">
          <font>
             <Font size="30.0" />
          </font></Text>

@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.ReportsQuery;
+import Model.AppointmentModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -51,13 +53,10 @@ public class Reports implements Initializable {
     //Report A Stuff
 
     @FXML
-//    private ChoiceBox choiceBoxMonth;
-    private ChoiceBox choiceBoxMonth = new ChoiceBox();
-
-
+    private ComboBox comboBoxMonth = new ComboBox();
 
     @FXML
-    private ChoiceBox choiceBoxType = new ChoiceBox();
+    private ComboBox comboBoxType = new ComboBox();
 
     @FXML
     private Text reportAMonthChoice;
@@ -70,6 +69,71 @@ public class Reports implements Initializable {
 
     @FXML
     private Button runReportA;
+
+
+    //Report B Stuff
+
+    @FXML
+    private ComboBox comboBoxContact = new ComboBox();
+
+    @FXML
+    private Button runReportB;
+
+    @FXML
+    private TableView<AppointmentModel> reportContactTableView;
+
+    @FXML
+    private TableColumn<AppointmentModel, Integer> apptIDCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptTitleCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptDescCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptLocCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptTypeCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptStartDateCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptStartTimeCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptEndDateCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, String> apptEndTimeCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, Integer> apptCustIDCol;
+
+    @FXML
+    private TableColumn<AppointmentModel, Integer> apptUserIDCol;
+
+    @FXML
+    private Text reportBContact;
+
+
+
+
+
+
+
+    //Report C Stuff
+//    @FXML
+//    private ComboBox comboBoxContact = new ComboBox();
+//
+//    @FXML
+//    private ComboBox comboBoxUser = new ComboBox();
+
+    @FXML
+    private Button runReportC;
+
 
 
     //Report Main Stuff
@@ -131,21 +195,20 @@ public class Reports implements Initializable {
         }
     }
 
+
+
+
+    //Report A Action
     @FXML
     void onActionRunReportA(ActionEvent event) {
-        String chosenMonthYear = choiceBoxMonth.getSelectionModel().getSelectedItem().toString();
+
+        String chosenMonthYear = comboBoxMonth.getSelectionModel().getSelectedItem().toString();
         String selectedMonthString = YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getMonth().name().toString();
         String selectedYearString = String.valueOf(YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getYear());
         Integer selectedMonth = YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getMonthValue();
         Integer selectedYear = YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getYear();
 
-        String chosenType = choiceBoxType.getSelectionModel().getSelectedItem().toString();
-//        System.out.println(selectedMonthString + " " +selectedYearString);
-
-
-
-//working
-//        System.out.println(choiceBoxMonth.getSelectionModel().getSelectedItem());
+        String chosenType = comboBoxType.getSelectionModel().getSelectedItem().toString();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportAResults.fxml"));
@@ -160,6 +223,45 @@ public class Reports implements Initializable {
         }
     }
 
+
+
+    @FXML
+    void onActionRunReportB(ActionEvent event) {
+        try {
+            System.out.println("here");
+            String chosenContact = comboBoxContact.getSelectionModel().getSelectedItem().toString();
+            System.out.println(chosenContact);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportBResults.fxml"));
+            loader.setController(this);
+            mainPain.setCenter(loader.load());
+
+
+
+
+            reportContactTableView.setItems(DAO.AppointmentQuery.getAppointmentsByContact(chosenContact));
+            apptIDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+            apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+            apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+            apptLocCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+            apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+            apptStartDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+            apptStartTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+            apptEndDateCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+            apptEndTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+            apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+            apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
+            reportContactTableView.getSortOrder().add(apptIDCol);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onActionRunReportC(ActionEvent event) {
+
+    }
+
     @FXML
     void initialize() {
 
@@ -167,14 +269,14 @@ public class Reports implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        reportTypeBox.setValue("Appointments by type/month");
-//        reportTypeBox.setItems(reportTypeList);
         reportTypeBox.getItems().setAll(reportTypeList);
         reportTypeBox.getSelectionModel().selectFirst();
-        choiceBoxMonth.getItems().setAll(ReportsQuery.ReportMonthChoices());
-        choiceBoxMonth.getSelectionModel().selectFirst();
-        choiceBoxType.getItems().setAll(ReportsQuery.ReportTypeChoices());
-        choiceBoxType.getSelectionModel().selectFirst();
+        comboBoxMonth.getItems().setAll(ReportsQuery.ReportMonthChoices());
+        comboBoxMonth.getSelectionModel().selectFirst();
+        comboBoxType.getItems().setAll(ReportsQuery.ReportTypeChoices());
+        comboBoxType.getSelectionModel().selectFirst();
+        comboBoxContact.getItems().setAll(ReportsQuery.ReportContactChoices());
+        comboBoxContact.getSelectionModel().selectFirst();
 
     }
 

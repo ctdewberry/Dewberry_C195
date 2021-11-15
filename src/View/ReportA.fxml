@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -16,20 +16,20 @@
          <font>
             <Font size="18.0" />
          </font></Text>
-        <Text layoutX="26.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Month">
+        <Text layoutX="26.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Month">
          <font>
             <Font size="20.0" />
          </font></Text>
-        <Text layoutX="251.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
+        <Text layoutX="250.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
          <font>
             <Font size="20.0" />
          </font></Text>
-      <Button fx:id="runReportA" layoutX="101.0" layoutY="301.0" mnemonicParsing="false" onAction="#onActionRunReportA" text="Run Report">
+      <Button fx:id="runReportA" layoutX="100.0" layoutY="300.0" mnemonicParsing="false" onAction="#onActionRunReportA" text="Run Report">
          <font>
             <Font size="30.0" />
          </font></Button>
-      <ChoiceBox fx:id="choiceBoxMonth" layoutX="26.0" layoutY="190.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="choiceBoxType" layoutX="251.0" layoutY="190.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboBoxMonth" layoutX="26.0" layoutY="190.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboBoxType" layoutX="250.0" layoutY="190.0" prefWidth="150.0" />
 <!--        <Button layoutX="67.0" layoutY="464.0" mnemonicParsing="false" onAction="#onActionRunReportA" text="Run Report" />-->
 <!--        <Button layoutX="322.0" layoutY="464.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />-->
     </children>
