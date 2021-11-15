@@ -136,7 +136,7 @@ public class Reports implements Initializable {
         String chosenMonthYear = choiceBoxMonth.getSelectionModel().getSelectedItem().toString();
         String selectedMonthString = YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getMonth().name().toString();
         String selectedYearString = String.valueOf(YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getYear());
-        Month selectedMonth = YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getMonth();
+        Integer selectedMonth = YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getMonthValue();
         Integer selectedYear = YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getYear();
 
         String chosenType = choiceBoxType.getSelectionModel().getSelectedItem().toString();
@@ -153,10 +153,7 @@ public class Reports implements Initializable {
             mainPain.setCenter(loader.load());
             reportAMonthChoice.setText(selectedMonthString + " " +selectedYearString);
             reportATypeChoice.setText(chosenType);
-            System.out.println(selectedMonth);
-            System.out.println(selectedYear);
-            System.out.println(chosenType);
-//            reportATotalAppointments.setText(String.valueOf(ReportsQuery.ReportATotalsQuery(selectedMonth,selectedYear,chosenType)));
+            reportATotalAppointments.setText(String.valueOf(ReportsQuery.ReportATotalsQuery(selectedMonth,selectedYear,chosenType)));
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -48,7 +48,7 @@ public class ReportsQuery {
         }
         return ReportTypeOptions;
     }
-    public static Integer ReportATotalsQuery(Month reportMonth, Integer reportYear, String reportType){
+    public static Integer ReportATotalsQuery(Integer reportMonth, Integer reportYear, String reportType){
         int ReportATotals = 0;
         try {
             String sql = "select count(*) from appointments where Type = '" + reportType + "' and year(Start) = " + reportYear + " and month(Start) = " +reportMonth;
