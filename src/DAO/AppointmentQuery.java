@@ -132,6 +132,36 @@ public class AppointmentQuery {
         return contactAppointmentList;
     }
 
+    public static ObservableList<AppointmentModel> getAppointmentsByLocation(String reportByLocation) {
+        ObservableList<AppointmentModel> reportAppointmentList = FXCollections.observableArrayList();
+        try {
+            String sql = "select * from appointments WHERE Location = '" + reportByLocation + "'";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentID = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                int contactID = rs.getInt("Contact_ID");
+                String contactName = null;
+                String type = rs.getString("Type");
+                String startDate = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
+                String startTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
+                String endDate = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
+                String endTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
+                int customerID = rs.getInt("Customer_ID");
+                int userID = rs.getInt("User_ID");
+                AppointmentModel contactAppointments = new AppointmentModel(appointmentID, title, description, location, null, type, startDate, startTime, endDate, endTime, customerID, userID, contactID);
+                reportAppointmentList.add(contactAppointments);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return reportAppointmentList;
+    }
+
     public static ObservableList<AppointmentModel> getNextAppointment() {
         ObservableList<AppointmentModel> nextAppointmentList = FXCollections.observableArrayList();
         try {

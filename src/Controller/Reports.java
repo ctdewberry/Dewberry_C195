@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class Reports implements Initializable {
 
-    ObservableList<String> reportTypeList = FXCollections.observableArrayList("Appointments by type/month", "Appointments by contact", "Appointments by user/contact");
+    ObservableList<String> reportTypeList = FXCollections.observableArrayList("Appointments by type/month", "Appointments by contact", "Appointments by location");
 
     /**
      * The Stage.
@@ -79,8 +79,13 @@ public class Reports implements Initializable {
     @FXML
     private Button runReportB;
 
+
+
     @FXML
     private TableView<AppointmentModel> reportContactTableView;
+
+    @FXML
+    private TableView<AppointmentModel> reportLocationTableView;
 
     @FXML
     private TableColumn<AppointmentModel, Integer> apptIDCol;
@@ -118,7 +123,16 @@ public class Reports implements Initializable {
     @FXML
     private Text reportBContact;
 
+//Report C Stuff
+@FXML
+    private TableColumn<AppointmentModel, Integer> apptContactIDCol;
 
+    @FXML
+    private ComboBox comboBoxLocation = new ComboBox();
+
+
+    @FXML
+    private Text reportCLocation;
 
 
 
@@ -260,8 +274,37 @@ public class Reports implements Initializable {
 
     @FXML
     void onActionRunReportC(ActionEvent event) {
+        try {
+            System.out.println("here");
+            String chosenLocation = comboBoxLocation.getSelectionModel().getSelectedItem().toString();
+            System.out.println(chosenLocation);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportCResults.fxml"));
+            loader.setController(this);
+            mainPain.setCenter(loader.load());
 
+
+
+
+            reportCLocation.setText(chosenLocation);
+            reportLocationTableView.setItems(DAO.AppointmentQuery.getAppointmentsByLocation(chosenLocation));
+            apptIDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+            apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+            apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+            apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+            apptStartDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+            apptStartTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+            apptEndDateCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+            apptEndTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+            apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+            apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
+            apptContactIDCol.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+            reportLocationTableView.getSortOrder().add(apptIDCol);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     @FXML
     void initialize() {
@@ -278,6 +321,8 @@ public class Reports implements Initializable {
         comboBoxType.getSelectionModel().selectFirst();
         comboBoxContact.getItems().setAll(ReportsQuery.ReportContactChoices());
         comboBoxContact.getSelectionModel().selectFirst();
+        comboBoxLocation.getItems().setAll(ReportsQuery.ReportLocationChoices());
+        comboBoxLocation.getSelectionModel().selectFirst();
 
     }
 

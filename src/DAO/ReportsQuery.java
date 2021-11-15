@@ -65,6 +65,24 @@ public class ReportsQuery {
         }
         return ReportContactOptions;
     }
+
+    public static ObservableList<String> ReportLocationChoices(){
+        ObservableList<String> ReportContactOptions = FXCollections.observableArrayList();
+        try {
+            String sql = "select distinct Location from appointments";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ReportContactOptions.add(rs.getString("Location"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ReportContactOptions;
+    }
+
     public static Integer ReportATotalsQuery(Integer reportMonth, Integer reportYear, String reportType){
         int ReportATotals = 0;
         try {
