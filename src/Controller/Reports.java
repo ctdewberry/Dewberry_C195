@@ -238,6 +238,7 @@ public class Reports implements Initializable {
 
 
 
+            reportBContact.setText(chosenContact);
             reportContactTableView.setItems(DAO.AppointmentQuery.getAppointmentsByContact(chosenContact));
             apptIDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
             apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
