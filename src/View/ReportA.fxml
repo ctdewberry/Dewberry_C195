@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="554.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="430.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Text layoutX="26.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Report Type A:" />
-        <Text layoutX="30.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This report will show you the number of appointments by type and month" />
-        <ComboBox layoutX="45.0" layoutY="148.0" prefWidth="150.0" />
-        <ComboBox layoutX="247.0" layoutY="148.0" prefWidth="150.0" />
-        <Text layoutX="67.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Month" />
-        <Text layoutX="264.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
-      <Button fx:id="testButton" layoutX="175.0" layoutY="235.0" mnemonicParsing="false" onAction="#onActionTest" text="Button" />
+        <Text layoutX="26.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Report Type A:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Text>
+        <Text layoutX="26.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This report will show you the number of appointments by type and month">
+         <font>
+            <Font size="18.0" />
+         </font></Text>
+        <Text layoutX="26.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Month">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+        <Text layoutX="251.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <Button fx:id="runReportA" layoutX="101.0" layoutY="301.0" mnemonicParsing="false" onAction="#onActionRunReportA" text="Run Report">
+         <font>
+            <Font size="30.0" />
+         </font></Button>
+      <ChoiceBox fx:id="choiceBoxMonth" layoutX="26.0" layoutY="190.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceBoxType" layoutX="251.0" layoutY="190.0" prefWidth="150.0" />
 <!--        <Button layoutX="67.0" layoutY="464.0" mnemonicParsing="false" onAction="#onActionRunReportA" text="Run Report" />-->
 <!--        <Button layoutX="322.0" layoutY="464.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />-->
     </children>

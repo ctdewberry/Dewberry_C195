@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="430.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Text layoutX="55.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For the month of: " />
-        <Text layoutX="55.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For  the appointment type of:" />
-        <Text layoutX="55.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There were this many appointments:" />
-        <Label layoutX="75.0" layoutY="186.0" text="Month" />
-        <Label layoutX="76.0" layoutY="237.0" text="AppointmentType" />
-        <Label layoutX="77.0" layoutY="297.0" text="numberOfAppointments" />
+        <Text layoutX="60.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For the month of: ">
+         <font>
+            <Font size="30.0" />
+         </font></Text>
+        <Text layoutX="60.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For  the appointment type of:">
+         <font>
+            <Font size="30.0" />
+         </font></Text>
+        <Text layoutX="60.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There were this many appointments:">
+         <font>
+            <Font size="30.0" />
+         </font></Text>
+      <Text fx:id="reportAMonthChoice" layoutX="80.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Month">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="reportATypeChoice" layoutX="80.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="appointmentType">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="reportATotalAppointments" layoutX="80.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="numberOfAppointments">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

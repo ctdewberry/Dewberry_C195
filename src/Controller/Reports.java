@@ -1,22 +1,28 @@
 package Controller;
 
+import DAO.ReportsQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Reports implements Initializable {
@@ -32,10 +38,6 @@ public class Reports implements Initializable {
      */
     Parent scene;
 
-//    private Node TestPane1 = new ;
-//    private Node TestPane1;
-
-
     @FXML
     private ReportA ReportA;
 
@@ -48,8 +50,31 @@ public class Reports implements Initializable {
     @FXML
     private MenuItem view_b;
 
+    //Report A Stuff
+
+    @FXML
+//    private ChoiceBox choiceBoxMonth;
+    private ChoiceBox choiceBoxMonth = new ChoiceBox();
 
 
+
+    @FXML
+    private ChoiceBox choiceBoxType = new ChoiceBox();
+
+    @FXML
+    private Text reportAMonthChoice;
+
+    @FXML
+    private Text reportATotalAppointments;
+
+    @FXML
+    private Text reportATypeChoice;
+
+    @FXML
+    private Button runReportA;
+
+
+    //Report Main Stuff
 
     @FXML
     void onActionBack(ActionEvent event) throws IOException {
@@ -67,51 +92,15 @@ public class Reports implements Initializable {
 
     @FXML
     void onActionReportOptions(ActionEvent event) throws IOException {
-//        String selectedReportType = (String) reportTypeBox.getValue();
-//        System.out.println(selectedReportType);
-//        System.out.println(reportTypeList.indexOf(reportTypeBox.getValue()));
-
-
-        //tester
-//        int selectedReportIndex = reportTypeList.indexOf(reportTypeBox.getValue());
-//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-//
-//        switch (selectedReportIndex) {
-//            case 0:
-//                scene = FXMLLoader.load(getClass().getResource("/view/ReportA.fxml"));
-//                break;
-//            case 1:
-//                scene = FXMLLoader.load(getClass().getResource("/view/ReportB.fxml"));
-//                break;
-//            case 2:
-//                scene = FXMLLoader.load(getClass().getResource("/view/ReportC.fxml"));
-//                break;
-//        }
-//
-//        stage.setScene(new Scene(scene));
-//        stage.setTitle("Reports");
-//        stage.show();
-
-//        try {
-//            System.out.println("testThis");
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/TestPane2.fxml"));
-//            loader.setController(this);
-//
-//            mainPain.setCenter(loader.load());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-
-//                String selectedReportType = (String) reportTypeBox.getValue();
                 int selectedReportIndex = reportTypeList.indexOf(reportTypeBox.getValue());
-//                reportTypeBox.getValue();
                 switch (selectedReportIndex) {
             case 0:
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportA.fxml"));
                     loader.setController(this);
                     mainPain.setCenter(loader.load());
+//                    System.out.println(ReportsQuery.ReportMonthChoices());
+//                    System.out.println(ReportsQuery.ReportTypeChoices());
                 } catch (Exception e) {
                     e.printStackTrace();
 
@@ -138,30 +127,36 @@ public class Reports implements Initializable {
                     mainPain.setCenter(loader.load());
                 } catch (Exception e) {
                     e.printStackTrace();
-
                 }
                 reportTypeBox.getSelectionModel().select(2);
-
                 break;
         }
-
-
-
-
-
     }
 
     @FXML
-    void onActionTest(ActionEvent event) {
+    void onActionRunReportA(ActionEvent event) {
+        String chosenMonth = choiceBoxMonth.getSelectionModel().getSelectedItem().toString();
+        String selectedMonth = YearMonth.parse(chosenMonth,DateTimeFormatter.ofPattern("MM-yyyy")).getMonth().name().toString();
+        String selectedYear = String.valueOf(YearMonth.parse(chosenMonth,DateTimeFormatter.ofPattern("MM-yyyy")).getYear());
+
+        String chosenType = choiceBoxType.getSelectionModel().getSelectedItem().toString();
+//        System.out.println(selectedMonth + " " +selectedYear);
+
+
+
+//working
+//        System.out.println(choiceBoxMonth.getSelectionModel().getSelectedItem());
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportAResults.fxml"));
             loader.setController(this);
             mainPain.setCenter(loader.load());
+            reportAMonthChoice.setText(selectedMonth + " " +selectedYear);
+            reportATypeChoice.setText(chosenType);
+
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-        System.out.println("testButton");
     }
 
     @FXML
@@ -175,61 +170,12 @@ public class Reports implements Initializable {
 //        reportTypeBox.setItems(reportTypeList);
         reportTypeBox.getItems().setAll(reportTypeList);
         reportTypeBox.getSelectionModel().selectFirst();
-
-
-//        reportTypeBox.setOnAction(e -> {
-//            try {
-//                testClick();
-//                System.out.println("gotThisFar");
-//            } catch (IOException ioException) {
-//                ioException.printStackTrace();
-//            }
-//        });
-
-//        testPane.setCenter(TestPane1);
-
-//        try {
-////            System.out.println(reportTypeBox.getValue());
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("TestPane1.fxml"));
-//            loader.setController(this);
-//            mainPain.setCenter(loader.load());
-//        } catch (Exception e) {
-//        }
+        choiceBoxMonth.getItems().setAll(ReportsQuery.ReportMonthChoices());
+        choiceBoxMonth.getSelectionModel().selectFirst();
+        choiceBoxType.getItems().setAll(ReportsQuery.ReportTypeChoices());
+        choiceBoxType.getSelectionModel().selectFirst();
 
     }
-
-
-//    @FXML
-//    private void testClick(ActionEvent event) throws IOException {
-//        System.out.println("test1");
-//        //tester
-////        System.out.println(reportTypeList.indexOf(reportTypeBox));
-//        try {
-//            System.out.println("test2");
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TestPane1.fxml"));
-//            loader.setController(this);
-//            mainPain.setCenter(loader.load());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//
-//        }
-//    }
-
-//    @FXML
-//    private void testClick2(ActionEvent event) throws IOException {
-//        System.out.println("tes3");
-//        //tester
-////        System.out.println(reportTypeList.indexOf(reportTypeBox));
-//        try {
-////            System.out.println(reportTypeBox.getValue());
-//            System.out.println("test4");
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/TestPane2.fxml"));
-//            loader.setController(this);
-//            mainPain.setCenter(loader.load());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
 
 }

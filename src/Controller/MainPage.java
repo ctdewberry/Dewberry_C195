@@ -6,10 +6,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import DAO.AppointmentQuery;
-import DAO.CustomerQuery;
-import DAO.Query;
 import Model.AppointmentModel;
-import Model.CustomerModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

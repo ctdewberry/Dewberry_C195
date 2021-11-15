@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="554.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane prefHeight="430.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" >
     <children>
         <Text layoutX="26.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Report Type C:" />
         <Text layoutX="30.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This report will show you all appointments created" />
