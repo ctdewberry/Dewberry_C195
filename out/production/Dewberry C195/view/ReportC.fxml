@@ -12,25 +12,14 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Text>
-        <Text layoutX="26.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This report will show you all appointments created">
+        <Text layoutX="26.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This report will show you all appointments created for a specified location">
          <font>
             <Font size="18.0" />
          </font></Text>
-        <ComboBox fx:id="comboBoxUser" layoutX="26.0" layoutY="190.0" prefWidth="150.0" />
-        <ComboBox fx:id="comboBoxContact" layoutX="250.0" layoutY="190.0" prefWidth="150.0" />
-        <Text layoutX="26.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User">
+        <ComboBox fx:id="comboBoxLocation" layoutX="26.0" layoutY="190.0" prefWidth="150.0" />
+        <Text layoutX="26.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
          <font>
             <Font size="20.0" />
-         </font></Text>
-        <Text layoutX="250.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact">
-         <font>
-            <Font size="20.0" />
-         </font></Text>
-<!--        <Button layoutX="67.0" layoutY="464.0" mnemonicParsing="false" onAction="#onActionRunReportC" text="Run Report" />-->
-<!--        <Button layoutX="322.0" layoutY="464.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />-->
-        <Text layoutX="26.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="by a specified user for a specified contact">
-         <font>
-            <Font size="18.0" />
          </font></Text>
       <Button fx:id="runReportC" layoutX="100.0" layoutY="300.0" mnemonicParsing="false" onAction="#onActionRunReportC" text="Run Report">
          <font>

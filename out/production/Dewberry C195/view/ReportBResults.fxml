@@ -22,12 +22,15 @@
             <TableColumn fx:id="apptCustIDCol" prefWidth="81.0" text="Customer ID" />
             <TableColumn fx:id="apptUserIDCol" prefWidth="54.0" text="User ID" />
             </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
         </TableView>
-        <Text layoutX="38.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here are all of the appointments for:">
+        <Text layoutX="38.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here are all of the appointments for contact:">
          <font>
             <Font size="20.0" />
          </font></Text>
-      <Text fx:id="reportBContact" layoutX="437.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact">
+      <Text fx:id="reportBContact" layoutX="480.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact">
          <font>
             <Font size="20.0" />
          </font>
