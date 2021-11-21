@@ -3,6 +3,7 @@
 package Controller;
 
         import DAO.UserDaoImpl;
+        import Main.Main;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
         import javafx.fxml.FXMLLoader;
@@ -20,6 +21,7 @@ package Controller;
         import java.time.format.DateTimeFormatter;
         import java.util.Optional;
         import java.util.ResourceBundle;
+        import java.util.Locale;
 
 public class LogIn implements Initializable {
 
@@ -27,6 +29,7 @@ public class LogIn implements Initializable {
     Stage stage;
     Parent scene;
 
+    ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
 
 //    boolean loggedIn = false;
 
