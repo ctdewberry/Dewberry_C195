@@ -91,11 +91,23 @@ public class CustomersScreen implements Initializable {
 
     @FXML
     void onActionModifyCustomer(ActionEvent event) throws IOException {
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/CustomerModify.fxml"));
+
+        try {
+
+        int currentCustomer = customerTableView.getSelectionModel().getSelectedItem().getCustomerID();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/CustomerModify.fxml"));
+        loader.load();
+        CustomerModify CustomerModify = loader.getController();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        CustomerModify.sendCustomer(CustomerQuery.getCurrentCustomer(currentCustomer));
+        Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.setTitle("Modify Customer");
         stage.show();
+                } catch (NullPointerException e) {
+            return;
+        }
     }
 
     @FXML

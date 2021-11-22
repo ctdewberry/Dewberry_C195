@@ -113,7 +113,6 @@ public class CustomerAdd implements Initializable {
             comboBoxDivision.getItems().setAll(CustomerQuery.getFilteredDivisions(currentCountry));
         }
         catch (Exception e) {
-            System.out.println("No selected countries");
         }
     }
 
