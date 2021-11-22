@@ -157,14 +157,21 @@ public class CustomersScreen implements Initializable {
     void onActionDeleteCustomer(ActionEvent event) throws IOException {
         try {
             int currentCustomer = customerTableView.getSelectionModel().getSelectedItem().getCustomerID();
-            Alert alertConfirmCustomerCreation = new Alert(Alert.AlertType.CONFIRMATION);
-            alertConfirmCustomerCreation.setTitle("Delete customer");
-            alertConfirmCustomerCreation.setHeaderText("Delete customer");
-            alertConfirmCustomerCreation.setContentText("Do you want to delete this customer?");
-            Optional<ButtonType> result = alertConfirmCustomerCreation.showAndWait();
+            String currentName = customerTableView.getSelectionModel().getSelectedItem().getCustomerName();
+            Alert alertConfirmCustomerDelete = new Alert(Alert.AlertType.CONFIRMATION);
+            alertConfirmCustomerDelete.setTitle("Delete customer");
+            alertConfirmCustomerDelete.setHeaderText("Delete customer");
+            alertConfirmCustomerDelete.setContentText("Do you want to delete customer: " + currentName + "?");
+            Optional<ButtonType> result = alertConfirmCustomerDelete.showAndWait();
             if (result.get() == ButtonType.OK) {
                 CustomerQuery.deleteCustomer(currentCustomer);
                 customerTableView.setItems(DAO.CustomerQuery.getAllCustomers());
+
+                Alert alertConfirmCustomerIsDeleted = new Alert(Alert.AlertType.INFORMATION);
+                alertConfirmCustomerIsDeleted.setTitle("Delete customer");
+                alertConfirmCustomerIsDeleted.setHeaderText("Delete customer");
+                alertConfirmCustomerIsDeleted.setContentText(currentName + " has been deleted.");
+                Optional<ButtonType> result2 = alertConfirmCustomerIsDeleted.showAndWait();
             }
         } catch (Exception e) {
             System.out.println("No selected customers");

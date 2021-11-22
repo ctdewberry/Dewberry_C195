@@ -45,8 +45,6 @@ public class CustomerAdd implements Initializable {
     @FXML
     private TextField custPostal;
 
-//    comboBoxDivision.addActionListener(new ActionListener)
-
     @FXML
     void onActionAddCustomer(ActionEvent event) throws IOException {
         Alert alertConfirmCustomerCreation = new Alert(Alert.AlertType.CONFIRMATION);

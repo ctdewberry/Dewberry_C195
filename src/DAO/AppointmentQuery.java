@@ -13,6 +13,88 @@ import javafx.scene.control.Alert;
 
 public class AppointmentQuery {
 
+    public static ObservableList<String> getAllContacts() {
+        ObservableList<String> allContactsList = FXCollections.observableArrayList();
+        try {
+            String sql = "select Contact_Name from contacts order by Contact_ID";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String contactName =  rs.getString("Contact_Name");
+                allContactsList.add(contactName);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return allContactsList;
+    }
+
+    public static ObservableList<String> getAllTypes() {
+        ObservableList<String> allTypesList = FXCollections.observableArrayList();
+        try {
+            String sql = "select Type from appointments;";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String typeName =  rs.getString("Type");
+                allTypesList.add(typeName);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return allTypesList;
+    }
+
+    public static ObservableList<String> getAllCustomerIDs() {
+        ObservableList<String> allCustomerIDsList = FXCollections.observableArrayList();
+        try {
+            String sql = "select Customer_ID from customers order by Customer_ID;";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String customerID =  rs.getString("Customer_ID");
+                allCustomerIDsList.add(customerID);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return allCustomerIDsList;
+
+    }
+
+    public static ObservableList<String> getAllUserIDs() {
+        ObservableList<String> allUserIDsList = FXCollections.observableArrayList();
+        try {
+            String sql = "select User_ID from users order by User_ID;";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String userID =  rs.getString("User_ID");
+                allUserIDsList.add(userID);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return allUserIDsList;
+
+    }
+
+    public static Integer getHighestAppointmentID() {
+        Integer newAppointmentID = null;
+        try {
+            String sql = "select MAX(Appointment_ID) from appointments";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                newAppointmentID = rs.getInt("MAX(Appointment_ID)")+1;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return newAppointmentID;
+    }
+
+
     public static ObservableList<AppointmentModel> getAllAppointments() {
         ObservableList<AppointmentModel> allAppointmentsList = FXCollections.observableArrayList();
         try {
