@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -65,18 +66,30 @@ public class MainPage implements Initializable {
     @FXML
     void onActionBackToLogin(ActionEvent event) throws IOException {
         LogIn.logOutUser();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/LogIn.fxml"));
-        loader.load();
 
-        LogIn LogIn = loader.getController();
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource("/view/LogIn.fxml"));
+//
+//        LogIn LogIn = loader.getController();
+//
+//        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+//
+//        Parent scene = loader.getRoot();
+//        stage.setScene(new Scene(scene));
+//        stage.setTitle("Log In");
+//        stage.show();
 
+
+
+        ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-
-        Parent scene = loader.getRoot();
+        scene = FXMLLoader.load((getClass().getResource("/view/LogIn.fxml")), rb);
         stage.setScene(new Scene(scene));
         stage.setTitle("Log In");
         stage.show();
+
+
+
     }
 
     @FXML

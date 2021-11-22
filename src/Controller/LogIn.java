@@ -11,6 +11,7 @@ package Controller;
         import javafx.scene.Parent;
         import javafx.scene.Scene;
         import javafx.scene.control.*;
+        import javafx.scene.text.Font;
         import javafx.stage.Stage;
 
         import java.io.IOException;
@@ -29,9 +30,17 @@ public class LogIn implements Initializable {
     Stage stage;
     Parent scene;
 
-    ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
+    @FXML
+    private ResourceBundle rbLang = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
+
 
 //    boolean loggedIn = false;
+
+    @FXML
+    private Label login1;
+
+    @FXML
+    private Button login2;
 
     public static void logInUser(){
         loggedIn = true;
@@ -52,9 +61,11 @@ public class LogIn implements Initializable {
     @FXML
     void onActionExit(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exit Program");
-        alert.setHeaderText("Exit program");
-        alert.setContentText("Do you want to exit?");
+        alert.setTitle(rbLang.getString("Exit program"));
+        alert.setHeaderText(rbLang.getString("Exit program"));
+        alert.setContentText(rbLang.getString("Do you want to exit?"));
+        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setText(rbLang.getString("OK"));
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
@@ -99,7 +110,7 @@ public class LogIn implements Initializable {
             stage.setTitle("Main Page");
             stage.show();
         } else {
-            loginSuccess.setText("Invalid credentials");
+            loginSuccess.setText(rbLang.getString("Invalid credentials"));
             System.out.println("invalid credentials");
         }
 
@@ -121,7 +132,15 @@ public class LogIn implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        login1.setFont(new Font("System",Integer.valueOf(rbLang.getString("login1"))));
+        login2.setFont(new Font("System", Integer.valueOf(rbLang.getString("login2"))));
+        loginSuccess.setMaxWidth(260);
+        if(Boolean.valueOf(rbLang.getString("loginSuccessWrap")) == Boolean.TRUE) {
+            System.out.println("true bro");
+            loginSuccess.setWrapText(true);
+        }
         userLocation.setText(getUserTimeZone());
+        System.out.println(Locale.getDefault());
 
     }
 
