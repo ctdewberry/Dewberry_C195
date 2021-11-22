@@ -74,16 +74,41 @@ public class AppointmentsAdd implements Initializable {
     private ComboBox comboBoxApptUserID = new ComboBox();
 
 
+    public static String timeConversion(TextField timeInput) {
+        String timeOutput = null;
+        DateTimeFormatter formatInput = DateTimeFormatter.ofPattern("hh:mm a");
+        DateTimeFormatter convertInput = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime parsedInput = LocalTime.parse(timeInput.getText(), formatInput);
+        String convertedInput = convertInput.format(parsedInput);
+        timeOutput = convertedInput;
+        System.out.println(timeOutput);
+        return timeOutput;
+    }
+
+    public static String dateConversion(DatePicker dateInput) {
+        String dateOutput = null;
+        DateTimeFormatter formatInput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter convertInput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedInput = LocalDate.parse(dateInput.getValue().toString(), formatInput);
+        String convertedInput = convertInput.format(parsedInput);
+        dateOutput = convertedInput;
+        System.out.println(dateOutput);
+        return dateOutput;
+    }
 
 
     @FXML
     void onActionAddAppointment(ActionEvent event) throws IOException {
-        SimpleDateFormat apptDateFormat = new SimpleDateFormat();
+//        SimpleDateFormat apptDateFormat = new SimpleDateFormat();
 //        SimpleTimeZone apptTimeFormat = new SimpleTimeZone("HH:mm a");
-        LocalTime localTimeStart = LocalTime.parse(apptStartTime.getText(), DateTimeFormatter.ofPattern("hh:mm:ss a"));
-        LocalTime localTimeEnd = LocalTime.parse(apptEndTime.getText(), DateTimeFormatter.ofPattern("hh:mm:ss a"));
-        LocalDate localDateStart = LocalDate.parse(datePickerApptStartDate.getValue().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDate localDateEnd = LocalDate.parse(datePickerApptEndDate.getValue().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        LocalTime localTimeStart = LocalTime.parse(apptStartTime.getText(), DateTimeFormatter.ofPattern("hh:mm:ss a"));
+//        LocalTime localTimeEnd = LocalTime.parse(apptEndTime.getText(), DateTimeFormatter.ofPattern("hh:mm:ss a"));
+
+        //working
+//        LocalTime localTimeStart = LocalTime.parse(apptStartTime.getText(), DateTimeFormatter.ofPattern("hh:mm"));
+//        LocalTime localTimeEnd = LocalTime.parse(apptEndTime.getText(), DateTimeFormatter.ofPattern("hh:mm"));
+//        LocalDate localDateStart = LocalDate.parse(datePickerApptStartDate.getValue().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        LocalDate localDateEnd = LocalDate.parse(datePickerApptEndDate.getValue().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 
         int id = Integer.parseInt(newApptID.getText());
@@ -98,32 +123,19 @@ public class AppointmentsAdd implements Initializable {
         String type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
 //        LocalDate startDate = datePickerApptStartDate.getValue();
 
-        String startTime = null;
-        String startDate = null;
-        String endTime = null;
-        String endDate = null;
+//        String startTime = null;
+//        String startDate = null;
+//        String endTime = null;
+//        String endDate = null;
 
-        startTime = localTimeStart.toString();
-            System.out.println(localTimeStart);
-            System.out.println(startTime);
+        String startTime = timeConversion(apptStartTime);
+        String endTime = timeConversion(apptEndTime);
+        String startDate = dateConversion(datePickerApptStartDate);
+        String endDate = dateConversion(datePickerApptEndDate);
 
-        endTime = localTimeEnd.toString();
-        System.out.println(localTimeEnd);
-        System.out.println(endTime);
-
-        startDate = localDateStart.toString();
-        System.out.println(localDateStart);
-        System.out.println(startDate);
-
-        endDate = localDateEnd.toString();
-        System.out.println(localDateEnd);
-        System.out.println(endDate);
+        System.out.println(startDate+" "+startTime);
 
 
-
-//        LocalDateTime startTime = new DateTime(formatter.parse(apptStartTime.getText()).getTime());
-//        LocalDate endDate = datePickerApptEndDate.getValue();
-//        Time endTime = new java.sql.Time(formatter.parse(apptEndTime.getText()).getTime());;
         int customerID = Integer.parseInt(comboBoxApptCustID.getSelectionModel().getSelectedItem().toString());
         int userID = Integer.parseInt(comboBoxApptUserID.getSelectionModel().getSelectedItem().toString());
 
