@@ -21,7 +21,7 @@
                 <Font size="24.0" />
             </font>
         </Button>
-        <Button layoutX="400.0" layoutY="520.0" mnemonicParsing="false" text="Delete">
+        <Button layoutX="400.0" layoutY="520.0" mnemonicParsing="false" onAction="#onActionDeleteCustomer" text="Delete">
             <font>
                 <Font size="24.0" />
             </font>

@@ -52,6 +52,20 @@ public class CustomerQuery {
         }
     }
 
+    public static void deleteCustomer(Integer selectedCustomer) {
+        try {
+            String sql1 = "DELETE FROM appointments WHERE Customer_ID = '" + selectedCustomer + "'";
+            String sql2 = "DELETE FROM customers WHERE Customer_ID = '" + selectedCustomer + "';";
+            Statement stmt = DBConnection.getConnection().createStatement();
+            stmt.executeUpdate(sql1);
+            stmt.executeUpdate(sql2);
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public static Integer getDivisionIDFromComboBox(String selectedDivision){
         //SELECT first_level_divisions.Division_ID from countries JOIN first_level_divisions ON countries.Country_ID = first_level_divisions.Country_ID WHERE Division = 'Florida';
         Integer divisionID = null;
@@ -71,7 +85,7 @@ public class CustomerQuery {
     public static ObservableList<String> getAllCountries(){
         ObservableList<String> countryList = FXCollections.observableArrayList();
         try {
-            String sql = "select Country from countries";
+            String sql = "select Country from countries order by Country_ID";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -119,7 +133,7 @@ public class CustomerQuery {
     public static ObservableList<CustomerModel> getAllCustomers() {
         ObservableList<CustomerModel> customerList = FXCollections.observableArrayList();
         try {
-            String sql = "select c.Customer_ID, c.Customer_Name, c.Address, c.Postal_Code, c.Phone, c.Division_ID, f.Division, f.Country_ID, n.Country from customers as c join first_level_divisions as f on c.Division_ID = f.Division_ID join countries as n on f.Country_ID = n.Country_ID";
+            String sql = "select c.Customer_ID, c.Customer_Name, c.Address, c.Postal_Code, c.Phone, c.Division_ID, f.Division, f.Country_ID, n.Country from customers as c join first_level_divisions as f on c.Division_ID = f.Division_ID join countries as n on f.Country_ID = n.Country_ID order by Customer_ID";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

@@ -10,15 +10,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.TableColumn;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -66,13 +65,8 @@ public class CustomersScreen implements Initializable {
     private TableColumn<CustomerModel, String> custCountryCol;
 
 
-
-
-
-
     @FXML
     private Text nextAppointment;
-
 
 
     @FXML
@@ -140,26 +134,29 @@ public class CustomersScreen implements Initializable {
 
     private void refreshSelectedCustomer() {
         try {
-//            int currentCustomer = customerTableView.getSelectionModel().getSelectedIndex();
-//            ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();
-//            nextAppointment.setText(CustomerQuery.getNextAppointment(selectedCustomer.get(currentCustomer).getCustomerID()));
-
             int currentCustomer = customerTableView.getSelectionModel().getSelectedItem().getCustomerID();
-//            System.out.println(currentCustomer);
-//            ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();
             nextAppointment.setText(CustomerQuery.getNextAppointment(currentCustomer));
-
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("No selected customers");
         }
-
     }
 
     @FXML
-    void onActionDeleteCustomer(ActionEvent event) {
-
+    void onActionDeleteCustomer(ActionEvent event) throws IOException {
+        try {
+            int currentCustomer = customerTableView.getSelectionModel().getSelectedItem().getCustomerID();
+            Alert alertConfirmCustomerCreation = new Alert(Alert.AlertType.CONFIRMATION);
+            alertConfirmCustomerCreation.setTitle("Delete customer");
+            alertConfirmCustomerCreation.setHeaderText("Delete customer");
+            alertConfirmCustomerCreation.setContentText("Do you want to delete this customer?");
+            Optional<ButtonType> result = alertConfirmCustomerCreation.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                CustomerQuery.deleteCustomer(currentCustomer);
+                customerTableView.setItems(DAO.CustomerQuery.getAllCustomers());
+            }
+        } catch (Exception e) {
+            System.out.println("No selected customers");
+        }
     }
-
 }
 
