@@ -140,13 +140,24 @@ public class CustomersScreen implements Initializable {
 
     private void refreshSelectedCustomer() {
         try {
-            int currentCustomer = customerTableView.getSelectionModel().getSelectedIndex();
-            ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();
-            nextAppointment.setText(CustomerQuery.getNextAppointment(selectedCustomer.get(currentCustomer).getCustomerID()));
+//            int currentCustomer = customerTableView.getSelectionModel().getSelectedIndex();
+//            ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();
+//            nextAppointment.setText(CustomerQuery.getNextAppointment(selectedCustomer.get(currentCustomer).getCustomerID()));
+
+            int currentCustomer = customerTableView.getSelectionModel().getSelectedItem().getCustomerID();
+//            System.out.println(currentCustomer);
+//            ObservableList<CustomerModel> selectedCustomer = DAO.CustomerQuery.getAllCustomers();
+            nextAppointment.setText(CustomerQuery.getNextAppointment(currentCustomer));
+
         }
         catch (Exception e) {
             System.out.println("No selected customers");
         }
+
+    }
+
+    @FXML
+    void onActionDeleteCustomer(ActionEvent event) {
 
     }
 

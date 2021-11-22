@@ -16,9 +16,8 @@ public class CustomerQuery {
 
         String customerNextAppointment = null;
 
-
         try {
-                String sql = "select appointments.Start from appointments WHERE Customer_ID=" +currCust + " ORDER BY Start ASC LIMIT 1";
+                String sql = "select appointments.Start from appointments WHERE Customer_ID=" +currCust + " AND (Start > CURRENT_TIMESTAMP()) ORDER BY Start ASC LIMIT 1";
                 PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
