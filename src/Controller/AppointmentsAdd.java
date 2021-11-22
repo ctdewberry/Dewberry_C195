@@ -22,11 +22,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.SimpleTimeZone;
 
 import static DAO.AppointmentQuery.getContactIDFromName;
 
@@ -77,7 +79,13 @@ public class AppointmentsAdd implements Initializable {
     @FXML
     void onActionAddAppointment(ActionEvent event) throws IOException {
         SimpleDateFormat apptDateFormat = new SimpleDateFormat();
-        SimpleDateFormat apptTimeFormat = new SimpleDateFormat("HH:mm a");
+//        SimpleTimeZone apptTimeFormat = new SimpleTimeZone("HH:mm a");
+        LocalTime localTimeStart = LocalTime.parse(apptStartTime.getText(), DateTimeFormatter.ofPattern("hh:mm:ss a"));
+        LocalTime localTimeEnd = LocalTime.parse(apptEndTime.getText(), DateTimeFormatter.ofPattern("hh:mm:ss a"));
+        LocalDate localDateStart = LocalDate.parse(datePickerApptStartDate.getValue().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate localDateEnd = LocalDate.parse(datePickerApptEndDate.getValue().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+
         int id = Integer.parseInt(newApptID.getText());
         String title = apptTitle.getText();
         String desc = apptDesc.getText();
@@ -94,26 +102,24 @@ public class AppointmentsAdd implements Initializable {
         String startDate = null;
         String endTime = null;
         String endDate = null;
-        try {
-            startTime = apptTimeFormat.parse(apptStartTime.getText()).toString();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        try {
-            startDate = apptDateFormat.parse(datePickerApptStartDate.getValue().toString()).toString();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        try {
-            endTime = apptTimeFormat.parse(apptEndTime.getText()).toString();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        try {
-            endDate = apptDateFormat.parse(datePickerApptEndDate.getValue().toString()).toString();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
+        startTime = localTimeStart.toString();
+            System.out.println(localTimeStart);
+            System.out.println(startTime);
+
+        endTime = localTimeEnd.toString();
+        System.out.println(localTimeEnd);
+        System.out.println(endTime);
+
+        startDate = localDateStart.toString();
+        System.out.println(localDateStart);
+        System.out.println(startDate);
+
+        endDate = localDateEnd.toString();
+        System.out.println(localDateEnd);
+        System.out.println(endDate);
+
+
 
 //        LocalDateTime startTime = new DateTime(formatter.parse(apptStartTime.getText()).getTime());
 //        LocalDate endDate = datePickerApptEndDate.getValue();
@@ -136,7 +142,7 @@ public class AppointmentsAdd implements Initializable {
             Optional<ButtonType> result2 = alertConfirmAppointmentIsAdded.showAndWait();
 
             stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/View/CustomersScreen.fxml"));
+            scene = FXMLLoader.load(getClass().getResource("/View/AppointmentsScreen.fxml"));
             stage.setScene(new Scene(scene));
             stage.setTitle("Customers");
             stage.show();

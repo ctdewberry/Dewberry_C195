@@ -44,7 +44,7 @@ public class AppointmentQuery {
     public static Integer getContactIDFromName(String contactName) {
         Integer contactID = null;
         try {
-            String sql = "select Contact_ID from contacts WHERE Contact_Name = " + contactName + " LIMIT 1;";
+            String sql = "select Contact_ID from contacts WHERE Contact_Name = '" + contactName + "' LIMIT 1;";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -75,7 +75,7 @@ public class AppointmentQuery {
     public static ObservableList<String> getAllTypes() {
         ObservableList<String> allTypesList = FXCollections.observableArrayList();
         try {
-            String sql = "select Type from appointments;";
+            String sql = "select DISTINCT Type from appointments;";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

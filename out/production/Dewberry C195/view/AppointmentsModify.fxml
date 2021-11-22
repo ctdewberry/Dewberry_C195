@@ -38,9 +38,9 @@
         <ComboBox fx:id="comboBoxApptUserID" editable="true" layoutX="250.0" layoutY="560.0" prefWidth="150.0" />
         <DatePicker fx:id="datePickerApptStartDate" layoutX="50.0" layoutY="440.0" />
         <DatePicker fx:id="datePickerApptEndDate" layoutX="50.0" layoutY="500.0" />
-      <ComboBox fx:id="comboBoxApptStartTime" editable="true" layoutX="250.0" layoutY="440.0" prefWidth="150.0" />
-      <ComboBox fx:id="comboBoxApptEndTime" editable="true" layoutX="250.0" layoutY="500.0" prefWidth="150.0" />
       <Label layoutX="250.0" layoutY="420.0" text="Start Time" />
       <Label layoutX="250.0" layoutY="480.0" text="End Time" />
+      <TextField fx:id="apptStartTime" layoutX="250.0" layoutY="440.0" promptText="Format: 04:30 PM " />
+      <TextField fx:id="apptEndTime" layoutX="250.0" layoutY="500.0" promptText="Format: 06:30 PM" />
     </children>
 </AnchorPane>
