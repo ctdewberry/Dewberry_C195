@@ -50,7 +50,7 @@ public class CustomerAdd implements Initializable {
         Alert alertConfirmCustomerCreation = new Alert(Alert.AlertType.CONFIRMATION);
         alertConfirmCustomerCreation.setTitle("Add new customer");
         alertConfirmCustomerCreation.setHeaderText("Add new customer");
-        alertConfirmCustomerCreation.setContentText("Do you want to add this customer?");
+        alertConfirmCustomerCreation.setContentText("Do you want to add customer " + custName.getText() + " to the database?");
         Optional<ButtonType> result = alertConfirmCustomerCreation.showAndWait();
         if (result.get() == ButtonType.OK) {
             int id = Integer.parseInt(newCustomerID.getText());
@@ -61,12 +61,17 @@ public class CustomerAdd implements Initializable {
             int div = CustomerQuery.getDivisionIDFromComboBox(comboBoxDivision.getSelectionModel().getSelectedItem().toString());
             CustomerQuery.addCustomer(new CustomerModel(id,name,addy,postal,phone, div, null, 0,null));
 
+            Alert alertConfirmCustomerIsAdded = new Alert(Alert.AlertType.INFORMATION);
+            alertConfirmCustomerIsAdded.setTitle("Add customer");
+            alertConfirmCustomerIsAdded.setHeaderText("Add customer");
+            alertConfirmCustomerIsAdded.setContentText(name + " has been added to the database.");
+            Optional<ButtonType> result2 = alertConfirmCustomerIsAdded.showAndWait();
+
             stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/View/CustomersScreen.fxml"));
             stage.setScene(new Scene(scene));
             stage.setTitle("Customers");
             stage.show();
-
         }
 
     }

@@ -13,6 +13,49 @@ import javafx.scene.control.Alert;
 
 public class AppointmentQuery {
 
+    public static void addAppointment(AppointmentModel newAppointment) {
+        //run db insert command to add customer
+        //INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, 'test2', 'testAddy', 'testCode', 'Phone', '104');
+        int appointmentID;
+        String newTitle = newAppointment.getTitle();
+        String newDesc = newAppointment.getDescription();
+        String newLoc = newAppointment.getLocation();
+        int newContactID = newAppointment.getContactID();
+        String newContactName = newAppointment.getContactName();
+        String newType = newAppointment.getType();
+//        String newStart = newAppointment.getStartDate() + " " + newAppointment.getStartTime();
+        String newStartDate = newAppointment.getStartDate();
+        String newStartTime = newAppointment.getStartTime();
+        String newEndDate = newAppointment.getEndDate();
+        String newEndTime = newAppointment.getEndTime();
+        int newCustomerID = newAppointment.getCustomerID();
+        int newUserID = newAppointment.getUserID();
+        try {
+            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', '" + newContactID + "', '" + newContactName + "', '" + newType + "', '" + newStartDate + " " + newStartTime + "', '" + newEndDate + " " + newEndTime + "', '" + newCustomerID + "', '" + newUserID + "';";
+            Statement stmt = DBConnection.getConnection().createStatement();
+            stmt.executeUpdate(sql);
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static Integer getContactIDFromName(String contactName) {
+        Integer contactID = null;
+        try {
+            String sql = "select Contact_ID from contacts WHERE Contact_Name = " + contactName + " LIMIT 1;";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                contactID =  Integer.valueOf(rs.getString("Contact_ID"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return contactID;
+    }
+
     public static ObservableList<String> getAllContacts() {
         ObservableList<String> allContactsList = FXCollections.observableArrayList();
         try {
@@ -93,7 +136,6 @@ public class AppointmentQuery {
         }
         return newAppointmentID;
     }
-
 
     public static ObservableList<AppointmentModel> getAllAppointments() {
         ObservableList<AppointmentModel> allAppointmentsList = FXCollections.observableArrayList();

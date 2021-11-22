@@ -1,6 +1,9 @@
 package Controller;
 
 import DAO.AppointmentQuery;
+import DAO.CustomerQuery;
+import Model.AppointmentModel;
+import Model.CustomerModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,8 +16,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static DAO.AppointmentQuery.getContactIDFromName;
 
 public class AppointmentsAdd implements Initializable {
 
@@ -43,13 +57,13 @@ public class AppointmentsAdd implements Initializable {
     private DatePicker datePickerApptStartDate;
 
     @FXML
-    private ComboBox comboBoxApptStartTime = new ComboBox();
+    private TextField apptStartTime;
 
     @FXML
     private DatePicker datePickerApptEndDate;
 
     @FXML
-    private ComboBox comboBoxApptEndTime = new ComboBox();
+    private TextField apptEndTime;
 
     @FXML
     private ComboBox comboBoxApptCustID = new ComboBox();
@@ -61,7 +75,72 @@ public class AppointmentsAdd implements Initializable {
 
 
     @FXML
-    void onActionAddAppointment(ActionEvent event) {
+    void onActionAddAppointment(ActionEvent event) throws IOException {
+        SimpleDateFormat apptDateFormat = new SimpleDateFormat();
+        SimpleDateFormat apptTimeFormat = new SimpleDateFormat("HH:mm a");
+        int id = Integer.parseInt(newApptID.getText());
+        String title = apptTitle.getText();
+        String desc = apptDesc.getText();
+        String loc = apptLoc.getText();
+        //create method to obtain integer from value of combobo
+        int contactID = getContactIDFromName(comboBoxApptContact.getSelectionModel().getSelectedItem().toString());
+        String contactName = comboBoxApptContact.getSelectionModel().getSelectedItem().toString();
+//                Integer.valueOf((String) comboBoxApptContact.getSelectionModel().getSelectedItem());
+
+        String type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
+//        LocalDate startDate = datePickerApptStartDate.getValue();
+
+        String startTime = null;
+        String startDate = null;
+        String endTime = null;
+        String endDate = null;
+        try {
+            startTime = apptTimeFormat.parse(apptStartTime.getText()).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            startDate = apptDateFormat.parse(datePickerApptStartDate.getValue().toString()).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            endTime = apptTimeFormat.parse(apptEndTime.getText()).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            endDate = apptDateFormat.parse(datePickerApptEndDate.getValue().toString()).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+//        LocalDateTime startTime = new DateTime(formatter.parse(apptStartTime.getText()).getTime());
+//        LocalDate endDate = datePickerApptEndDate.getValue();
+//        Time endTime = new java.sql.Time(formatter.parse(apptEndTime.getText()).getTime());;
+        int customerID = Integer.parseInt(comboBoxApptCustID.getSelectionModel().getSelectedItem().toString());
+        int userID = Integer.parseInt(comboBoxApptUserID.getSelectionModel().getSelectedItem().toString());
+
+        Alert alertConfirmAppointmentCreation = new Alert(Alert.AlertType.CONFIRMATION);
+        alertConfirmAppointmentCreation.setTitle("Add new appointment");
+        alertConfirmAppointmentCreation.setHeaderText("Add new appointment");
+        alertConfirmAppointmentCreation.setContentText("Do you want to create an appointment of type: " + type + "?");
+        Optional<ButtonType> result = alertConfirmAppointmentCreation.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            AppointmentQuery.addAppointment(new AppointmentModel(id, title, desc, loc, contactName, type, startDate, startTime, endDate, endTime, customerID, userID, contactID));
+
+            Alert alertConfirmAppointmentIsAdded = new Alert(Alert.AlertType.INFORMATION);
+            alertConfirmAppointmentIsAdded.setTitle("Add appointment");
+            alertConfirmAppointmentIsAdded.setHeaderText("Add appointment");
+            alertConfirmAppointmentIsAdded.setContentText("Appointment for " + type + " has been scheduled.");
+            Optional<ButtonType> result2 = alertConfirmAppointmentIsAdded.showAndWait();
+
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/View/CustomersScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.setTitle("Customers");
+            stage.show();
+        }
 
     }
 
@@ -95,8 +174,6 @@ public class AppointmentsAdd implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxApptContact.getItems().setAll(AppointmentQuery.getAllContacts());
         comboBoxApptType.getItems().setAll(AppointmentQuery.getAllTypes());
-//        comboBoxApptStartTime;
-//        comboBoxApptEndTime;
         comboBoxApptCustID.getItems().setAll(AppointmentQuery.getAllCustomerIDs());
         comboBoxApptUserID.getItems().setAll(AppointmentQuery.getAllUserIDs());
         newApptID.setText(String.valueOf(AppointmentQuery.getHighestAppointmentID()));
