@@ -192,6 +192,25 @@ public class AppointmentQuery {
         return nextAppointmentList;
     }
 
+    public static Boolean checkIfFutureAppointments() {
+        Boolean futureAppointment = false;
+        try {
+            String sql = "select Appointment_ID from appointments WHERE (Start > CURRENT_TIMESTAMP()) AND User_ID = " + UserDaoImpl.getCurrentUserID() + " ORDER By Start ASC LIMIT 1;";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                futureAppointment = true;
+
+            } else {
+                futureAppointment = false;
+            }
+        } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        return futureAppointment;
+
+    }
+
     public static String checkNextAppointmentTime() {
         String isApptSoon = null;
         Integer timeDiff = 0;

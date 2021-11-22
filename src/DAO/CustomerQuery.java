@@ -34,6 +34,89 @@ public class CustomerQuery {
     }
 
 
+    public static void addCustomer(CustomerModel newCustomer) {
+        //run db insert command to add customer
+        //INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, 'test2', 'testAddy', 'testCode', 'Phone', '104');
+        String newName = newCustomer.getCustomerName();
+        String newAddy = newCustomer.getCustomerAddress();
+        String newCode = newCustomer.getCustomerCode();
+        String newPhone = newCustomer.getCustomerPhone();
+        Integer newDiv = newCustomer.getCustomerDivisionID();
+        try {
+            String sql = "INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, '" + newName +"', '"+ newAddy +"', '"+ newCode +"', '"+ newPhone +"', '"+ newDiv +"');";
+            Statement stmt = DBConnection.getConnection().createStatement();
+            stmt.executeUpdate(sql);
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static Integer getDivisionIDFromComboBox(String selectedDivision){
+        //SELECT first_level_divisions.Division_ID from countries JOIN first_level_divisions ON countries.Country_ID = first_level_divisions.Country_ID WHERE Division = 'Florida';
+        Integer divisionID = null;
+        try {
+            String sql = "SELECT first_level_divisions.Division_ID from countries JOIN first_level_divisions ON countries.Country_ID = first_level_divisions.Country_ID WHERE Division ='" + selectedDivision +"'";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                divisionID = rs.getInt("Division_ID");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return divisionID;
+    }
+
+    public static ObservableList<String> getAllCountries(){
+        ObservableList<String> countryList = FXCollections.observableArrayList();
+        try {
+            String sql = "select Country from countries";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+               String countryName =  rs.getString("Country");
+               countryList.add(countryName);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return countryList;
+    }
+
+    public static Integer getHighestCustomerID(){
+        Integer newCustomerID = null;
+        try {
+            String sql = "select MAX(Customer_ID) from customers";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                newCustomerID = rs.getInt("MAX(Customer_ID)")+1;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return newCustomerID;
+    }
+
+    public static ObservableList<String> getFilteredDivisions(String selectedCountry){
+        ObservableList<String> divisionList = FXCollections.observableArrayList();
+        try {
+            String sql = "select Division from first_level_divisions INNER JOIN countries on first_level_divisions.Country_ID=countries.Country_ID WHERE countries.Country='" + selectedCountry +"';";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String divisionName =  rs.getString("Division");
+                divisionList.add(divisionName);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return divisionList;
+    }
+
     public static ObservableList<CustomerModel> getAllCustomers() {
         ObservableList<CustomerModel> customerList = FXCollections.observableArrayList();
         try {

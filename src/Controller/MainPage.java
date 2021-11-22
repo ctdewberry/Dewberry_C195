@@ -153,14 +153,17 @@ public class MainPage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<AppointmentModel> upcomingAppointment = DAO.AppointmentQuery.getNextAppointment();
-        nextApptID.setText(String.valueOf(upcomingAppointment.get(0).getAppointmentID()));
-        nextApptDate.setText(String.valueOf(upcomingAppointment.get(0).getStartDate()));
-        nextApptTime.setText(String.valueOf(upcomingAppointment.get(0).getStartTime()));
-        nextApptType.setText(String.valueOf(upcomingAppointment.get(0).getType()));
-        upcomingAppointments.setText(AppointmentQuery.checkNextAppointmentTime());
-
-
+        if(DAO.AppointmentQuery.checkIfFutureAppointments()) {
+            System.out.println("test1");
+            ObservableList<AppointmentModel> upcomingAppointment = DAO.AppointmentQuery.getNextAppointment();
+            System.out.println("test2");
+            nextApptID.setText(String.valueOf(upcomingAppointment.get(0).getAppointmentID()));
+            System.out.println("test3");
+            nextApptDate.setText(String.valueOf(upcomingAppointment.get(0).getStartDate()));
+            nextApptTime.setText(String.valueOf(upcomingAppointment.get(0).getStartTime()));
+            nextApptType.setText(String.valueOf(upcomingAppointment.get(0).getType()));
+            upcomingAppointments.setText(AppointmentQuery.checkNextAppointmentTime());
+        }
     }
 
 
