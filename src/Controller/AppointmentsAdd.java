@@ -87,7 +87,7 @@ public class AppointmentsAdd implements Initializable {
 
     public static String dateConversion(DatePicker dateInput) {
         String dateOutput = null;
-        DateTimeFormatter formatInput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatInput = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         DateTimeFormatter convertInput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate parsedInput = LocalDate.parse(dateInput.getValue().toString(), formatInput);
         String convertedInput = convertInput.format(parsedInput);
