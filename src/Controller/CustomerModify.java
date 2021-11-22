@@ -11,7 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import java.awt.event.*;
 
+import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -52,8 +54,8 @@ public class CustomerModify implements Initializable {
         custName.setText(String.valueOf(CustomerModel.getCustomerName()));
         custPhone.setText(String.valueOf(CustomerModel.getCustomerPhone()));
         custPostal.setText(String.valueOf(CustomerModel.getCustomerCode()));
-//        comboBoxCountry.set;
-//        comboBoxDivision;
+        comboBoxCountry.getSelectionModel().select(String.valueOf(CustomerModel.getCustomerCountry()));
+        comboBoxDivision.getSelectionModel().select(String.valueOf(CustomerModel.getCustomerDivision()));
     }
 
     @FXML
@@ -90,14 +92,27 @@ public class CustomerModify implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxCountry.getItems().setAll(CustomerQuery.getAllCountries());
+//        comboBoxCountry.getSelectionModel().selectFirst();
+        comboBoxCountry.setOnMouseClicked((e -> updateDivisionList()));
         comboBoxDivision.setOnMouseClicked((e -> updateDivisionList()));
 
     }
+
+//    private countryChangeListener countryChangeListener = new countryChangeListener();
+//    comboBoxCountry.addItemListener((this)) {
+//
+//    }
+
+//    private void resetDivisionList(){
+//        String currentCountry = (String) comboBoxCountry.getSelectionModel().getSelectedItem();
+//        comboBoxDivision.getItems().setAll(CustomerQuery.getFilteredDivisions(currentCountry));
+//    }
 
     private void updateDivisionList(){
         try {
             String currentCountry = (String) comboBoxCountry.getSelectionModel().getSelectedItem();
             comboBoxDivision.getItems().setAll(CustomerQuery.getFilteredDivisions(currentCountry));
+//            comboBoxDivision.getSelectionModel().selectFirst();
         }
         catch (Exception e) {
         }
