@@ -59,8 +59,44 @@ public class CustomerModify implements Initializable {
     }
 
     @FXML
-    void onActionUpdateCustomer(ActionEvent event) {
+    void onActionUpdateCustomer(ActionEvent event) throws IOException{
+        Alert alertConfirmCustomerModify = new Alert(Alert.AlertType.CONFIRMATION);
+        alertConfirmCustomerModify.setTitle("Modify Customer Info");
+        alertConfirmCustomerModify.setHeaderText("Modify Customer Info");
+        alertConfirmCustomerModify.setContentText("Do you want to update the information for this customer?");
+        Optional<ButtonType> result = alertConfirmCustomerModify.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            int id = Integer.parseInt(currentCustomerID.getText());
+            String name = custName.getText();
+            String addy = custAddy.getText();
+            String postal = custPostal.getText();
+            String phone = custPhone.getText();
+            int div = CustomerQuery.getDivisionIDFromComboBox(comboBoxDivision.getSelectionModel().getSelectedItem().toString());
+            CustomerQuery.modifyCustomer(new CustomerModel(id,name,addy,postal,phone, div, null, 0,null));
 
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/view/CustomersScreen.fxml"));
+                loader.load();
+                CustomersScreen CustomerScreen = loader.getController();
+                Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                Parent scene = loader.getRoot();
+                stage.setScene(new Scene(scene));
+                stage.setTitle("Customers");
+                stage.show();
+            } catch (NullPointerException e) {
+                return;
+            }
+
+
+
+//            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+//            scene = FXMLLoader.load(getClass().getResource("/View/CustomersScreen.fxml"));
+//            stage.setScene(new Scene(scene));
+//            stage.setTitle("Customers");
+//            stage.show();
+
+        }
     }
 
     @FXML
@@ -92,27 +128,15 @@ public class CustomerModify implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxCountry.getItems().setAll(CustomerQuery.getAllCountries());
-//        comboBoxCountry.getSelectionModel().selectFirst();
         comboBoxCountry.setOnMouseClicked((e -> updateDivisionList()));
         comboBoxDivision.setOnMouseClicked((e -> updateDivisionList()));
 
     }
 
-//    private countryChangeListener countryChangeListener = new countryChangeListener();
-//    comboBoxCountry.addItemListener((this)) {
-//
-//    }
-
-//    private void resetDivisionList(){
-//        String currentCountry = (String) comboBoxCountry.getSelectionModel().getSelectedItem();
-//        comboBoxDivision.getItems().setAll(CustomerQuery.getFilteredDivisions(currentCountry));
-//    }
-
     private void updateDivisionList(){
         try {
             String currentCountry = (String) comboBoxCountry.getSelectionModel().getSelectedItem();
             comboBoxDivision.getItems().setAll(CustomerQuery.getFilteredDivisions(currentCountry));
-//            comboBoxDivision.getSelectionModel().selectFirst();
         }
         catch (Exception e) {
         }

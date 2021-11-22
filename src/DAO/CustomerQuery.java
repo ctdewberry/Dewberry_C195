@@ -52,6 +52,26 @@ public class CustomerQuery {
         }
     }
 
+    public static void modifyCustomer(CustomerModel updateCustomer) {
+        //run db insert command to add customer
+        //INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, 'test2', 'testAddy', 'testCode', 'Phone', '104');
+        Integer custID = updateCustomer.getCustomerID();
+        String newName = updateCustomer.getCustomerName();
+        String newAddy = updateCustomer.getCustomerAddress();
+        String newCode = updateCustomer.getCustomerCode();
+        String newPhone = updateCustomer.getCustomerPhone();
+        Integer newDiv = updateCustomer.getCustomerDivisionID();
+        try {
+            String sql = "UPDATE customers SET Customer_Name = '" + newName +"', Address ='" + newAddy + "', Postal_Code ='" + newCode + "', Phone ='" + newPhone + "', Division_ID ='" + newDiv +"' WHERE Customer_ID = " + custID + ";";
+            Statement stmt = DBConnection.getConnection().createStatement();
+            stmt.executeUpdate(sql);
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public static void deleteCustomer(Integer selectedCustomer) {
         try {
             String sql1 = "DELETE FROM appointments WHERE Customer_ID = '" + selectedCustomer + "'";
