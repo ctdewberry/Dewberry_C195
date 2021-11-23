@@ -76,23 +76,58 @@ public class AppointmentsAdd implements Initializable {
 
     public static String timeConversion(TextField timeInput) {
         String timeOutput = null;
-        DateTimeFormatter formatInput = DateTimeFormatter.ofPattern("hh:mm a");
-        DateTimeFormatter convertInput = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalTime parsedInput = LocalTime.parse(timeInput.getText(), formatInput);
-        String convertedInput = convertInput.format(parsedInput);
+        DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("h:mm a");
+        DateTimeFormatter convertFormat = DateTimeFormatter.ofPattern("H:mm:ss");
+        LocalTime parsedInput = LocalTime.parse(timeInput.getText(), parseFormat);
+        String convertedInput = convertFormat.format(parsedInput);
         timeOutput = convertedInput;
-        System.out.println(timeOutput);
+//        System.out.println(timeOutput);
         return timeOutput;
     }
 
+//    public static String dateConversion(DatePicker dateInput) {
     public static String dateConversion(DatePicker dateInput) {
+
+//        DateTimeFormatter formatInput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        System.out.println("format input: " + formatInput);
+//        DateTimeFormatter convertInput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        System.out.println("convert input: " + convertInput);
+//        LocalDate parsedInput = LocalDate.parse(dateInput.getValue().toString(), formatInput);
+//        System.out.println("parsed input: " + parsedInput);
+//        String convertedInput = convertInput.format(parsedInput);
+//        System.out.println("converted input: " + convertedInput);
+//        dateOutput = convertedInput;
+//        if (dateInput.g instanceof DatePicker) {
+//            System.out.println("datepicker");
+////            LocalDate date = (LocalDate) dateInput.getValue();
+////            dateOutput = date.toString();
+//        } else if (dateInput instanceof String) {
+//            System.out.println("String");
+
+//        }
+
+//        LocalDate date = dateInput.getValue();
+//        dateOutput = date.toString();
         String dateOutput = null;
-        DateTimeFormatter formatInput = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        DateTimeFormatter convertInput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate parsedInput = LocalDate.parse(dateInput.getValue().toString(), formatInput);
-        String convertedInput = convertInput.format(parsedInput);
-        dateOutput = convertedInput;
-        System.out.println(dateOutput);
+        try {
+            LocalDate myInputDate = dateInput.getValue();
+            dateOutput = myInputDate.toString();
+            dateInput.setValue(null);
+            dateInput.getEditor().setText(dateOutput);
+//            System.out.println("still date");
+//            System.out.println(myInputDate.toString());
+        } catch (Exception e) {
+            System.out.println(e);
+            String myTextStart = dateInput.getEditor().getText();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/uu");
+            LocalDate date = LocalDate.parse(myTextStart, formatter);
+            dateOutput = date.toString();
+//            dateInput.getEditor().clear();
+//            System.out.println(myTextStart);
+        }
+
+
+//        dateInput.setValue(null);
         return dateOutput;
     }
 
@@ -118,16 +153,7 @@ public class AppointmentsAdd implements Initializable {
         //create method to obtain integer from value of combobo
         int contactID = getContactIDFromName(comboBoxApptContact.getSelectionModel().getSelectedItem().toString());
         String contactName = comboBoxApptContact.getSelectionModel().getSelectedItem().toString();
-//                Integer.valueOf((String) comboBoxApptContact.getSelectionModel().getSelectedItem());
-
         String type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
-//        LocalDate startDate = datePickerApptStartDate.getValue();
-
-//        String startTime = null;
-//        String startDate = null;
-//        String endTime = null;
-//        String endDate = null;
-
         String startTime = timeConversion(apptStartTime);
         String endTime = timeConversion(apptEndTime);
         String startDate = dateConversion(datePickerApptStartDate);
@@ -161,6 +187,66 @@ public class AppointmentsAdd implements Initializable {
         }
 
     }
+
+
+    @FXML
+    void onActionFill(ActionEvent event) {
+        apptTitle.setText("titleFromButton");
+        apptDesc.setText("descFromButton");
+        apptLoc.setText("locFromButton");
+        apptStartTime.setText("06:30 PM");
+        apptEndTime.setText("08:30 PM");
+        comboBoxApptContact.getSelectionModel().selectFirst();
+        comboBoxApptType.getSelectionModel().selectFirst();
+        comboBoxApptCustID.getSelectionModel().selectFirst();
+        comboBoxApptUserID.getSelectionModel().selectFirst();
+
+    }
+
+    @FXML
+    void onActionTest(ActionEvent event) {
+        System.out.println("start time: " + timeConversion(apptStartTime));
+        System.out.println("end time: " + timeConversion(apptEndTime));
+        System.out.println("start date: " + dateConversion(datePickerApptStartDate));
+        System.out.println("end date: " + dateConversion(datePickerApptEndDate));
+
+        //        System.out.println("Original start date: " + datePickerApptStartDate.getValue());
+
+
+//        LocalDate myDateStart = datePickerApptStartDate.getValue();
+//        LocalDate myDateEnd = datePickerApptEndDate.getValue();
+//        System.out.println(myDateStart.toString());
+//        System.out.println(myDateEnd.toString());
+
+//        onActionStartDate();
+//        onActionEndDate();
+
+    }
+
+    public void onActionStartDate(ActionEvent event) {
+//        try {
+//            LocalDate myDateStart = datePickerApptStartDate.getValue();
+//            System.out.println(myDateStart.toString());
+//        } catch (Exception e) {
+//            String myTextStart = datePickerApptStartDate.getEditor().getText();
+//            System.out.println(myTextStart);
+//        }
+    }
+
+
+    public void onActionEndDate(ActionEvent event) {
+//        try {
+//        LocalDate myDateEnd = datePickerApptEndDate.getValue();
+//        System.out.println(myDateEnd.toString());
+//        } catch (Exception e) {
+//            String myTextEnd = datePickerApptEndDate.getEditor().getText();
+//            System.out.println(myTextEnd);
+//        }
+    }
+
+
+
+
 
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
