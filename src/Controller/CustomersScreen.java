@@ -110,15 +110,6 @@ public class CustomersScreen implements Initializable {
         }
     }
 
-    @FXML
-    void onActionViewSchedule(ActionEvent event) throws IOException {
-
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/CustomerSchedule.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.setTitle("View Schedule");
-        stage.show();
-    }
 
     @FXML
     void initialize() {
