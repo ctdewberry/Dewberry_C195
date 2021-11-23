@@ -36,11 +36,11 @@
         <ComboBox fx:id="comboBoxApptType" editable="true" layoutX="50.0" layoutY="380.0" prefWidth="150.0" />
         <ComboBox fx:id="comboBoxApptCustID" editable="true" layoutX="50.0" layoutY="560.0" prefWidth="150.0" />
         <ComboBox fx:id="comboBoxApptUserID" editable="true" layoutX="250.0" layoutY="560.0" prefWidth="150.0" />
-        <DatePicker fx:id="datePickerApptStartDate" layoutX="50.0" layoutY="440.0" onAction="#onActionStartDate" />
-        <DatePicker fx:id="datePickerApptEndDate" layoutX="50.0" layoutY="500.0" onAction="#onActionEndDate" />
+        <DatePicker fx:id="datePickerApptStartDate" layoutX="50.0" layoutY="440.0" onAction="#onActionStartDate" promptText="Format: 12/08/1987" />
+        <DatePicker fx:id="datePickerApptEndDate" layoutX="50.0" layoutY="500.0" onAction="#onActionEndDate" promptText="Format: 1/1/01" />
       <Label layoutX="250.0" layoutY="420.0" text="Start Time" />
       <Label layoutX="250.0" layoutY="480.0" text="End Time" />
-      <TextField fx:id="apptEndTime" layoutX="250.0" layoutY="500.0" promptText="Format: 06:30 PM " />
+      <TextField fx:id="apptEndTime" layoutX="250.0" layoutY="500.0" promptText="Format: 6:30 PM " />
       <TextField fx:id="apptStartTime" layoutX="250.0" layoutY="440.0" promptText="Format: 04:30 PM " />
       <Button layoutX="278.0" layoutY="165.0" mnemonicParsing="false" onAction="#onActionFill" text="fill" />
       <Button layoutX="278.0" layoutY="260.0" mnemonicParsing="false" onAction="#onActionTest" text="test" />

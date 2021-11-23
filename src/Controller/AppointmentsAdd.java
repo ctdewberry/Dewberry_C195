@@ -88,46 +88,19 @@ public class AppointmentsAdd implements Initializable {
 //    public static String dateConversion(DatePicker dateInput) {
     public static String dateConversion(DatePicker dateInput) {
 
-//        DateTimeFormatter formatInput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        System.out.println("format input: " + formatInput);
-//        DateTimeFormatter convertInput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        System.out.println("convert input: " + convertInput);
-//        LocalDate parsedInput = LocalDate.parse(dateInput.getValue().toString(), formatInput);
-//        System.out.println("parsed input: " + parsedInput);
-//        String convertedInput = convertInput.format(parsedInput);
-//        System.out.println("converted input: " + convertedInput);
-//        dateOutput = convertedInput;
-//        if (dateInput.g instanceof DatePicker) {
-//            System.out.println("datepicker");
-////            LocalDate date = (LocalDate) dateInput.getValue();
-////            dateOutput = date.toString();
-//        } else if (dateInput instanceof String) {
-//            System.out.println("String");
-
-//        }
-
-//        LocalDate date = dateInput.getValue();
-//        dateOutput = date.toString();
         String dateOutput = null;
         try {
             LocalDate myInputDate = dateInput.getValue();
             dateOutput = myInputDate.toString();
             dateInput.setValue(null);
             dateInput.getEditor().setText(dateOutput);
-//            System.out.println("still date");
-//            System.out.println(myInputDate.toString());
         } catch (Exception e) {
             System.out.println(e);
             String myTextStart = dateInput.getEditor().getText();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/uu");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
             LocalDate date = LocalDate.parse(myTextStart, formatter);
             dateOutput = date.toString();
-//            dateInput.getEditor().clear();
-//            System.out.println(myTextStart);
         }
-
-
-//        dateInput.setValue(null);
         return dateOutput;
     }
 
