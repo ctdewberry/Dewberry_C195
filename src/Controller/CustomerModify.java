@@ -16,6 +16,7 @@ import java.awt.event.*;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -58,6 +59,31 @@ public class CustomerModify implements Initializable {
         comboBoxDivision.getSelectionModel().select(String.valueOf(CustomerModel.getCustomerDivision()));
     }
 
+
+    ArrayList<String> errorMessages = new ArrayList<String>();
+
+    private void errorMessagesAdd(String errorMessage, String type){
+
+        if (type == "empty") {
+            errorMessages.add(errorMessage + " field cannot be empty");
+        }
+        if (type == "not selected") {
+            errorMessages.add("Please selected a country and division");
+        }
+    }
+
+
+    private ArrayList getErrorMessagesTotal() {
+        return errorMessages;
+    }
+
+    private void clearErrorMessages() {
+        errorMessages.clear();
+    }
+
+
+
+
     @FXML
     void onActionUpdateCustomer(ActionEvent event) throws IOException{
         Alert alertConfirmCustomerModify = new Alert(Alert.AlertType.CONFIRMATION);
@@ -67,25 +93,59 @@ public class CustomerModify implements Initializable {
         Optional<ButtonType> result = alertConfirmCustomerModify.showAndWait();
         if (result.get() == ButtonType.OK) {
             int id = Integer.parseInt(currentCustomerID.getText());
-            String name = custName.getText();
-            String addy = custAddy.getText();
-            String postal = custPostal.getText();
-            String phone = custPhone.getText();
-            int div = CustomerQuery.getDivisionIDFromComboBox(comboBoxDivision.getSelectionModel().getSelectedItem().toString());
-            CustomerQuery.modifyCustomer(new CustomerModel(id,name,addy,postal,phone, div, null, 0,null));
 
+            if (custName.getText().isEmpty()) {
+                errorMessagesAdd("Customer Name", "empty");
+            }
+            String name = custName.getText();
+
+            if (custAddy.getText().isEmpty()) {
+                errorMessagesAdd("Customer Address", "empty");
+            }
+            String addy = custAddy.getText();
+
+            if (custPostal.getText().isEmpty()) {
+                errorMessagesAdd("Postal Code", "empty");
+            }
+            String postal = custPostal.getText();
+
+            if (custPhone.getText().isEmpty()) {
+                errorMessagesAdd("Customer Phone", "empty");
+            }
+            String phone = custPhone.getText();
+
+
+            int div = 0;
             try {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/view/CustomersScreen.fxml"));
-                loader.load();
-                CustomersScreen CustomerScreen = loader.getController();
-                Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-                Parent scene = loader.getRoot();
-                stage.setScene(new Scene(scene));
-                stage.setTitle("Customers");
-                stage.show();
-            } catch (NullPointerException e) {
-                return;
+                div = CustomerQuery.getDivisionIDFromComboBox(comboBoxDivision.getSelectionModel().getSelectedItem().toString());
+            } catch (Exception noSelection) {
+                errorMessagesAdd("Customer Location", "not selected");
+            }
+
+            if (!(getErrorMessagesTotal().size() == 0)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setHeaderText("Error");
+                alert.setContentText(String.join("\n", getErrorMessagesTotal()));
+                alert.showAndWait();
+                clearErrorMessages();
+            } else {
+
+                CustomerQuery.modifyCustomer(new CustomerModel(id, name, addy, postal, phone, div, null, 0, null));
+
+                try {
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/view/CustomersScreen.fxml"));
+                    loader.load();
+                    CustomersScreen CustomerScreen = loader.getController();
+                    Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                    Parent scene = loader.getRoot();
+                    stage.setScene(new Scene(scene));
+                    stage.setTitle("Customers");
+                    stage.show();
+                } catch (NullPointerException e) {
+                    return;
+                }
             }
 
 

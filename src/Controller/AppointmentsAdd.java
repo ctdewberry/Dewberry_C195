@@ -126,7 +126,7 @@ public class AppointmentsAdd implements Initializable {
         }
 
         if (type == "format") {
-            errorMessages.add(errorMessage + " need to be formatted correctly. Please see examples");
+            errorMessages.add(errorMessage + " needs to be formatted correctly. Please see examples");
         }
 
     }
@@ -233,7 +233,7 @@ public class AppointmentsAdd implements Initializable {
 
             int userID = 0;
             try {
-                Integer.parseInt(comboBoxApptUserID.getSelectionModel().getSelectedItem().toString());
+                userID = Integer.parseInt(comboBoxApptUserID.getSelectionModel().getSelectedItem().toString());
             } catch (Exception entryError) {
                 errorMessagesAdd("User ID", "empty");
             }
@@ -249,7 +249,9 @@ public class AppointmentsAdd implements Initializable {
             } else {
 
 
-//                AppointmentQuery.addAppointment(new AppointmentModel(id, title, desc, loc, contactName, type, startDate, startTime, endDate, endTime, customerID, userID, contactID));
+//                System.out.println(userID);
+                AppointmentQuery.addAppointment(new AppointmentModel(id, title, desc, loc, contactName, type, startDate, startTime, endDate, endTime, customerID, userID, contactID));
+
 
                 Alert alertConfirmAppointmentIsAdded = new Alert(Alert.AlertType.INFORMATION);
                 alertConfirmAppointmentIsAdded.setTitle("Add appointment");
