@@ -25,10 +25,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.SimpleTimeZone;
+import java.util.*;
 
 import static DAO.AppointmentQuery.getContactIDFromName;
 
@@ -78,14 +75,21 @@ public class AppointmentsAdd implements Initializable {
         String timeOutput = null;
         DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("h:mm a");
         DateTimeFormatter convertFormat = DateTimeFormatter.ofPattern("H:mm:ss");
-        LocalTime parsedInput = LocalTime.parse(timeInput.getText(), parseFormat);
-        String convertedInput = convertFormat.format(parsedInput);
-        timeOutput = convertedInput;
-//        System.out.println(timeOutput);
+        try {
+            LocalTime parsedInput = LocalTime.parse(timeInput.getText(), parseFormat);
+            String convertedInput = convertFormat.format(parsedInput);
+            timeOutput = convertedInput;
+        } catch (Exception e) {
+//            Alert alertTimeConversion = new Alert(Alert.AlertType.INFORMATION);
+//            alertTimeConversion.setTitle("Input error");
+//            alertTimeConversion.setHeaderText("Input error");
+//            alertTimeConversion.setContentText("Please follow formatting examples when entering the time");
+//            Optional<ButtonType> result2 = alertTimeConversion.showAndWait();
+//            System.out.println("time conversion error");
+        }
         return timeOutput;
     }
 
-//    public static String dateConversion(DatePicker dateInput) {
     public static String dateConversion(DatePicker dateInput) {
 
         String dateOutput = null;
@@ -95,68 +99,170 @@ public class AppointmentsAdd implements Initializable {
             dateInput.setValue(null);
             dateInput.getEditor().setText(dateOutput);
         } catch (Exception e) {
-            System.out.println(e);
-            String myTextStart = dateInput.getEditor().getText();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
-            LocalDate date = LocalDate.parse(myTextStart, formatter);
-            dateOutput = date.toString();
+            try {
+                String myTextStart = dateInput.getEditor().getText();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
+                LocalDate date = LocalDate.parse(myTextStart, formatter);
+                dateOutput = date.toString();
+            } catch (Exception d) {
+//                Alert alertDateConversion = new Alert(Alert.AlertType.INFORMATION);
+//                alertDateConversion.setTitle("Input error");
+//                alertDateConversion.setHeaderText("Input error");
+//                alertDateConversion.setContentText("Please follow formatting examples or use the DatePicker to select the date");
+//                Optional<ButtonType> result2 = alertDateConversion.showAndWait();
+//                System.out.println("date conversion error");
+            }
         }
         return dateOutput;
     }
 
 
+    ArrayList<String> errorMessages = new ArrayList<String>();
+
+    private void errorMessagesAdd(String errorMessage, String type){
+
+        if (type == "empty") {
+            errorMessages.add(errorMessage + " field cannot be empty");
+        }
+
+        if (type == "format") {
+            errorMessages.add(errorMessage + " need to be formatted correctly. Please see examples");
+        }
+
+    }
+
+
+    private ArrayList getErrorMessagesTotal() {
+        return errorMessages;
+    }
+
+    private void clearErrorMessages() {
+        errorMessages.clear();
+    }
+
+
     @FXML
     void onActionAddAppointment(ActionEvent event) throws IOException {
-//        SimpleDateFormat apptDateFormat = new SimpleDateFormat();
-//        SimpleTimeZone apptTimeFormat = new SimpleTimeZone("HH:mm a");
-//        LocalTime localTimeStart = LocalTime.parse(apptStartTime.getText(), DateTimeFormatter.ofPattern("hh:mm:ss a"));
-//        LocalTime localTimeEnd = LocalTime.parse(apptEndTime.getText(), DateTimeFormatter.ofPattern("hh:mm:ss a"));
-
-        //working
-//        LocalTime localTimeStart = LocalTime.parse(apptStartTime.getText(), DateTimeFormatter.ofPattern("hh:mm"));
-//        LocalTime localTimeEnd = LocalTime.parse(apptEndTime.getText(), DateTimeFormatter.ofPattern("hh:mm"));
-//        LocalDate localDateStart = LocalDate.parse(datePickerApptStartDate.getValue().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        LocalDate localDateEnd = LocalDate.parse(datePickerApptEndDate.getValue().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 
-        int id = Integer.parseInt(newApptID.getText());
-        String title = apptTitle.getText();
-        String desc = apptDesc.getText();
-        String loc = apptLoc.getText();
-        //create method to obtain integer from value of combobo
-        int contactID = getContactIDFromName(comboBoxApptContact.getSelectionModel().getSelectedItem().toString());
-        String contactName = comboBoxApptContact.getSelectionModel().getSelectedItem().toString();
-        String type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
-        String startTime = timeConversion(apptStartTime);
-        String endTime = timeConversion(apptEndTime);
-        String startDate = dateConversion(datePickerApptStartDate);
-        String endDate = dateConversion(datePickerApptEndDate);
+        String chosenType = "NO SELECTION";
+        try {
+        chosenType = comboBoxApptType.getSelectionModel().getSelectedItem().toString();}
+        catch (Exception noSelection){
 
-        System.out.println(startDate+" "+startTime);
+        }
 
-
-        int customerID = Integer.parseInt(comboBoxApptCustID.getSelectionModel().getSelectedItem().toString());
-        int userID = Integer.parseInt(comboBoxApptUserID.getSelectionModel().getSelectedItem().toString());
 
         Alert alertConfirmAppointmentCreation = new Alert(Alert.AlertType.CONFIRMATION);
         alertConfirmAppointmentCreation.setTitle("Add new appointment");
         alertConfirmAppointmentCreation.setHeaderText("Add new appointment");
-        alertConfirmAppointmentCreation.setContentText("Do you want to create an appointment of type: " + type + "?");
+        alertConfirmAppointmentCreation.setContentText("Do you want to create an appointment of type: " + chosenType + "?");
         Optional<ButtonType> result = alertConfirmAppointmentCreation.showAndWait();
         if (result.get() == ButtonType.OK) {
-            AppointmentQuery.addAppointment(new AppointmentModel(id, title, desc, loc, contactName, type, startDate, startTime, endDate, endTime, customerID, userID, contactID));
 
-            Alert alertConfirmAppointmentIsAdded = new Alert(Alert.AlertType.INFORMATION);
-            alertConfirmAppointmentIsAdded.setTitle("Add appointment");
-            alertConfirmAppointmentIsAdded.setHeaderText("Add appointment");
-            alertConfirmAppointmentIsAdded.setContentText("Appointment for " + type + " has been scheduled.");
-            Optional<ButtonType> result2 = alertConfirmAppointmentIsAdded.showAndWait();
+            int id = Integer.parseInt(newApptID.getText());
 
-            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/View/AppointmentsScreen.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.setTitle("Customers");
-            stage.show();
+            boolean existingErrors = false;
+
+            if (apptTitle.getText().isEmpty()) {
+                errorMessagesAdd("Title", "empty");
+            }
+            String title = apptTitle.getText();
+
+            if (apptDesc.getText().isEmpty()) {
+                errorMessagesAdd("Description", "empty");
+            }
+            String desc = apptDesc.getText();
+
+
+            if (apptLoc.getText().isEmpty()) {
+                errorMessagesAdd("Location", "empty");
+            }
+            String loc = apptLoc.getText();
+
+
+            int contactID = 0;
+            String contactName = null;
+
+            try {
+                contactID = getContactIDFromName(comboBoxApptContact.getSelectionModel().getSelectedItem().toString());
+                contactName = comboBoxApptContact.getSelectionModel().getSelectedItem().toString();
+            } catch (Exception entryError) {
+                errorMessagesAdd("Contact Name", "empty");
+            }
+
+            String type = null;
+            try {
+                type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
+            } catch (Exception entryError) {
+                errorMessagesAdd("Type", "empty");
+            }
+
+
+            String startTime = null;
+            String endTime = null;
+            String startDate = null;
+            String endDate = null;
+
+            try { startTime = timeConversion(apptStartTime);
+                if (startTime == null) { errorMessagesAdd("Start Time", "format");}
+            } catch (Exception entryError) {}
+
+
+            try { endTime = timeConversion(apptEndTime);
+                if (endTime == null) { errorMessagesAdd("End Time", "format");}
+                } catch (Exception entryError) { }
+
+
+            try { startDate = dateConversion(datePickerApptStartDate);
+                if (startDate == null) { errorMessagesAdd("Start Date", "format");}
+            } catch (Exception entryError) { }
+
+            try { endDate = dateConversion(datePickerApptEndDate);
+                if (endDate == null) { errorMessagesAdd("End Date", "format");}
+            } catch (Exception entryError) { }
+
+
+
+            int customerID = 0;
+            try {
+                customerID = Integer.parseInt(comboBoxApptCustID.getSelectionModel().getSelectedItem().toString());
+            } catch (Exception entryError) {
+                errorMessagesAdd("Customer ID", "empty");
+            }
+
+            int userID = 0;
+            try {
+                Integer.parseInt(comboBoxApptUserID.getSelectionModel().getSelectedItem().toString());
+            } catch (Exception entryError) {
+                errorMessagesAdd("User ID", "empty");
+            }
+
+
+            if (!(getErrorMessagesTotal().size() == 0)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setHeaderText("Error");
+                alert.setContentText(String.join("\n", getErrorMessagesTotal()));
+                alert.showAndWait();
+                clearErrorMessages();
+            } else {
+
+
+//                AppointmentQuery.addAppointment(new AppointmentModel(id, title, desc, loc, contactName, type, startDate, startTime, endDate, endTime, customerID, userID, contactID));
+
+                Alert alertConfirmAppointmentIsAdded = new Alert(Alert.AlertType.INFORMATION);
+                alertConfirmAppointmentIsAdded.setTitle("Add appointment");
+                alertConfirmAppointmentIsAdded.setHeaderText("Add appointment");
+                alertConfirmAppointmentIsAdded.setContentText("Appointment for " + type + " has been scheduled.");
+                Optional<ButtonType> result2 = alertConfirmAppointmentIsAdded.showAndWait();
+
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/View/AppointmentsScreen.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.setTitle("Customers");
+                stage.show();
+            }
         }
 
     }
@@ -183,41 +289,7 @@ public class AppointmentsAdd implements Initializable {
         System.out.println("start date: " + dateConversion(datePickerApptStartDate));
         System.out.println("end date: " + dateConversion(datePickerApptEndDate));
 
-        //        System.out.println("Original start date: " + datePickerApptStartDate.getValue());
-
-
-//        LocalDate myDateStart = datePickerApptStartDate.getValue();
-//        LocalDate myDateEnd = datePickerApptEndDate.getValue();
-//        System.out.println(myDateStart.toString());
-//        System.out.println(myDateEnd.toString());
-
-//        onActionStartDate();
-//        onActionEndDate();
-
     }
-
-    public void onActionStartDate(ActionEvent event) {
-//        try {
-//            LocalDate myDateStart = datePickerApptStartDate.getValue();
-//            System.out.println(myDateStart.toString());
-//        } catch (Exception e) {
-//            String myTextStart = datePickerApptStartDate.getEditor().getText();
-//            System.out.println(myTextStart);
-//        }
-    }
-
-
-    public void onActionEndDate(ActionEvent event) {
-//        try {
-//        LocalDate myDateEnd = datePickerApptEndDate.getValue();
-//        System.out.println(myDateEnd.toString());
-//        } catch (Exception e) {
-//            String myTextEnd = datePickerApptEndDate.getEditor().getText();
-//            System.out.println(myTextEnd);
-//        }
-    }
-
-
 
 
 
@@ -254,6 +326,5 @@ public class AppointmentsAdd implements Initializable {
         comboBoxApptCustID.getItems().setAll(AppointmentQuery.getAllCustomerIDs());
         comboBoxApptUserID.getItems().setAll(AppointmentQuery.getAllUserIDs());
         newApptID.setText(String.valueOf(AppointmentQuery.getHighestAppointmentID()));
-
     }
 }
