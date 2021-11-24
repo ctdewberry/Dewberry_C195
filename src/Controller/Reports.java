@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.ReportsQuery;
 import Model.AppointmentModel;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -253,8 +254,20 @@ public class Reports implements Initializable {
             apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
             apptLocCol.setCellValueFactory(new PropertyValueFactory<>("location"));
             apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-            apptStartDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
-            apptEndDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+            apptStartDateTimeCol.setCellValueFactory(
+                    startDateString -> {
+                        SimpleStringProperty property = new SimpleStringProperty();
+                        property.set(startDateString.getValue().getStartDateTimeString());
+                        return property;
+                    }
+            );
+            apptEndDateTimeCol.setCellValueFactory(
+                    endDateString -> {
+                        SimpleStringProperty property = new SimpleStringProperty();
+                        property.set(endDateString.getValue().getEndDateTimeString());
+                        return property;
+                    }
+            );
             apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
             apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
             reportContactTableView.getSortOrder().add(apptIDCol);
@@ -283,8 +296,20 @@ public class Reports implements Initializable {
             apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
             apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
             apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-            apptStartDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
-            apptEndDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+            apptStartDateTimeCol.setCellValueFactory(
+                    startDateString -> {
+                        SimpleStringProperty property = new SimpleStringProperty();
+                        property.set(startDateString.getValue().getStartDateTimeString());
+                        return property;
+                    }
+            );
+            apptEndDateTimeCol.setCellValueFactory(
+                    endDateString -> {
+                        SimpleStringProperty property = new SimpleStringProperty();
+                        property.set(endDateString.getValue().getEndDateTimeString());
+                        return property;
+                    }
+            );
             apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
             apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
             apptContactIDCol.setCellValueFactory(new PropertyValueFactory<>("contactID"));

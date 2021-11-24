@@ -110,6 +110,11 @@ public class AppointmentModel {
         return endDateTime;
     }
 
+    public String getEndDateTimeString(){
+        return this.getEndDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+
+    }
+
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
     }

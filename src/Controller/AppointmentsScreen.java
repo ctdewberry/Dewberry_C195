@@ -168,7 +168,14 @@ public class AppointmentsScreen implements Initializable {
                     return property;
                 }
         );
-        apptEndDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+        apptEndDateTimeCol.setCellValueFactory(
+                endDateString -> {
+                    SimpleStringProperty property = new SimpleStringProperty();
+                    property.set(endDateString.getValue().getEndDateTimeString());
+                    return property;
+                }
+        );
+
         apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
         appointmentsTableView.getSortOrder().add(apptIDCol);
