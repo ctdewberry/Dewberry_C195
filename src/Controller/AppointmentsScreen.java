@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.AppointmentModel;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,16 +69,10 @@ public class AppointmentsScreen implements Initializable {
     private TableColumn<AppointmentModel, String> apptTypeCol;
 
     @FXML
-    private TableColumn<AppointmentModel, String> apptStartDateCol;
+    private TableColumn<AppointmentModel, String> apptStartDateTimeCol;
 
     @FXML
-    private TableColumn<AppointmentModel, String> apptStartTimeCol;
-
-    @FXML
-    private TableColumn<AppointmentModel, String> apptEndDateCol;
-
-    @FXML
-    private TableColumn<AppointmentModel, String> apptEndTimeCol;
+    private TableColumn<AppointmentModel, String> apptEndDateTimeCol;
 
     @FXML
     private TableColumn<AppointmentModel, Integer> apptCustIDCol;
@@ -166,10 +161,14 @@ public class AppointmentsScreen implements Initializable {
         apptContactIDCol.setCellValueFactory(new PropertyValueFactory<>("contactID"));
         apptContactNameCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
         apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-        apptStartDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        apptStartTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        apptEndDateCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        apptEndTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        apptStartDateTimeCol.setCellValueFactory(
+                startDateString -> {
+                    SimpleStringProperty property = new SimpleStringProperty();
+                    property.set(startDateString.getValue().getStartDateTimeString());
+                    return property;
+                }
+        );
+        apptEndDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
         apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
         appointmentsTableView.getSortOrder().add(apptIDCol);

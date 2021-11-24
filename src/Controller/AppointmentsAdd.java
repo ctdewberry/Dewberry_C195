@@ -20,10 +20,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -71,55 +68,89 @@ public class AppointmentsAdd implements Initializable {
     private ComboBox comboBoxApptUserID = new ComboBox();
 
 
-    public static String timeConversion(TextField timeInput) {
-        String timeOutput = null;
-        DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("h:mm a");
-        DateTimeFormatter convertFormat = DateTimeFormatter.ofPattern("H:mm:ss");
-        try {
-            LocalTime parsedInput = LocalTime.parse(timeInput.getText(), parseFormat);
-            String convertedInput = convertFormat.format(parsedInput);
-            timeOutput = convertedInput;
-        } catch (Exception e) {
-//            Alert alertTimeConversion = new Alert(Alert.AlertType.INFORMATION);
-//            alertTimeConversion.setTitle("Input error");
-//            alertTimeConversion.setHeaderText("Input error");
-//            alertTimeConversion.setContentText("Please follow formatting examples when entering the time");
-//            Optional<ButtonType> result2 = alertTimeConversion.showAndWait();
-//            System.out.println("time conversion error");
-        }
-        return timeOutput;
-    }
-
-    public static String dateConversion(DatePicker dateInput) {
-
-        String dateOutput = null;
-        try {
-            LocalDate myInputDate = dateInput.getValue();
-            dateOutput = myInputDate.toString();
-            dateInput.setValue(null);
-            dateInput.getEditor().setText(dateOutput);
-        } catch (Exception e) {
-            try {
-                String myTextStart = dateInput.getEditor().getText();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
-                LocalDate date = LocalDate.parse(myTextStart, formatter);
-                dateOutput = date.toString();
-            } catch (Exception d) {
-//                Alert alertDateConversion = new Alert(Alert.AlertType.INFORMATION);
-//                alertDateConversion.setTitle("Input error");
-//                alertDateConversion.setHeaderText("Input error");
-//                alertDateConversion.setContentText("Please follow formatting examples or use the DatePicker to select the date");
-//                Optional<ButtonType> result2 = alertDateConversion.showAndWait();
-//                System.out.println("date conversion error");
-            }
-        }
-        return dateOutput;
-    }
 
 
-    ArrayList<String> errorMessages = new ArrayList<String>();
+//    public static String dateConversion(DatePicker dateInput) {
+//
+//        String dateOutput = null;
+//        try {
+//            LocalDate myInputDate = dateInput.getValue();
+//            dateOutput = myInputDate.toString();
+//            dateInput.setValue(null);
+//            dateInput.getEditor().setText(dateOutput);
+//        } catch (Exception e) {
+//            try {
+//                String myTextStart = dateInput.getEditor().getText();
+//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
+//                LocalDate date = LocalDate.parse(myTextStart, formatter);
+//                dateOutput = date.toString();
+//            } catch (Exception d) {
+//            }
+//        }
+//        return dateOutput;
+//    }
+//
+//    public static String timeConversion(TextField timeInput) {
+//        String timeOutput = null;
+//
+//        try {
+//
+//            DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("h:mm[ ][]a");
+//            DateTimeFormatter convertFormat = DateTimeFormatter.ofPattern("H:mm:ss");
+//
+//            String correctCaps = timeInput.getText().replace("am","AM").replace("pm","PM");
+//            LocalTime parsedInput = LocalTime.parse(correctCaps, parseFormat);
+//            String convertedInput = convertFormat.format(parsedInput);
+//            timeOutput = convertedInput;
+//        } catch (Exception e) {
+//        }
+//        return timeOutput;
+//    }
 
-    private void errorMessagesAdd(String errorMessage, String type){
+//    public static String dateTimeConversion(DatePicker dateInput, TextField timeInput){
+//        String errorType = null;
+//        String convertedDateTime = null;
+//        LocalDate myInputDate = null;
+//        LocalTime myInputTime = null;
+//
+//        try {
+//            myInputDate = dateInput.getValue();
+//            dateInput.setValue(null);
+//            dateInput.getEditor().setText(myInputDate.toString());
+//        } catch (Exception e) {
+//            try {
+//                String myTextDate = dateInput.getEditor().getText();
+//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
+//                myInputDate = LocalDate.parse(myTextDate, formatter);
+//            } catch (Exception d) {
+//                errorType = "Error in date input";
+//            }
+//        }
+//        try {
+//        DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("h:mm[ ][]a");
+//        DateTimeFormatter convertFormat = DateTimeFormatter.ofPattern("H:mm:ss");
+//
+//        String correctCaps = timeInput.getText().replace("am","AM").replace("pm","PM");
+//        myInputTime = LocalTime.parse(correctCaps, parseFormat);
+//    } catch (Exception e) {
+//            errorType = "Error in time input";
+//    }
+//
+//        LocalDateTime dateTime = LocalDateTime.of(myInputDate, myInputTime);
+//        ZonedDateTime zonedDateTime = dateTime.atZone(ZoneId.of("UTC"));
+//        convertedDateTime = zonedDateTime.toString();
+//
+//        if (errorType == null) {
+//            return convertedDateTime;
+//        } else {
+//            return errorType;
+//        }
+//    }
+
+
+    static ArrayList<String> errorMessages = new ArrayList<String>();
+
+    public static void errorMessagesAdd(String errorMessage, String type){
 
         if (type == "empty") {
             errorMessages.add(errorMessage + " field cannot be empty");
@@ -127,6 +158,10 @@ public class AppointmentsAdd implements Initializable {
 
         if (type == "format") {
             errorMessages.add(errorMessage + " needs to be formatted correctly. Please see examples");
+        }
+
+        if (type == "dateTime") {
+            errorMessages.add(errorMessage);
         }
 
     }
@@ -138,6 +173,51 @@ public class AppointmentsAdd implements Initializable {
 
     private void clearErrorMessages() {
         errorMessages.clear();
+    }
+
+    public static LocalDateTime dateTimeConversion(DatePicker dateInput, TextField timeInput){
+        String errorType = null;
+        LocalDateTime convertedDateTime = null;
+        LocalDate myInputDate = null;
+        LocalTime myInputTime = null;
+
+        try {
+            myInputDate = dateInput.getValue();
+            dateInput.setValue(null);
+            dateInput.getEditor().setText(myInputDate.toString());
+        } catch (Exception e) {
+            try {
+                String myTextDate = dateInput.getEditor().getText();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
+                myInputDate = LocalDate.parse(myTextDate, formatter);
+            } catch (Exception d) {
+//                errorType = "Error in date input";
+                errorMessagesAdd("Error in date input","dateTime");
+            }
+        }
+
+
+        try {
+            DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("h:mm[ ][]a");
+            DateTimeFormatter convertFormat = DateTimeFormatter.ofPattern("H:mm:ss");
+
+            String correctCaps = timeInput.getText().replace("am","AM").replace("pm","PM");
+            myInputTime = LocalTime.parse(correctCaps, parseFormat);
+        } catch (Exception e) {
+//            errorType = "Error in time input";
+            errorMessagesAdd("Error in time input","timeTime");
+        }
+
+        convertedDateTime = LocalDateTime.of(myInputDate, myInputTime);
+//        System.out.println(dateTime);
+//        ZonedDateTime zonedDateTime = dateTime.atZone(ZoneId.systemDefault());
+//        System.out.println(zonedDateTime);
+//        Instant inst = dateTime.toInstant();
+//        convertedDateTime = inst.toString();
+//        System.out.println(convertedDateTime);
+
+
+        return convertedDateTime;
     }
 
 
@@ -199,28 +279,35 @@ public class AppointmentsAdd implements Initializable {
             }
 
 
-            String startTime = null;
-            String endTime = null;
-            String startDate = null;
-            String endDate = null;
+//            String startTime = null;
+//            String endTime = null;
+//            String startDate = null;
+//            String endDate = null;
+//            try { startTime = timeConversion(apptStartTime);
+//                if (startTime == null) { errorMessagesAdd("Start Time", "format");}
+//            } catch (Exception entryError) {}
+//            try { endTime = timeConversion(apptEndTime);
+//                if (endTime == null) { errorMessagesAdd("End Time", "format");}
+//                } catch (Exception entryError) { }
+//            try { startDate = dateConversion(datePickerApptStartDate);
+//                if (startDate == null) { errorMessagesAdd("Start Date", "format");}
+//            } catch (Exception entryError) { }
+//            try { endDate = dateConversion(datePickerApptEndDate);
+//                if (endDate == null) { errorMessagesAdd("End Date", "format");}
+//            } catch (Exception entryError) { }
 
-            try { startTime = timeConversion(apptStartTime);
-                if (startTime == null) { errorMessagesAdd("Start Time", "format");}
+
+            LocalDateTime startDateTime = null;
+            try {
+                startDateTime = dateTimeConversion(datePickerApptStartDate, apptStartTime);
             } catch (Exception entryError) {}
+            System.out.println(startDateTime);
 
-
-            try { endTime = timeConversion(apptEndTime);
-                if (endTime == null) { errorMessagesAdd("End Time", "format");}
-                } catch (Exception entryError) { }
-
-
-            try { startDate = dateConversion(datePickerApptStartDate);
-                if (startDate == null) { errorMessagesAdd("Start Date", "format");}
-            } catch (Exception entryError) { }
-
-            try { endDate = dateConversion(datePickerApptEndDate);
-                if (endDate == null) { errorMessagesAdd("End Date", "format");}
-            } catch (Exception entryError) { }
+            LocalDateTime endDateTime = null;
+            try {
+                endDateTime = dateTimeConversion(datePickerApptEndDate, apptEndTime);
+            } catch (Exception entryError) {}
+            System.out.println(endDateTime);
 
 
 
@@ -250,7 +337,7 @@ public class AppointmentsAdd implements Initializable {
 
 
 //                System.out.println(userID);
-                AppointmentQuery.addAppointment(new AppointmentModel(id, title, desc, loc, contactName, type, startDate, startTime, endDate, endTime, customerID, userID, contactID));
+                AppointmentQuery.addAppointment(new AppointmentModel(id, title, desc, loc, contactName, type, startDateTime, endDateTime, customerID, userID, contactID));
 
 
                 Alert alertConfirmAppointmentIsAdded = new Alert(Alert.AlertType.INFORMATION);
@@ -286,10 +373,10 @@ public class AppointmentsAdd implements Initializable {
 
     @FXML
     void onActionTest(ActionEvent event) {
-        System.out.println("start time: " + timeConversion(apptStartTime));
-        System.out.println("end time: " + timeConversion(apptEndTime));
-        System.out.println("start date: " + dateConversion(datePickerApptStartDate));
-        System.out.println("end date: " + dateConversion(datePickerApptEndDate));
+//        System.out.println("start time: " + timeConversion(apptStartTime));
+//        System.out.println("end time: " + timeConversion(apptEndTime));
+//        System.out.println("start date: " + dateConversion(datePickerApptStartDate));
+//        System.out.println("end date: " + dateConversion(datePickerApptEndDate));
 
     }
 

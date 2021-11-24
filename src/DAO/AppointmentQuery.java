@@ -4,6 +4,7 @@ import java.sql.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
+import Controller.AppointmentsAdd;
 import Model.AppointmentModel;
 import Model.CustomerModel;
 import javafx.collections.FXCollections;
@@ -23,17 +24,34 @@ public class AppointmentQuery {
         int newContactID = newAppointment.getContactID();
         String newContactName = newAppointment.getContactName();
         String newType = newAppointment.getType();
-//        String newStart = newAppointment.getStartDate() + " " + newAppointment.getStartTime();
-        String newStartDate = newAppointment.getStartDate();
-        String newStartTime = newAppointment.getStartTime();
-        String newEndDate = newAppointment.getEndDate();
-        String newEndTime = newAppointment.getEndTime();
+
+
+        LocalDateTime newStartDateTime = newAppointment.getStartDateTime();
+        LocalDateTime newEndDateTime = newAppointment.getEndDateTime();
+
+
         int newCustomerID = newAppointment.getCustomerID();
         int newUserID = newAppointment.getUserID();
         try {
-            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', '" + newContactID + "', '" + newType + "', '" + newStartDate + " " + newStartTime + "', '" + newEndDate + " " + newEndTime + "', '" + newCustomerID + "', '" + newUserID + "');";
-            Statement stmt = DBConnection.getConnection().createStatement();
-            stmt.executeUpdate(sql);
+//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', " + newContactID + ", '" + newType + "', ?, ?, " + newCustomerID + ", " + newUserID + ");";
+            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setString(1,newTitle);
+            ps.setString(2, newDesc);
+            ps.setString(3, newLoc);
+            ps.setInt(4, newContactID);
+            ps.setString(5, newType);
+            ps.setTimestamp(6,Timestamp.valueOf(newStartDateTime));
+            ps.setTimestamp(7, Timestamp.valueOf(newEndDateTime));
+            ps.setInt(8, newCustomerID);
+            ps.setInt(9, newUserID);
+            int stmt = ps.executeUpdate();
+
+
+//            '" + Timestamp.valueOf(newStartDateTime) + "', '" + Timestamp.valueOf(newEndDateTime) + "'
+//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', '" + newContactID + "', '" + newType + "', '" + newStartDate + " " + newStartTime + "', '" + newEndDate + " " + newEndTime + "', '" + newCustomerID + "', '" + newUserID + "');";
+
 
 
         } catch (SQLException throwables) {
@@ -151,13 +169,13 @@ public class AppointmentQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = rs.getString("Contact_Name");
                 String type = rs.getString("Type");
-                String startDate = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
-                String startTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
-                String endDate = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
-                String endTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
+                LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
+//                LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+
                 int customerID = rs.getInt("Customer_ID");
                 int userID = rs.getInt("User_ID");
-                AppointmentModel A = new AppointmentModel(appointmentID, title, description, location, contactName, type, startDate, startTime, endDate, endTime, customerID, userID, contactID);
+                AppointmentModel A = new AppointmentModel(appointmentID, title, description, location, contactName, type, startDateTime, endDateTime, customerID, userID, contactID);
                 allAppointmentsList.add(A);
             }
         } catch (SQLException throwables) {
@@ -180,13 +198,13 @@ public class AppointmentQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = rs.getString("Contact_Name");
                 String type = rs.getString("Type");
-                String startDate = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
-                String startTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
-                String endDate = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
-                String endTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
+//                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+//                String endDateTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+                LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
                 int customerID = rs.getInt("Customer_ID");
                 int userID = rs.getInt("User_ID");
-                AppointmentModel A = new AppointmentModel(appointmentID, title, description, location, contactName, type, startDate, startTime, endDate, endTime, customerID, userID, contactID);
+                AppointmentModel A = new AppointmentModel(appointmentID, title, description, location, contactName, type, startDateTime, endDateTime, customerID, userID, contactID);
                 weeklyAppointmentsList.add(A);
             }
         } catch (SQLException throwables) {
@@ -210,13 +228,13 @@ public class AppointmentQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = rs.getString("Contact_Name");
                 String type = rs.getString("Type");
-                String startDate = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
-                String startTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
-                String endDate = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
-                String endTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
+//                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+//                String endDateTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+                LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
                 int customerID = rs.getInt("Customer_ID");
                 int userID = rs.getInt("User_ID");
-                AppointmentModel A = new AppointmentModel(appointmentID, title, description, location, contactName, type, startDate, startTime, endDate, endTime, customerID, userID, contactID);
+                AppointmentModel A = new AppointmentModel(appointmentID, title, description, location, contactName, type, startDateTime, endDateTime, customerID, userID, contactID);
                 monthlyAppointmentsList.add(A);
             }
         } catch (SQLException throwables) {
@@ -240,13 +258,13 @@ public class AppointmentQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = null;
                 String type = rs.getString("Type");
-                String startDate = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
-                String startTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
-                String endDate = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
-                String endTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
+//                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+//                String endDateTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+                LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
                 int customerID = rs.getInt("Customer_ID");
                 int userID = rs.getInt("User_ID");
-                AppointmentModel contactAppointments = new AppointmentModel(appointmentID, title, description, location, null, type, startDate, startTime, endDate, endTime, customerID, userID, contactID);
+                AppointmentModel contactAppointments = new AppointmentModel(appointmentID, title, description, location, null, type, startDateTime, endDateTime, customerID, userID, contactID);
                 contactAppointmentList.add(contactAppointments);
             }
         } catch (SQLException throwables) {
@@ -270,13 +288,13 @@ public class AppointmentQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = null;
                 String type = rs.getString("Type");
-                String startDate = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
-                String startTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
-                String endDate = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
-                String endTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
+//                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+//                String endDateTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+                LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
                 int customerID = rs.getInt("Customer_ID");
                 int userID = rs.getInt("User_ID");
-                AppointmentModel contactAppointments = new AppointmentModel(appointmentID, title, description, location, null, type, startDate, startTime, endDate, endTime, customerID, userID, contactID);
+                AppointmentModel contactAppointments = new AppointmentModel(appointmentID, title, description, location, null, type, startDateTime, endDateTime, customerID, userID, contactID);
                 reportAppointmentList.add(contactAppointments);
             }
         } catch (SQLException throwables) {
@@ -300,13 +318,12 @@ public class AppointmentQuery {
                 int contactID = 0;
                 String contactName = null;
                 String type = rs.getString("Type");
-                String startDate = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy"));
-                String startTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("hh:mm a"));
-                String endDate = null;
-                String endTime = null;
+//                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+                LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDateTime = null;
                 int customerID = 0;
                 int userID = 0;
-                AppointmentModel A = new AppointmentModel(appointmentID, title, description, location, contactName, type, startDate, startTime, endDate, endTime, customerID, userID, contactID);
+                AppointmentModel A = new AppointmentModel(appointmentID, title, description, location, contactName, type, startDateTime, endDateTime, customerID, userID, contactID);
                 nextAppointmentList.add(A);
             }
         } catch (SQLException throwables) {
@@ -344,6 +361,7 @@ public class AppointmentQuery {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 ZonedDateTime timeAppt = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault());
+                ////???
                 timeDiff = Math.toIntExact(Duration.between(ZonedDateTime.now(), timeAppt).getSeconds() / 60);
                 if (timeDiff <= 15) {
                     isApptSoon = "Your next appointment is within 15 minutes";

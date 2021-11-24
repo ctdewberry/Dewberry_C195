@@ -54,16 +54,10 @@ public class ReportBResults implements Initializable {
     private TableColumn<AppointmentModel, String> apptTypeCol;
 
     @FXML
-    private TableColumn<AppointmentModel, String> apptStartDateCol;
+    private TableColumn<AppointmentModel, String> apptStartDateTimeCol;
 
     @FXML
-    private TableColumn<AppointmentModel, String> apptStartTimeCol;
-
-    @FXML
-    private TableColumn<AppointmentModel, String> apptEndDateCol;
-
-    @FXML
-    private TableColumn<AppointmentModel, String> apptEndTimeCol;
+    private TableColumn<AppointmentModel, String> apptEndDateTimeCol;
 
     @FXML
     private TableColumn<AppointmentModel, Integer> apptCustIDCol;

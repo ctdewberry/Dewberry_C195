@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -30,10 +31,9 @@ public class MainPage implements Initializable {
     private Text nextApptID;
 
     @FXML
-    private Text nextApptDate;
+    private Text nextApptDateTime;
 
-    @FXML
-    private Text nextApptTime;
+
 
     @FXML
     private Text nextApptType;
@@ -156,8 +156,7 @@ public class MainPage implements Initializable {
         if(DAO.AppointmentQuery.checkIfFutureAppointments()) {
             ObservableList<AppointmentModel> upcomingAppointment = DAO.AppointmentQuery.getNextAppointment();
             nextApptID.setText(String.valueOf(upcomingAppointment.get(0).getAppointmentID()));
-            nextApptDate.setText(String.valueOf(upcomingAppointment.get(0).getStartDate()));
-            nextApptTime.setText(String.valueOf(upcomingAppointment.get(0).getStartTime()));
+            nextApptDateTime.setText(String.valueOf(upcomingAppointment.get(0).getStartDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"))));
             nextApptType.setText(String.valueOf(upcomingAppointment.get(0).getType()));
             upcomingAppointments.setText(AppointmentQuery.checkNextAppointmentTime());
         }

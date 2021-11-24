@@ -1,6 +1,10 @@
 package Model;
 
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 public class AppointmentModel {
     private int appointmentID;
     private String title;
@@ -9,16 +13,14 @@ public class AppointmentModel {
     private int contactID;
     private String contactName;
     private String type;
-    private String startDate;
-    private String startTime;
-    private String endDate;
-    private String endTime;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
     private int customerID;
     private int userID;
 
 
 
-    public AppointmentModel(int appointmentID, String title, String description, String location, String contactName, String type, String startDate, String startTime, String endDate, String endTime, int customerID, int userID, int contactID) {
+    public AppointmentModel(int appointmentID, String title, String description, String location, String contactName, String type, LocalDateTime startDateTime, LocalDateTime endDateTime, int customerID, int userID, int contactID) {
         this.appointmentID = appointmentID; //int
         this.title = title; //string
         this.description = description; //string
@@ -26,10 +28,8 @@ public class AppointmentModel {
         this.contactID = contactID; //int
         this.contactName = contactName; //string
         this.type = type; //string
-        this.startDate = startDate; //string
-        this.startTime = startTime; //string
-        this.endDate = endDate; //string
-        this.endTime = endTime; //string
+        this.startDateTime = startDateTime; //string
+        this.endDateTime = endDateTime; //string
         this.customerID = customerID; //int
         this.userID = userID; //int
 
@@ -91,37 +91,29 @@ public class AppointmentModel {
         this.type = type;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+//        customerNextAppointment = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a z"));
+
+    }
+    public String getStartDateTimeString(){
+        return this.getStartDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
     }
 
-    public String getStartTime() {
-        return startTime;
+
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
     }
 
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
 
     public int getCustomerID() {
         return customerID;

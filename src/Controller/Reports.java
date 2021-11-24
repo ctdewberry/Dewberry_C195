@@ -103,16 +103,10 @@ public class Reports implements Initializable {
     private TableColumn<AppointmentModel, String> apptTypeCol;
 
     @FXML
-    private TableColumn<AppointmentModel, String> apptStartDateCol;
+    private TableColumn<AppointmentModel, String> apptStartDateTimeCol;
 
     @FXML
-    private TableColumn<AppointmentModel, String> apptStartTimeCol;
-
-    @FXML
-    private TableColumn<AppointmentModel, String> apptEndDateCol;
-
-    @FXML
-    private TableColumn<AppointmentModel, String> apptEndTimeCol;
+    private TableColumn<AppointmentModel, String> apptEndDateTimeCol;
 
     @FXML
     private TableColumn<AppointmentModel, Integer> apptCustIDCol;
@@ -259,10 +253,8 @@ public class Reports implements Initializable {
             apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
             apptLocCol.setCellValueFactory(new PropertyValueFactory<>("location"));
             apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-            apptStartDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-            apptStartTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-            apptEndDateCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-            apptEndTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+            apptStartDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+            apptEndDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
             apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
             apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
             reportContactTableView.getSortOrder().add(apptIDCol);
@@ -291,10 +283,8 @@ public class Reports implements Initializable {
             apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
             apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
             apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-            apptStartDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-            apptStartTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-            apptEndDateCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-            apptEndTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+            apptStartDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+            apptEndDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
             apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
             apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
             apptContactIDCol.setCellValueFactory(new PropertyValueFactory<>("contactID"));
