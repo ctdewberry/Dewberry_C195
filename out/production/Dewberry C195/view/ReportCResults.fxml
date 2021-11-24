@@ -11,20 +11,15 @@
         <TableView fx:id="reportLocationTableView" layoutX="36.0" layoutY="80.0" prefHeight="315.0" prefWidth="848.0">
             <columns>
                 <TableColumn fx:id="apptIDCol" prefWidth="40.0" text="ID" />
-                <TableColumn fx:id="apptTitleCol" prefWidth="69.0" text="Title" />
-            <TableColumn fx:id="apptDescCol" prefWidth="90.0" text="Description" />
-            <TableColumn fx:id="apptContactIDCol" prefWidth="73.0" text="Contact ID" />
-            <TableColumn fx:id="apptTypeCol" prefWidth="99.0" text="Type" />
-            <TableColumn fx:id="apptStartDateCol" prefWidth="91.0" text="Start Date" />
-            <TableColumn fx:id="apptStartTimeCol" prefWidth="85.0" text="Start Time" />
-            <TableColumn fx:id="apptEndDateCol" prefWidth="77.0" text="End Date" />
-            <TableColumn fx:id="apptEndTimeCol" text="End Time" />
-            <TableColumn fx:id="apptCustIDCol" prefWidth="90.0" text="Customer ID" />
-            <TableColumn fx:id="apptUserIDCol" prefWidth="53.0" text="User ID" />
+                <TableColumn fx:id="apptTitleCol" prefWidth="77.0" text="Title" />
+            <TableColumn fx:id="apptDescCol" prefWidth="129.0" text="Description" />
+            <TableColumn fx:id="apptContactIDCol" prefWidth="89.0" text="Contact ID" />
+            <TableColumn fx:id="apptTypeCol" prefWidth="105.0" text="Type" />
+            <TableColumn fx:id="apptStartDateTimeCol" prefWidth="128.0" text="Start Date Time" />
+            <TableColumn fx:id="apptEndDateTimeCol" prefWidth="117.0" text="End Date Time" />
+            <TableColumn fx:id="apptCustIDCol" prefWidth="98.0" text="Customer ID" />
+            <TableColumn fx:id="apptUserIDCol" prefWidth="64.0" text="User ID" />
             </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
         </TableView>
       <Text layoutX="38.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here are all the appointments for location:">
          <font>

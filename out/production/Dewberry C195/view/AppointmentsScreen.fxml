@@ -36,17 +36,15 @@
             <columns>
                 <TableColumn fx:id="apptIDCol" maxWidth="750.0" minWidth="18.0" prefWidth="37.0" text="ID" />
                 <TableColumn fx:id="apptTitleCol" maxWidth="750.0" minWidth="30.0" prefWidth="62.0" text="Title" />
-            <TableColumn fx:id="apptDescCol" prefWidth="77.0" text="Description" />
-            <TableColumn fx:id="apptLocCol" prefWidth="63.0" text="Location" />
-            <TableColumn fx:id="apptContactIDCol" prefWidth="66.0" text="Contact ID" />
-            <TableColumn fx:id="apptContactNameCol" prefWidth="97.0" text="Contact" />
-            <TableColumn fx:id="apptTypeCol" prefWidth="116.0" text="Type" />
-            <TableColumn fx:id="apptStartDateCol" prefWidth="72.0" text="Start Date" />
-            <TableColumn fx:id="apptStartTimeCol" prefWidth="72.0" text="Start Time" />
-            <TableColumn fx:id="apptEndDateCol" prefWidth="72.0" text="End Date" />
-            <TableColumn fx:id="apptEndTimeCol" prefWidth="84.0" text="End Time" />
-            <TableColumn fx:id="apptCustIDCol" minWidth="0.0" prefWidth="76.0" text="Customer ID" />
-            <TableColumn fx:id="apptUserIDCol" prefWidth="75.0" text="User ID" />
+            <TableColumn fx:id="apptDescCol" prefWidth="83.0" text="Description" />
+            <TableColumn fx:id="apptLocCol" prefWidth="83.0" text="Location" />
+            <TableColumn fx:id="apptContactIDCol" prefWidth="91.0" text="Contact ID" />
+            <TableColumn fx:id="apptContactNameCol" prefWidth="108.0" text="Contact" />
+            <TableColumn fx:id="apptTypeCol" prefWidth="106.0" text="Type" />
+            <TableColumn fx:id="apptStartDateTimeCol" prefWidth="123.0" text="Start Date" />
+            <TableColumn fx:id="apptEndDateTimeCol" prefWidth="132.0" text="End Date" />
+            <TableColumn fx:id="apptCustIDCol" minWidth="0.0" prefWidth="88.0" text="Customer ID" />
+            <TableColumn fx:id="apptUserIDCol" prefWidth="56.0" text="User ID" />
             </columns>
         </TableView>
         <RadioButton fx:id="currentWeekBtn" layoutX="264.0" layoutY="71.0" mnemonicParsing="false" onAction="#onClickCurrentWeek" text="Current Week">
