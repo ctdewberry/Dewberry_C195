@@ -308,11 +308,14 @@ public class AppointmentsAdd implements Initializable {
             alert.showAndWait();
             clearErrorMessages();
         } else {
+            String customerName = CustomerQuery.getCurrentCustomer(customerID).getCustomerName();
 
-        Alert alertConfirmAppointmentCreation = new Alert(Alert.AlertType.CONFIRMATION);
+
+            Alert alertConfirmAppointmentCreation = new Alert(Alert.AlertType.CONFIRMATION);
         alertConfirmAppointmentCreation.setTitle("Add new appointment");
         alertConfirmAppointmentCreation.setHeaderText("Add new appointment");
         alertConfirmAppointmentCreation.setContentText("Do you want to create the following appointment? " + "\n" +
+                        "\n Customer Name: " + customerName +
                         "\n Title: " + title +
                         "\n Description: "+ desc +
                         "\n Location: "+ loc +
@@ -347,7 +350,7 @@ public class AppointmentsAdd implements Initializable {
                 Alert alertConfirmAppointmentIsAdded = new Alert(Alert.AlertType.INFORMATION);
                 alertConfirmAppointmentIsAdded.setTitle("Add appointment");
                 alertConfirmAppointmentIsAdded.setHeaderText("Add appointment");
-                alertConfirmAppointmentIsAdded.setContentText("Appointment for " + type + " has been scheduled.");
+                alertConfirmAppointmentIsAdded.setContentText("Appointment for " + customerName + " has been scheduled.");
                 Optional<ButtonType> result2 = alertConfirmAppointmentIsAdded.showAndWait();
 
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
