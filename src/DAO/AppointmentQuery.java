@@ -124,9 +124,13 @@ public class AppointmentQuery {
 
     //query for sending appointment data to the update screen
     //public static AppointmentModel getCurrentAppointment(Integer currentAppointmentID){}
+    //--code--
 
 
 
+
+    //queries for ensuring no conflict
+    //retrieve from database all appointments with matching customer ID
 
 
     //queries for populating appointment add/update screens

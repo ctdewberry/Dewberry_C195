@@ -3,7 +3,6 @@ package Controller;
 import DAO.AppointmentQuery;
 import DAO.CustomerQuery;
 import Model.AppointmentModel;
-import Model.CustomerModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +15,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -68,39 +63,66 @@ public class AppointmentsAdd implements Initializable {
     private ComboBox comboBoxApptUserID = new ComboBox();
 
 
-    static ArrayList<String> errorMessages = new ArrayList<String>();
 
-    public static void errorMessagesAdd(String errorMessage, String type) {
+    static ArrayList<String> formattingErrors = new ArrayList<String>();
+    static String scheduleErrors = null;
+
+
+    public static void formatErrorsAddMessage(String errorMessage, String type) {
 
         if (type == "empty") {
-            errorMessages.add(errorMessage + " field cannot be empty");
+            formattingErrors.add(errorMessage + " field cannot be empty");
         }
 
         if (type == "format") {
-            errorMessages.add(errorMessage + " needs to be formatted correctly. Please see examples");
+            formattingErrors.add(errorMessage + " needs to be formatted correctly. Please see examples");
         }
 
         if (type == "dateTime") {
-            errorMessages.add(errorMessage);
+            formattingErrors.add(errorMessage);
+        }
+
+
+
+    }
+
+    public static void scheduleErrorsSetMessage(String type) {
+
+        if (type == "endBeforeStart") {
+            scheduleErrors = "End of appointment must come after the start of the appointment";
+        }
+
+        if (type == "overlap") {
+            scheduleErrors = "There is another appointment at that requested time";
         }
 
         if (type == "officeClosed") {
-            errorMessages.add("The office will closed at your requested time and date of your appointment");
-        }
-        if (type == "overlap") {
-            errorMessages.add("There is another appointment at that requested time");
+            scheduleErrors = "The office will closed at the requested time and date of your appointment";
         }
 
     }
 
 
-    private ArrayList getErrorMessagesTotal() {
-        return errorMessages;
+
+
+
+
+
+    private void clearFormatErrorMessages() {
+        formattingErrors.clear();
     }
 
-    private void clearErrorMessages() {
-        errorMessages.clear();
+    private void clearScheduleErrorMessages() {
+        scheduleErrors = null;
     }
+
+
+
+
+
+
+
+
 
     public static LocalDateTime dateTimeConversion(DatePicker dateInput, TextField timeInput) {
         String errorType = null;
@@ -114,30 +136,6 @@ public class AppointmentsAdd implements Initializable {
             String tempInputDateText = dateInput.getEditor().getText();
         }
 
-
-        //convert date from datepicker or text input
-        //working, restore if needed
-//        if (dateInput.getValue() != null) {
-//            try {
-//                myInputDate = dateInput.getValue();
-//            } catch (Exception datePickerError) {
-//                errorMessagesAdd("Error in date input (via Date Picker input)","dateTime");
-//                System.out.println("DatePickerError");
-//            }
-//        } else if (!dateInput.getEditor().getText().isEmpty()){
-//            try {
-//                String myTextDate = dateInput.getEditor().getText();
-//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
-//                myInputDate = LocalDate.parse(myTextDate, formatter);
-//            } catch (Exception d) {
-////                errorType = "Error in date input";
-//                System.out.println("dateTextInputError");
-//                errorMessagesAdd("Error in date input (via text input)","dateTime");
-//            }
-//        } else {
-////            System.out.println("Null input for date");
-//            errorMessagesAdd("Date entry is empty","dateTime");
-//        }
 
         //see if there is text, if so: parse it
         if (!dateInput.getEditor().getText().isEmpty()) {
@@ -153,7 +151,7 @@ public class AppointmentsAdd implements Initializable {
 //                errorType = "Error in date input";
                 //there was inparsable text
                 System.out.println("dateTextInputError");
-                errorMessagesAdd("Error in date input (via text input)", "dateTime");
+                formatErrorsAddMessage("Error in date input (via text input)", "dateTime");
             }
 
             //obtain value of date from date picker
@@ -163,12 +161,12 @@ public class AppointmentsAdd implements Initializable {
                 dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
                 System.out.println("got the value " + myInputDate);
             } catch (Exception datePickerError) {
-                errorMessagesAdd("Error in date input (via Date Picker input)", "dateTime");
+                formatErrorsAddMessage("Error in date input (via Date Picker input)", "dateTime");
                 System.out.println("DatePickerError");
             }
         } else {
 //            System.out.println("Null input for date");
-            errorMessagesAdd("Date entry is empty", "dateTime");
+            formatErrorsAddMessage("Date entry is empty", "dateTime");
         }
 
 
@@ -183,7 +181,7 @@ public class AppointmentsAdd implements Initializable {
         } catch (Exception e) {
 //            errorType = "Error in time input";
             System.out.println("text here");
-            errorMessagesAdd("Error in time input", "dateTime");
+            formatErrorsAddMessage("Error in time input", "dateTime");
         }
 
 
@@ -196,13 +194,33 @@ public class AppointmentsAdd implements Initializable {
     }
 
     public void validateAppointments(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        //ensure appointment ends after it starts
         if (!(startDateTime.compareTo(endDateTime) < 0)) {
-            errorMessagesAdd("End date and time of appointment must come later than the start date and time", "dateTime");
+            scheduleErrorsSetMessage("endBeforeStart");
             System.out.println("!<0");
         }
 
 
+        //ensure appointment is during business hours
+            //--code--
+        //else if
+                //convert business hours to local datetime
+                //compare appointment date with business hours
+                //update error messages with any business hour conflict
+        //            scheduleErrorsAddMessage("officeClosed");
+            //--code--
+
+        //ensure appointment does not conflict with any other appointment
+            //--code--
+        //else if
+                //create observable array list by calling query in appointmentQuery
+                //compare new appointment with any existing appointments
+                //return error message if overlap
+            //--code--
+
     }
+
+
 
     @FXML
     void onActionAddAppointment(ActionEvent event) throws IOException {
@@ -213,18 +231,18 @@ public class AppointmentsAdd implements Initializable {
         boolean existingErrors = false;
 
         if (apptTitle.getText().isEmpty()) {
-            errorMessagesAdd("Title", "empty");
+            formatErrorsAddMessage("Title", "empty");
         }
         String title = apptTitle.getText();
 
         if (apptDesc.getText().isEmpty()) {
-            errorMessagesAdd("Description", "empty");
+            formatErrorsAddMessage("Description", "empty");
         }
         String desc = apptDesc.getText();
 
 
         if (apptLoc.getText().isEmpty()) {
-            errorMessagesAdd("Location", "empty");
+            formatErrorsAddMessage("Location", "empty");
         }
         String loc = apptLoc.getText();
 
@@ -236,14 +254,14 @@ public class AppointmentsAdd implements Initializable {
             contactID = getContactIDFromName(comboBoxApptContact.getSelectionModel().getSelectedItem().toString());
             contactName = comboBoxApptContact.getSelectionModel().getSelectedItem().toString();
         } catch (Exception entryError) {
-            errorMessagesAdd("Contact Name", "empty");
+            formatErrorsAddMessage("Contact Name", "empty");
         }
 
         String type = null;
         try {
             type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
         } catch (Exception entryError) {
-            errorMessagesAdd("Type", "empty");
+            formatErrorsAddMessage("Type", "empty");
         }
 
 
@@ -270,24 +288,31 @@ public class AppointmentsAdd implements Initializable {
         try {
             customerID = Integer.parseInt(comboBoxApptCustID.getSelectionModel().getSelectedItem().toString());
         } catch (Exception entryError) {
-            errorMessagesAdd("Customer ID", "empty");
+            formatErrorsAddMessage("Customer ID", "empty");
         }
 
         int userID = 0;
         try {
             userID = Integer.parseInt(comboBoxApptUserID.getSelectionModel().getSelectedItem().toString());
         } catch (Exception entryError) {
-            errorMessagesAdd("User ID", "empty");
+            formatErrorsAddMessage("User ID", "empty");
         }
 
 
-        if (!(getErrorMessagesTotal().size() == 0)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Input Error");
-            alert.setHeaderText("Error");
-            alert.setContentText(String.join("\n", getErrorMessagesTotal()));
-            alert.showAndWait();
-            clearErrorMessages();
+        if (!formattingErrors.isEmpty()) {
+            Alert formatAlert = new Alert(Alert.AlertType.ERROR);
+            formatAlert.setTitle("Input Error");
+            formatAlert.setHeaderText("Error");
+            formatAlert.setContentText(String.join("\n", formattingErrors));
+            formatAlert.showAndWait();
+            clearFormatErrorMessages();
+        } else if (scheduleErrors != null) {
+            Alert scheduleAlert = new Alert(Alert.AlertType.ERROR);
+            scheduleAlert.setTitle("Scheduling Error");
+            scheduleAlert.setHeaderText("Error");
+            scheduleAlert.setContentText(scheduleErrors);
+            scheduleAlert.showAndWait();
+            clearScheduleErrorMessages();
         } else {
             String customerName = CustomerQuery.getCurrentCustomer(customerID).getCustomerName();
 
@@ -329,7 +354,6 @@ public class AppointmentsAdd implements Initializable {
         }
 
     }
-
 
     @FXML
     void onActionFillAllButDate(ActionEvent event) {
@@ -400,7 +424,6 @@ public class AppointmentsAdd implements Initializable {
 
     }
 
-
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
 
@@ -419,6 +442,10 @@ public class AppointmentsAdd implements Initializable {
             stage.show();
         }
     }
+
+
+
+
 
 
     @FXML
