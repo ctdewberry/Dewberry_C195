@@ -15,12 +15,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Time;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
+import static DAO.AppointmentQuery.getAllAppointmentsForCustomer;
 import static DAO.AppointmentQuery.getContactIDFromName;
 
 public class AppointmentsAdd implements Initializable {
@@ -94,12 +94,12 @@ public class AppointmentsAdd implements Initializable {
             scheduleErrors = "End of appointment must come after the start of the appointment";
         }
 
-        if (type == "overlap") {
-            scheduleErrors = "There is another appointment at that requested time";
-        }
-
         if (type == "officeClosed") {
             scheduleErrors = "The office will closed at the requested time and date of your appointment";
+        }
+
+        if (type == "overlap") {
+            scheduleErrors = "There is another appointment at that requested time";
         }
 
     }
@@ -190,7 +190,7 @@ public class AppointmentsAdd implements Initializable {
         return convertedDateTime;
     }
 
-    public void validateAppointments(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public void validateAppointments(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer customerID) {
 
 
         //ensure appointment ends after it starts
@@ -202,13 +202,12 @@ public class AppointmentsAdd implements Initializable {
 
         //ensure appointment is during business hours
 
+        //<editor-fold desc="Description">
         //setup checks for start of appointment
         ZonedDateTime localZoneStartOfAppointment = startDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime localZoneEndOfAppointment = endDateTime.atZone(ZoneId.systemDefault());
-
         ZonedDateTime targetZoneStartOfAppointment = localZoneStartOfAppointment.withZoneSameInstant(ZoneId.of("US/Eastern"));
         ZonedDateTime targetZoneEndOfAppointment = localZoneEndOfAppointment.withZoneSameInstant(ZoneId.of("US/Eastern"));
-
         LocalDateTime localizedAppointmentStartTime = targetZoneStartOfAppointment.toLocalDateTime();
         LocalDateTime localizedAppointmentEndTime = targetZoneEndOfAppointment.toLocalDateTime();
 
@@ -219,47 +218,34 @@ public class AppointmentsAdd implements Initializable {
         LocalDateTime localOpeningTime = LocalDateTime.of(localDate,localOpeningHours);
         LocalDateTime localClosingTime = LocalDateTime.of(localDate,localClosingHours);
 
-
         long timeDiffStart = ChronoUnit.MINUTES.between(localOpeningTime,localizedAppointmentStartTime);
         long timeDiffClose = ChronoUnit.MINUTES.between(localizedAppointmentEndTime, localClosingTime);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy h:mm a");
-
-        String origApptStart = localZoneStartOfAppointment.format(formatter);
-        String origApptEnd = localZoneEndOfAppointment.format(formatter);
-        String localApptStart = localizedAppointmentStartTime.format(formatter);
-        String localApptEnd = localizedAppointmentEndTime.format(formatter);
-        String officeOpen = localOpeningTime.format(formatter);
-        String officeCLose = localClosingTime.format(formatter);
-
-
-        System.out.println("Appointment times (original): " + origApptStart + " - " + origApptEnd);
-        System.out.println("Appointment times (localized): " + localApptStart + " - " + localApptEnd);
-        System.out.println("Office is open: " + officeOpen + " - " + officeCLose);
-        System.out.println("Time between the office opening and the appointment: " + timeDiffStart);
-        System.out.println("Time between the end of the appointment and the office closing: " + timeDiffClose);
 
         if (timeDiffStart < 0 | timeDiffClose < 0) {
         scheduleErrorsSetMessage("officeClosed");
         return;
     }
+        //</editor-fold>
 
 
-            //--code--
-//        else if
-                //convert business hours to local datetime
-                //compare appointment date with business hours
-                //update error messages with any business hour conflict
-        //            scheduleErrorsAddMessage("officeClosed");
-            //--code--
+
+
 
         //ensure appointment does not conflict with any other appointment
-            //--code--
+
+        ArrayList comparisonArray = getAllAppointmentsForCustomer(customerID);
+
+
+
+
         //else if
                 //create observable array list by calling query in appointmentQuery
                 //compare new appointment with any existing appointments
                 //return error message if overlap
-            //--code--
+//
+//
+//            scheduleErrorsSetMessage("overlap");
+//            return;
 
     }
 
@@ -321,10 +307,6 @@ public class AppointmentsAdd implements Initializable {
         }
 
 
-        if (startDateTime != null && endDateTime != null) {
-            validateAppointments(startDateTime, endDateTime);
-        }
-
         int customerID = 0;
         try {
             customerID = Integer.parseInt(comboBoxApptCustID.getSelectionModel().getSelectedItem().toString());
@@ -339,6 +321,9 @@ public class AppointmentsAdd implements Initializable {
             formatErrorsAddMessage("User ID", "empty");
         }
 
+        if (startDateTime != null && endDateTime != null && customerID != 0) {
+            validateAppointments(startDateTime, endDateTime, customerID);
+        }
 
         if (!formattingErrors.isEmpty()) {
             Alert formatAlert = new Alert(Alert.AlertType.ERROR);

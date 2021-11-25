@@ -35,6 +35,13 @@ public class AppointmentModel {
 
     }
 
+    public AppointmentModel(int appointmentID, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        this.appointmentID = appointmentID; //int
+        this.startDateTime = startDateTime; //string
+        this.endDateTime = endDateTime; //string
+
+    }
+
     public int getAppointmentID() {
         return appointmentID;
     }

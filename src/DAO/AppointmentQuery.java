@@ -3,6 +3,7 @@ package DAO;
 import java.sql.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import Controller.AppointmentsAdd;
 import Model.AppointmentModel;
@@ -130,7 +131,25 @@ public class AppointmentQuery {
 
 
     //queries for ensuring no conflict
-    //retrieve from database all appointments with matching customer ID
+    public static ArrayList<AppointmentModel> getAllAppointmentsForCustomer(Integer customerID) {
+        ArrayList<AppointmentModel> contactAppointmentList = new ArrayList<AppointmentModel>();
+        try {
+            String sql = "select Appointment_ID, Start, End from appointments where Customer_ID = " + customerID;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentID = rs.getInt("Appointment_ID");
+                LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
+                AppointmentModel A = new AppointmentModel(appointmentID, startDateTime, endDateTime);
+                contactAppointmentList.add(A);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return contactAppointmentList;
+    }
+
 
 
     //queries for populating appointment add/update screens
