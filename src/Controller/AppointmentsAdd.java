@@ -68,10 +68,9 @@ public class AppointmentsAdd implements Initializable {
     private ComboBox comboBoxApptUserID = new ComboBox();
 
 
-
     static ArrayList<String> errorMessages = new ArrayList<String>();
 
-    public static void errorMessagesAdd(String errorMessage, String type){
+    public static void errorMessagesAdd(String errorMessage, String type) {
 
         if (type == "empty") {
             errorMessages.add(errorMessage + " field cannot be empty");
@@ -103,7 +102,7 @@ public class AppointmentsAdd implements Initializable {
         errorMessages.clear();
     }
 
-    public static LocalDateTime dateTimeConversion(DatePicker dateInput, TextField timeInput){
+    public static LocalDateTime dateTimeConversion(DatePicker dateInput, TextField timeInput) {
         String errorType = null;
         LocalDateTime convertedDateTime = null;
         LocalDate myInputDate = null;
@@ -114,8 +113,6 @@ public class AppointmentsAdd implements Initializable {
         if (!dateInput.getEditor().getText().isEmpty()) {
             String tempInputDateText = dateInput.getEditor().getText();
         }
-
-
 
 
         //convert date from datepicker or text input
@@ -143,7 +140,7 @@ public class AppointmentsAdd implements Initializable {
 //        }
 
         //see if there is text, if so: parse it
-        if (!dateInput.getEditor().getText().isEmpty()){
+        if (!dateInput.getEditor().getText().isEmpty()) {
             try {
                 String myTextDate = dateInput.getEditor().getText();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
@@ -156,7 +153,7 @@ public class AppointmentsAdd implements Initializable {
 //                errorType = "Error in date input";
                 //there was inparsable text
                 System.out.println("dateTextInputError");
-                errorMessagesAdd("Error in date input (via text input)","dateTime");
+                errorMessagesAdd("Error in date input (via text input)", "dateTime");
             }
 
             //obtain value of date from date picker
@@ -166,32 +163,31 @@ public class AppointmentsAdd implements Initializable {
                 dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
                 System.out.println("got the value " + myInputDate);
             } catch (Exception datePickerError) {
-                errorMessagesAdd("Error in date input (via Date Picker input)","dateTime");
+                errorMessagesAdd("Error in date input (via Date Picker input)", "dateTime");
                 System.out.println("DatePickerError");
             }
-        }  else {
+        } else {
 //            System.out.println("Null input for date");
-            errorMessagesAdd("Date entry is empty","dateTime");
+            errorMessagesAdd("Date entry is empty", "dateTime");
         }
 
 
         //convert time from time input
 
-            try {
-                DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("h:mm[ ][]a");
-                DateTimeFormatter convertFormat = DateTimeFormatter.ofPattern("H:mm:ss");
+        try {
+            DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("h:mm[ ][]a");
+            DateTimeFormatter convertFormat = DateTimeFormatter.ofPattern("H:mm:ss");
 
-                String correctCaps = timeInput.getText().replace("am", "AM").replace("pm", "PM");
-                myInputTime = LocalTime.parse(correctCaps, parseFormat);
-            } catch (Exception e) {
+            String correctCaps = timeInput.getText().replace("am", "AM").replace("pm", "PM");
+            myInputTime = LocalTime.parse(correctCaps, parseFormat);
+        } catch (Exception e) {
 //            errorType = "Error in time input";
-                System.out.println("text here");
-                errorMessagesAdd("Error in time input", "dateTime");
-            }
+            System.out.println("text here");
+            errorMessagesAdd("Error in time input", "dateTime");
+        }
 
 
-
-        if(myInputDate !=null && myInputTime!=null) {
+        if (myInputDate != null && myInputTime != null) {
             convertedDateTime = LocalDateTime.of(myInputDate, myInputTime);
         }
 
@@ -199,7 +195,7 @@ public class AppointmentsAdd implements Initializable {
         return convertedDateTime;
     }
 
-    public void validateAppointments(LocalDateTime startDateTime, LocalDateTime endDateTime ){
+    public void validateAppointments(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         if (!(startDateTime.compareTo(endDateTime) < 0)) {
             errorMessagesAdd("End date and time of appointment must come later than the start date and time", "dateTime");
             System.out.println("!<0");
@@ -212,92 +208,77 @@ public class AppointmentsAdd implements Initializable {
     void onActionAddAppointment(ActionEvent event) throws IOException {
 
 
-//        String chosenType = "NO SELECTION";
-//        try {
-//        chosenType = comboBoxApptType.getSelectionModel().getSelectedItem().toString();}
-//        catch (Exception noSelection){
-//
-//        }
+        int id = Integer.parseInt(newApptID.getText());
+
+        boolean existingErrors = false;
+
+        if (apptTitle.getText().isEmpty()) {
+            errorMessagesAdd("Title", "empty");
+        }
+        String title = apptTitle.getText();
+
+        if (apptDesc.getText().isEmpty()) {
+            errorMessagesAdd("Description", "empty");
+        }
+        String desc = apptDesc.getText();
 
 
-//        Alert alertConfirmAppointmentCreation = new Alert(Alert.AlertType.CONFIRMATION);
-//        alertConfirmAppointmentCreation.setTitle("Add new appointment");
-//        alertConfirmAppointmentCreation.setHeaderText("Add new appointment");
-//        alertConfirmAppointmentCreation.setContentText("Do you want to create the following appointment? " + chosenType + "?");
-//        Optional<ButtonType> result = alertConfirmAppointmentCreation.showAndWait();
-//        if (result.get() == ButtonType.OK) {
-
-            int id = Integer.parseInt(newApptID.getText());
-
-            boolean existingErrors = false;
-
-            if (apptTitle.getText().isEmpty()) {
-                errorMessagesAdd("Title", "empty");
-            }
-            String title = apptTitle.getText();
-
-            if (apptDesc.getText().isEmpty()) {
-                errorMessagesAdd("Description", "empty");
-            }
-            String desc = apptDesc.getText();
+        if (apptLoc.getText().isEmpty()) {
+            errorMessagesAdd("Location", "empty");
+        }
+        String loc = apptLoc.getText();
 
 
-            if (apptLoc.getText().isEmpty()) {
-                errorMessagesAdd("Location", "empty");
-            }
-            String loc = apptLoc.getText();
+        int contactID = 0;
+        String contactName = null;
+
+        try {
+            contactID = getContactIDFromName(comboBoxApptContact.getSelectionModel().getSelectedItem().toString());
+            contactName = comboBoxApptContact.getSelectionModel().getSelectedItem().toString();
+        } catch (Exception entryError) {
+            errorMessagesAdd("Contact Name", "empty");
+        }
+
+        String type = null;
+        try {
+            type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
+        } catch (Exception entryError) {
+            errorMessagesAdd("Type", "empty");
+        }
 
 
-            int contactID = 0;
-            String contactName = null;
+        LocalDateTime startDateTime = null;
+        try {
+            startDateTime = dateTimeConversion(datePickerApptStartDate, apptStartTime);
+        } catch (Exception entryError) {
+        }
+        System.out.println(startDateTime);
 
-            try {
-                contactID = getContactIDFromName(comboBoxApptContact.getSelectionModel().getSelectedItem().toString());
-                contactName = comboBoxApptContact.getSelectionModel().getSelectedItem().toString();
-            } catch (Exception entryError) {
-                errorMessagesAdd("Contact Name", "empty");
-            }
-
-            String type = null;
-            try {
-                type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
-            } catch (Exception entryError) {
-                errorMessagesAdd("Type", "empty");
-            }
+        LocalDateTime endDateTime = null;
+        try {
+            endDateTime = dateTimeConversion(datePickerApptEndDate, apptEndTime);
+        } catch (Exception entryError) {
+        }
+        System.out.println(endDateTime);
 
 
+        if (startDateTime != null && endDateTime != null) {
+            validateAppointments(startDateTime, endDateTime);
+        }
 
+        int customerID = 0;
+        try {
+            customerID = Integer.parseInt(comboBoxApptCustID.getSelectionModel().getSelectedItem().toString());
+        } catch (Exception entryError) {
+            errorMessagesAdd("Customer ID", "empty");
+        }
 
-            LocalDateTime startDateTime = null;
-            try {
-                startDateTime = dateTimeConversion(datePickerApptStartDate, apptStartTime);
-            } catch (Exception entryError) {}
-            System.out.println(startDateTime);
-
-            LocalDateTime endDateTime = null;
-            try {
-                endDateTime = dateTimeConversion(datePickerApptEndDate, apptEndTime);
-            } catch (Exception entryError) {}
-            System.out.println(endDateTime);
-
-
-            if(startDateTime !=null && endDateTime!=null) {
-                validateAppointments(startDateTime, endDateTime);
-            }
-
-            int customerID = 0;
-            try {
-                customerID = Integer.parseInt(comboBoxApptCustID.getSelectionModel().getSelectedItem().toString());
-            } catch (Exception entryError) {
-                errorMessagesAdd("Customer ID", "empty");
-            }
-
-            int userID = 0;
-            try {
-                userID = Integer.parseInt(comboBoxApptUserID.getSelectionModel().getSelectedItem().toString());
-            } catch (Exception entryError) {
-                errorMessagesAdd("User ID", "empty");
-            }
+        int userID = 0;
+        try {
+            userID = Integer.parseInt(comboBoxApptUserID.getSelectionModel().getSelectedItem().toString());
+        } catch (Exception entryError) {
+            errorMessagesAdd("User ID", "empty");
+        }
 
 
         if (!(getErrorMessagesTotal().size() == 0)) {
@@ -312,38 +293,24 @@ public class AppointmentsAdd implements Initializable {
 
 
             Alert alertConfirmAppointmentCreation = new Alert(Alert.AlertType.CONFIRMATION);
-        alertConfirmAppointmentCreation.setTitle("Add new appointment");
-        alertConfirmAppointmentCreation.setHeaderText("Add new appointment");
-        alertConfirmAppointmentCreation.setContentText("Do you want to create the following appointment? " + "\n" +
-                        "\n Customer Name: " + customerName +
-                        "\n Title: " + title +
-                        "\n Description: "+ desc +
-                        "\n Location: "+ loc +
-                        "\n Contact Name: "+ contactName +
-                        "\n Type: "+ type +
-                        "\n Start Time: "+ startDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a ")) + TimeZone.getDefault().getID() +
-                        "\n End Time: "+ endDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a ")) + TimeZone.getDefault().getID() +
-                        "\n Customer ID: "+ customerID +
-                        "\n User ID: "+ userID +
-                        "\n Contact ID: "+ contactID);
-        Optional<ButtonType> result = alertConfirmAppointmentCreation.showAndWait();
-        if (result.get() == ButtonType.OK) {
+            alertConfirmAppointmentCreation.setTitle("Add new appointment");
+            alertConfirmAppointmentCreation.setHeaderText("Add new appointment");
+            alertConfirmAppointmentCreation.setContentText("Do you want to create the following appointment? " + "\n" +
+                    "\n Customer Name: " + customerName +
+                    "\n Title: " + title +
+                    "\n Description: " + desc +
+                    "\n Location: " + loc +
+                    "\n Contact Name: " + contactName +
+                    "\n Type: " + type +
+                    "\n Start Time: " + startDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a ")) + TimeZone.getDefault().getID() +
+                    "\n End Time: " + endDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a ")) + TimeZone.getDefault().getID() +
+                    "\n Customer ID: " + customerID +
+                    "\n User ID: " + userID +
+                    "\n Contact ID: " + contactID);
+            Optional<ButtonType> result = alertConfirmAppointmentCreation.showAndWait();
+            if (result.get() == ButtonType.OK) {
 
 
-
-
-
-//            if (!(getErrorMessagesTotal().size() == 0)) {
-//                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.setTitle("Input Error");
-//                alert.setHeaderText("Error");
-//                alert.setContentText(String.join("\n", getErrorMessagesTotal()));
-//                alert.showAndWait();
-//                clearErrorMessages();
-//            } else {
-
-
-//                System.out.println(userID);
                 AppointmentQuery.addAppointment(new AppointmentModel(id, title, desc, loc, contactName, type, startDateTime, endDateTime, customerID, userID, contactID));
 
 
@@ -411,16 +378,18 @@ public class AppointmentsAdd implements Initializable {
         LocalDateTime startDateTime = null;
         try {
             startDateTime = dateTimeConversion(datePickerApptStartDate, apptStartTime);
-        } catch (Exception entryError) {}
+        } catch (Exception entryError) {
+        }
         System.out.println(startDateTime);
 
         LocalDateTime endDateTime = null;
         try {
             endDateTime = dateTimeConversion(datePickerApptEndDate, apptEndTime);
-        } catch (Exception entryError) {}
+        } catch (Exception entryError) {
+        }
         System.out.println(endDateTime);
 
-        if((startDateTime != null & endDateTime != null)) {
+        if ((startDateTime != null & endDateTime != null)) {
 
             if (!(startDateTime.compareTo(endDateTime) < 0)) {
                 //good value
@@ -430,7 +399,6 @@ public class AppointmentsAdd implements Initializable {
         }
 
     }
-
 
 
     @FXML
@@ -451,7 +419,6 @@ public class AppointmentsAdd implements Initializable {
             stage.show();
         }
     }
-
 
 
     @FXML

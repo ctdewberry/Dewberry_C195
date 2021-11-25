@@ -154,12 +154,12 @@ public class MainPage implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(DAO.AppointmentQuery.checkIfFutureAppointments()) {
-            ObservableList<AppointmentModel> upcomingAppointment = DAO.AppointmentQuery.getNextAppointment();
-            nextApptID.setText(String.valueOf(upcomingAppointment.get(0).getAppointmentID()));
-            nextApptDateTime.setText(String.valueOf(upcomingAppointment.get(0).getStartDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"))));
-            nextApptType.setText(String.valueOf(upcomingAppointment.get(0).getType()));
+            AppointmentModel upcomingAppointment = DAO.AppointmentQuery.getNextAppointment();
+            nextApptID.setText(String.valueOf(upcomingAppointment.getAppointmentID()));
+            nextApptDateTime.setText(String.valueOf(upcomingAppointment.getStartDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"))));
+            nextApptType.setText(String.valueOf(upcomingAppointment.getType()));
             //check if appointment within 15 minutes
-            upcomingAppointments.setText(AppointmentQuery.checkNextAppointmentTime());
+            upcomingAppointments.setText(AppointmentQuery.checkIfNextAppointmentIsSoon());
         }
     }
 

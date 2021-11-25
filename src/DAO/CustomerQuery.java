@@ -32,7 +32,7 @@ public class CustomerQuery {
         return customerNextAppointment;
     }
 
-
+    //queries for adding/modifying/deleting appointments to/from database
     public static void addCustomer(CustomerModel newCustomer) {
         //run db insert command to add customer
         //INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, 'test2', 'testAddy', 'testCode', 'Phone', '104');
@@ -86,6 +86,10 @@ public class CustomerQuery {
         }
     }
 
+
+
+
+    //queries for populating add/update screens
     public static Integer getDivisionIDFromComboBox(String selectedDivision){
         //SELECT first_level_divisions.Division_ID from countries JOIN first_level_divisions ON countries.Country_ID = first_level_divisions.Country_ID WHERE Division = 'Florida';
         Integer divisionID = null;
@@ -118,22 +122,6 @@ public class CustomerQuery {
         return countryList;
     }
 
-    public static Integer getHighestCustomerID(){
-        Integer newCustomerID = null;
-        try {
-            String sql = "select MAX(Customer_ID) from customers";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                newCustomerID = rs.getInt("MAX(Customer_ID)")+1;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return newCustomerID;
-    }
-
     public static ObservableList<String> getFilteredDivisions(String selectedCountry){
         ObservableList<String> divisionList = FXCollections.observableArrayList();
         try {
@@ -150,6 +138,8 @@ public class CustomerQuery {
         return divisionList;
     }
 
+
+    //query for populating table on customers page
     public static ObservableList<CustomerModel> getAllCustomers() {
         ObservableList<CustomerModel> customerList = FXCollections.observableArrayList();
         try {
@@ -176,6 +166,7 @@ public class CustomerQuery {
         return customerList;
     }
 
+    //query for sending customer data to update screen
     public static CustomerModel getCurrentCustomer(Integer currentCustomerID) {
         CustomerModel currentCustomer = null;
         try {
@@ -202,6 +193,22 @@ public class CustomerQuery {
         return currentCustomer;
     }
 
+    //query for ensuring the added customer is the lower ID possible without conflicy
+    public static Integer getHighestCustomerID(){
+        Integer newCustomerID = null;
+        try {
+            String sql = "select MAX(Customer_ID) from customers";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                newCustomerID = rs.getInt("MAX(Customer_ID)")+1;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return newCustomerID;
+    }
 }
 
 

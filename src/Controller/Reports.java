@@ -19,11 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Reports implements Initializable {
@@ -248,7 +245,7 @@ public class Reports implements Initializable {
 
 
             reportBContact.setText(chosenContact);
-            reportContactTableView.setItems(DAO.AppointmentQuery.getAppointmentsByContact(chosenContact));
+            reportContactTableView.setItems(ReportsQuery.ReportBAppointmentsByContact(chosenContact));
             apptIDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
             apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
             apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -291,7 +288,7 @@ public class Reports implements Initializable {
 
 
             reportCLocation.setText(chosenLocation);
-            reportLocationTableView.setItems(DAO.AppointmentQuery.getAppointmentsByLocation(chosenLocation));
+            reportLocationTableView.setItems(ReportsQuery.ReportCAppointmentsByLocation(chosenLocation));
             apptIDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
             apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
             apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
