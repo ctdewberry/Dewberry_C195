@@ -108,34 +108,71 @@ public class AppointmentsAdd implements Initializable {
         LocalDateTime convertedDateTime = null;
         LocalDate myInputDate = null;
         LocalTime myInputTime = null;
+        if (dateInput.getValue() != null) {
+            LocalDate tempInputDateValue = dateInput.getValue();
+        }
+        if (!dateInput.getEditor().getText().isEmpty()) {
+            String tempInputDateText = dateInput.getEditor().getText();
+        }
+
 
 
 
         //convert date from datepicker or text input
-        if (dateInput.getValue() != null) {
-            try {
-                myInputDate = dateInput.getValue();
-            } catch (Exception datePickerError) {
-                errorMessagesAdd("Error in date input (via Date Picker input)","dateTime");
-                System.out.println("DatePickerError");
-            }
-        } else if (!dateInput.getEditor().getText().isEmpty()){
+        //working, restore if needed
+//        if (dateInput.getValue() != null) {
+//            try {
+//                myInputDate = dateInput.getValue();
+//            } catch (Exception datePickerError) {
+//                errorMessagesAdd("Error in date input (via Date Picker input)","dateTime");
+//                System.out.println("DatePickerError");
+//            }
+//        } else if (!dateInput.getEditor().getText().isEmpty()){
+//            try {
+//                String myTextDate = dateInput.getEditor().getText();
+//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
+//                myInputDate = LocalDate.parse(myTextDate, formatter);
+//            } catch (Exception d) {
+////                errorType = "Error in date input";
+//                System.out.println("dateTextInputError");
+//                errorMessagesAdd("Error in date input (via text input)","dateTime");
+//            }
+//        } else {
+////            System.out.println("Null input for date");
+//            errorMessagesAdd("Date entry is empty","dateTime");
+//        }
+
+        //see if there is text, if so: parse it
+        if (!dateInput.getEditor().getText().isEmpty()){
             try {
                 String myTextDate = dateInput.getEditor().getText();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
                 myInputDate = LocalDate.parse(myTextDate, formatter);
+                //reset value incase user had selected a date, deleted it, and then type in a date
+                dateInput.setValue(null);
+                dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+                System.out.println("got the text " + myInputDate);
             } catch (Exception d) {
 //                errorType = "Error in date input";
+                //there was inparsable text
                 System.out.println("dateTextInputError");
                 errorMessagesAdd("Error in date input (via text input)","dateTime");
             }
-        } else {
+
+            //obtain value of date from date picker
+        } else if (dateInput.getValue() != null) {
+            try {
+                myInputDate = dateInput.getValue();
+                dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+                System.out.println("got the value " + myInputDate);
+            } catch (Exception datePickerError) {
+                errorMessagesAdd("Error in date input (via Date Picker input)","dateTime");
+                System.out.println("DatePickerError");
+            }
+        }  else {
 //            System.out.println("Null input for date");
             errorMessagesAdd("Date entry is empty","dateTime");
-
         }
-
-
 
 
         //convert time from time input
@@ -146,8 +183,6 @@ public class AppointmentsAdd implements Initializable {
 
                 String correctCaps = timeInput.getText().replace("am", "AM").replace("pm", "PM");
                 myInputTime = LocalTime.parse(correctCaps, parseFormat);
-                System.out.println("testHere for text input error");
-                System.out.println(myInputTime.toString());
             } catch (Exception e) {
 //            errorType = "Error in time input";
                 System.out.println("text here");
@@ -177,20 +212,20 @@ public class AppointmentsAdd implements Initializable {
     void onActionAddAppointment(ActionEvent event) throws IOException {
 
 
-        String chosenType = "NO SELECTION";
-        try {
-        chosenType = comboBoxApptType.getSelectionModel().getSelectedItem().toString();}
-        catch (Exception noSelection){
+//        String chosenType = "NO SELECTION";
+//        try {
+//        chosenType = comboBoxApptType.getSelectionModel().getSelectedItem().toString();}
+//        catch (Exception noSelection){
+//
+//        }
 
-        }
 
-
-        Alert alertConfirmAppointmentCreation = new Alert(Alert.AlertType.CONFIRMATION);
-        alertConfirmAppointmentCreation.setTitle("Add new appointment");
-        alertConfirmAppointmentCreation.setHeaderText("Add new appointment");
-        alertConfirmAppointmentCreation.setContentText("Do you want to create an appointment of type: " + chosenType + "?");
-        Optional<ButtonType> result = alertConfirmAppointmentCreation.showAndWait();
-        if (result.get() == ButtonType.OK) {
+//        Alert alertConfirmAppointmentCreation = new Alert(Alert.AlertType.CONFIRMATION);
+//        alertConfirmAppointmentCreation.setTitle("Add new appointment");
+//        alertConfirmAppointmentCreation.setHeaderText("Add new appointment");
+//        alertConfirmAppointmentCreation.setContentText("Do you want to create the following appointment? " + chosenType + "?");
+//        Optional<ButtonType> result = alertConfirmAppointmentCreation.showAndWait();
+//        if (result.get() == ButtonType.OK) {
 
             int id = Integer.parseInt(newApptID.getText());
 
@@ -265,14 +300,44 @@ public class AppointmentsAdd implements Initializable {
             }
 
 
-            if (!(getErrorMessagesTotal().size() == 0)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Input Error");
-                alert.setHeaderText("Error");
-                alert.setContentText(String.join("\n", getErrorMessagesTotal()));
-                alert.showAndWait();
-                clearErrorMessages();
-            } else {
+        if (!(getErrorMessagesTotal().size() == 0)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setHeaderText("Error");
+            alert.setContentText(String.join("\n", getErrorMessagesTotal()));
+            alert.showAndWait();
+            clearErrorMessages();
+        } else {
+
+        Alert alertConfirmAppointmentCreation = new Alert(Alert.AlertType.CONFIRMATION);
+        alertConfirmAppointmentCreation.setTitle("Add new appointment");
+        alertConfirmAppointmentCreation.setHeaderText("Add new appointment");
+        alertConfirmAppointmentCreation.setContentText("Do you want to create the following appointment? " + "\n" +
+                        "\n Title: " + title +
+                        "\n Description: "+ desc +
+                        "\n Location: "+ loc +
+                        "\n Contact Name: "+ contactName +
+                        "\n Type: "+ type +
+                        "\n Start Time: "+ startDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a ")) + TimeZone.getDefault().getID() +
+                        "\n End Time: "+ endDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a ")) + TimeZone.getDefault().getID() +
+                        "\n Customer ID: "+ customerID +
+                        "\n User ID: "+ userID +
+                        "\n Contact ID: "+ contactID);
+        Optional<ButtonType> result = alertConfirmAppointmentCreation.showAndWait();
+        if (result.get() == ButtonType.OK) {
+
+
+
+
+
+//            if (!(getErrorMessagesTotal().size() == 0)) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Input Error");
+//                alert.setHeaderText("Error");
+//                alert.setContentText(String.join("\n", getErrorMessagesTotal()));
+//                alert.showAndWait();
+//                clearErrorMessages();
+//            } else {
 
 
 //                System.out.println(userID);
