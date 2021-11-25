@@ -15,8 +15,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Time;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static DAO.AppointmentQuery.getContactIDFromName;
@@ -146,11 +148,9 @@ public class AppointmentsAdd implements Initializable {
                 //reset value incase user had selected a date, deleted it, and then type in a date
                 dateInput.setValue(null);
                 dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
-                System.out.println("got the text " + myInputDate);
             } catch (Exception d) {
 //                errorType = "Error in date input";
                 //there was inparsable text
-                System.out.println("dateTextInputError");
                 formatErrorsAddMessage("Error in date input (via text input)", "dateTime");
             }
 
@@ -159,10 +159,8 @@ public class AppointmentsAdd implements Initializable {
             try {
                 myInputDate = dateInput.getValue();
                 dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
-                System.out.println("got the value " + myInputDate);
             } catch (Exception datePickerError) {
                 formatErrorsAddMessage("Error in date input (via Date Picker input)", "dateTime");
-                System.out.println("DatePickerError");
             }
         } else {
 //            System.out.println("Null input for date");
@@ -180,7 +178,6 @@ public class AppointmentsAdd implements Initializable {
             myInputTime = LocalTime.parse(correctCaps, parseFormat);
         } catch (Exception e) {
 //            errorType = "Error in time input";
-            System.out.println("text here");
             formatErrorsAddMessage("Error in time input", "dateTime");
         }
 
@@ -194,16 +191,62 @@ public class AppointmentsAdd implements Initializable {
     }
 
     public void validateAppointments(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+
+
         //ensure appointment ends after it starts
         if (!(startDateTime.compareTo(endDateTime) < 0)) {
             scheduleErrorsSetMessage("endBeforeStart");
-            System.out.println("!<0");
+            return;
         }
 
 
         //ensure appointment is during business hours
+
+        //setup checks for start of appointment
+        ZonedDateTime localZoneStartOfAppointment = startDateTime.atZone(ZoneId.systemDefault());
+        ZonedDateTime localZoneEndOfAppointment = endDateTime.atZone(ZoneId.systemDefault());
+
+        ZonedDateTime targetZoneStartOfAppointment = localZoneStartOfAppointment.withZoneSameInstant(ZoneId.of("US/Eastern"));
+        ZonedDateTime targetZoneEndOfAppointment = localZoneEndOfAppointment.withZoneSameInstant(ZoneId.of("US/Eastern"));
+
+        LocalDateTime localizedAppointmentStartTime = targetZoneStartOfAppointment.toLocalDateTime();
+        LocalDateTime localizedAppointmentEndTime = targetZoneEndOfAppointment.toLocalDateTime();
+
+        //parse the date of the appointment for use later
+        LocalDate localDate = localizedAppointmentStartTime.toLocalDate();
+        LocalTime localOpeningHours = LocalTime.of(8,0);
+        LocalTime localClosingHours = LocalTime.of(22,0);
+        LocalDateTime localOpeningTime = LocalDateTime.of(localDate,localOpeningHours);
+        LocalDateTime localClosingTime = LocalDateTime.of(localDate,localClosingHours);
+
+
+        long timeDiffStart = ChronoUnit.MINUTES.between(localOpeningTime,localizedAppointmentStartTime);
+        long timeDiffClose = ChronoUnit.MINUTES.between(localizedAppointmentEndTime, localClosingTime);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy h:mm a");
+
+        String origApptStart = localZoneStartOfAppointment.format(formatter);
+        String origApptEnd = localZoneEndOfAppointment.format(formatter);
+        String localApptStart = localizedAppointmentStartTime.format(formatter);
+        String localApptEnd = localizedAppointmentEndTime.format(formatter);
+        String officeOpen = localOpeningTime.format(formatter);
+        String officeCLose = localClosingTime.format(formatter);
+
+
+        System.out.println("Appointment times (original): " + origApptStart + " - " + origApptEnd);
+        System.out.println("Appointment times (localized): " + localApptStart + " - " + localApptEnd);
+        System.out.println("Office is open: " + officeOpen + " - " + officeCLose);
+        System.out.println("Time between the office opening and the appointment: " + timeDiffStart);
+        System.out.println("Time between the end of the appointment and the office closing: " + timeDiffClose);
+
+        if (timeDiffStart < 0 | timeDiffClose < 0) {
+        scheduleErrorsSetMessage("officeClosed");
+        return;
+    }
+
+
             //--code--
-        //else if
+//        else if
                 //convert business hours to local datetime
                 //compare appointment date with business hours
                 //update error messages with any business hour conflict
@@ -270,14 +313,12 @@ public class AppointmentsAdd implements Initializable {
             startDateTime = dateTimeConversion(datePickerApptStartDate, apptStartTime);
         } catch (Exception entryError) {
         }
-        System.out.println(startDateTime);
 
         LocalDateTime endDateTime = null;
         try {
             endDateTime = dateTimeConversion(datePickerApptEndDate, apptEndTime);
         } catch (Exception entryError) {
         }
-        System.out.println(endDateTime);
 
 
         if (startDateTime != null && endDateTime != null) {
