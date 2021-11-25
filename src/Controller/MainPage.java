@@ -158,6 +158,7 @@ public class MainPage implements Initializable {
             nextApptID.setText(String.valueOf(upcomingAppointment.get(0).getAppointmentID()));
             nextApptDateTime.setText(String.valueOf(upcomingAppointment.get(0).getStartDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"))));
             nextApptType.setText(String.valueOf(upcomingAppointment.get(0).getType()));
+            //check if appointment within 15 minutes
             upcomingAppointments.setText(AppointmentQuery.checkNextAppointmentTime());
         }
     }

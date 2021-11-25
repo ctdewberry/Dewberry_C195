@@ -85,6 +85,13 @@ public class AppointmentsAdd implements Initializable {
             errorMessages.add(errorMessage);
         }
 
+        if (type == "officeClosed") {
+            errorMessages.add("The office will closed at your requested time and date of your appointment");
+        }
+        if (type == "overlap") {
+            errorMessages.add("There is another appointment at that requested time");
+        }
+
     }
 
 
@@ -149,7 +156,7 @@ public class AppointmentsAdd implements Initializable {
 
 
 
-        if(myInputDate !=null & myInputTime!=null) {
+        if(myInputDate !=null && myInputTime!=null) {
             convertedDateTime = LocalDateTime.of(myInputDate, myInputTime);
         }
 
@@ -157,6 +164,14 @@ public class AppointmentsAdd implements Initializable {
         return convertedDateTime;
     }
 
+    public void validateAppointments(LocalDateTime startDateTime, LocalDateTime endDateTime ){
+        if (!(startDateTime.compareTo(endDateTime) < 0)) {
+            errorMessagesAdd("End date and time of appointment must come later than the start date and time", "dateTime");
+            System.out.println("!<0");
+        }
+
+
+    }
 
     @FXML
     void onActionAddAppointment(ActionEvent event) throws IOException {
@@ -216,22 +231,6 @@ public class AppointmentsAdd implements Initializable {
             }
 
 
-//            String startTime = null;
-//            String endTime = null;
-//            String startDate = null;
-//            String endDate = null;
-//            try { startTime = timeConversion(apptStartTime);
-//                if (startTime == null) { errorMessagesAdd("Start Time", "format");}
-//            } catch (Exception entryError) {}
-//            try { endTime = timeConversion(apptEndTime);
-//                if (endTime == null) { errorMessagesAdd("End Time", "format");}
-//                } catch (Exception entryError) { }
-//            try { startDate = dateConversion(datePickerApptStartDate);
-//                if (startDate == null) { errorMessagesAdd("Start Date", "format");}
-//            } catch (Exception entryError) { }
-//            try { endDate = dateConversion(datePickerApptEndDate);
-//                if (endDate == null) { errorMessagesAdd("End Date", "format");}
-//            } catch (Exception entryError) { }
 
 
             LocalDateTime startDateTime = null;
@@ -246,14 +245,10 @@ public class AppointmentsAdd implements Initializable {
             } catch (Exception entryError) {}
             System.out.println(endDateTime);
 
-            if((startDateTime != null & endDateTime != null)) {
 
-                if (!(startDateTime.compareTo(endDateTime) < 0)) {
-                    errorMessagesAdd("End date and time of appointment must come later than the start date and time", "dateTime");
-                    System.out.println("!<0");
-                }
+            if(startDateTime !=null && endDateTime!=null) {
+                validateAppointments(startDateTime, endDateTime);
             }
-
 
             int customerID = 0;
             try {

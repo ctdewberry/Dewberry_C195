@@ -34,8 +34,8 @@
         <Label layoutX="250.0" layoutY="540.0" text="User ID" />
         <ComboBox fx:id="comboBoxApptContact" layoutX="50.0" layoutY="320.0" prefWidth="150.0" />
         <ComboBox fx:id="comboBoxApptType" editable="true" layoutX="50.0" layoutY="380.0" prefWidth="150.0" />
-        <ComboBox fx:id="comboBoxApptCustID" editable="true" layoutX="50.0" layoutY="560.0" prefWidth="150.0" />
-        <ComboBox fx:id="comboBoxApptUserID" editable="true" layoutX="250.0" layoutY="560.0" prefWidth="150.0" />
+        <ComboBox fx:id="comboBoxApptCustID" layoutX="50.0" layoutY="560.0" prefWidth="150.0" />
+        <ComboBox fx:id="comboBoxApptUserID" layoutX="250.0" layoutY="560.0" prefWidth="150.0" />
         <DatePicker fx:id="datePickerApptStartDate" layoutX="50.0" layoutY="440.0" />
         <DatePicker fx:id="datePickerApptEndDate" layoutX="50.0" layoutY="500.0" />
       <Label layoutX="250.0" layoutY="420.0" text="Start Time" />

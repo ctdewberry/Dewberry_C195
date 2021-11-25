@@ -356,11 +356,13 @@ public class AppointmentQuery {
         String isApptSoon = null;
         Integer timeDiff = 0;
         try {
-            String sql = "select Appointment_ID, Start, Type, User_ID from appointments WHERE (Start > CURRENT_TIMESTAMP()) AND User_ID = " + UserDaoImpl.getCurrentUserID() + " ORDER By Start ASC LIMIT 1;";
+            String sql = "select Appointment_ID, Start, Type, User_ID from appointments WHERE (Start >= CURRENT_TIMESTAMP()) AND User_ID = " + UserDaoImpl.getCurrentUserID() + " ORDER By Start ASC LIMIT 1;";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 ZonedDateTime timeAppt = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault());
+                int appointmentID = rs.getInt("Appointment_ID");
+                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
                 ////???
                 timeDiff = Math.toIntExact(Duration.between(ZonedDateTime.now(), timeAppt).getSeconds() / 60);
                 if (timeDiff <= 15) {
@@ -368,6 +370,7 @@ public class AppointmentQuery {
                     Alert alertAppointmentSoon = new Alert(Alert.AlertType.INFORMATION);
                     alertAppointmentSoon.setTitle("Upcoming Appointment");
                     alertAppointmentSoon.setHeaderText("Your next appointment is within 15 minutes");
+                    alertAppointmentSoon.setContentText("Appointment ID: " + appointmentID + "\n" + "Appointment starts at: " + startDateTime);
                     alertAppointmentSoon.showAndWait();
                 } else {
                     isApptSoon = "No upcoming appointments";
