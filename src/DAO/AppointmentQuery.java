@@ -14,151 +14,6 @@ import javafx.scene.control.Alert;
 
 public class AppointmentQuery {
 
-    //queries for adding/modifying/deleting appointments
-    public static void addAppointment(AppointmentModel newAppointment) {
-        //run db insert command to add customer
-        //INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, 'test2', 'testAddy', 'testCode', 'Phone', '104');
-        int appointmentID;
-        String newTitle = newAppointment.getTitle();
-        String newDesc = newAppointment.getDescription();
-        String newLoc = newAppointment.getLocation();
-        int newContactID = newAppointment.getContactID();
-        String newContactName = newAppointment.getContactName();
-        String newType = newAppointment.getType();
-
-
-        LocalDateTime newStartDateTime = newAppointment.getStartDateTime();
-        LocalDateTime newEndDateTime = newAppointment.getEndDateTime();
-
-
-        int newCustomerID = newAppointment.getCustomerID();
-        int newUserID = newAppointment.getUserID();
-        try {
-//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', " + newContactID + ", '" + newType + "', ?, ?, " + newCustomerID + ", " + newUserID + ");";
-            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ps.setString(1,newTitle);
-            ps.setString(2, newDesc);
-            ps.setString(3, newLoc);
-            ps.setInt(4, newContactID);
-            ps.setString(5, newType);
-            ps.setTimestamp(6,Timestamp.valueOf(newStartDateTime));
-            ps.setTimestamp(7, Timestamp.valueOf(newEndDateTime));
-            ps.setInt(8, newCustomerID);
-            ps.setInt(9, newUserID);
-            int stmt = ps.executeUpdate();
-
-
-//            '" + Timestamp.valueOf(newStartDateTime) + "', '" + Timestamp.valueOf(newEndDateTime) + "'
-//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', '" + newContactID + "', '" + newType + "', '" + newStartDate + " " + newStartTime + "', '" + newEndDate + " " + newEndTime + "', '" + newCustomerID + "', '" + newUserID + "');";
-
-
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public static Integer getHighestAppointmentID() {
-        Integer newAppointmentID = null;
-        try {
-            String sql = "select MAX(Appointment_ID) from appointments";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                newAppointmentID = rs.getInt("MAX(Appointment_ID)")+1;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return newAppointmentID;
-    }
-
-
-    //queries for populating appointment add/update screens
-    public static Integer getContactIDFromName(String contactName) {
-        Integer contactID = null;
-        try {
-            String sql = "select Contact_ID from contacts WHERE Contact_Name = '" + contactName + "' LIMIT 1;";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                contactID =  Integer.valueOf(rs.getString("Contact_ID"));
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return contactID;
-    }
-
-    public static ObservableList<String> getAllContacts() {
-        ObservableList<String> allContactsList = FXCollections.observableArrayList();
-        try {
-            String sql = "select Contact_Name from contacts order by Contact_ID";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String contactName =  rs.getString("Contact_Name");
-                allContactsList.add(contactName);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return allContactsList;
-    }
-
-    public static ObservableList<String> getAllTypes() {
-        ObservableList<String> allTypesList = FXCollections.observableArrayList();
-        try {
-            String sql = "select DISTINCT Type from appointments;";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String typeName =  rs.getString("Type");
-                allTypesList.add(typeName);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return allTypesList;
-    }
-
-    public static ObservableList<String> getAllCustomerIDs() {
-        ObservableList<String> allCustomerIDsList = FXCollections.observableArrayList();
-        try {
-            String sql = "select Customer_ID from customers order by Customer_ID;";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String customerID =  rs.getString("Customer_ID");
-                allCustomerIDsList.add(customerID);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return allCustomerIDsList;
-
-    }
-
-    public static ObservableList<String> getAllUserIDs() {
-        ObservableList<String> allUserIDsList = FXCollections.observableArrayList();
-        try {
-            String sql = "select User_ID from users order by User_ID;";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String userID =  rs.getString("User_ID");
-                allUserIDsList.add(userID);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return allUserIDsList;
-
-    }
-
-
     //queries for populating table on appointments page
     public static ObservableList<AppointmentModel> getAllAppointments() {
         ObservableList<AppointmentModel> allAppointmentsList = FXCollections.observableArrayList();
@@ -248,6 +103,165 @@ public class AppointmentQuery {
 
         return monthlyAppointmentsList;
     }
+
+
+    //query for ensuring the added appointment is the lowest ID possible without conflict
+    public static Integer getHighestAppointmentID() {
+        Integer newAppointmentID = null;
+        try {
+            String sql = "select MAX(Appointment_ID) from appointments";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                newAppointmentID = rs.getInt("MAX(Appointment_ID)")+1;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return newAppointmentID;
+    }
+
+
+    //query for sending appointment data to the update screen
+    //public static AppointmentModel getCurrentAppointment(Integer currentAppointmentID){}
+
+
+
+
+
+    //queries for populating appointment add/update screens
+    public static Integer getContactIDFromName(String contactName) {
+        Integer contactID = null;
+        try {
+            String sql = "select Contact_ID from contacts WHERE Contact_Name = '" + contactName + "' LIMIT 1;";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                contactID =  Integer.valueOf(rs.getString("Contact_ID"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return contactID;
+    }
+
+    public static ObservableList<String> getAllContacts() {
+        ObservableList<String> allContactsList = FXCollections.observableArrayList();
+        try {
+            String sql = "select Contact_Name from contacts order by Contact_ID";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String contactName =  rs.getString("Contact_Name");
+                allContactsList.add(contactName);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return allContactsList;
+    }
+
+    public static ObservableList<String> getAllTypes() {
+        ObservableList<String> allTypesList = FXCollections.observableArrayList();
+        try {
+            String sql = "select DISTINCT Type from appointments;";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String typeName =  rs.getString("Type");
+                allTypesList.add(typeName);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return allTypesList;
+    }
+
+    public static ObservableList<String> getAllCustomerIDs() {
+        ObservableList<String> allCustomerIDsList = FXCollections.observableArrayList();
+        try {
+            String sql = "select Customer_ID from customers order by Customer_ID;";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String customerID =  rs.getString("Customer_ID");
+                allCustomerIDsList.add(customerID);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return allCustomerIDsList;
+
+    }
+
+    public static ObservableList<String> getAllUserIDs() {
+        ObservableList<String> allUserIDsList = FXCollections.observableArrayList();
+        try {
+            String sql = "select User_ID from users order by User_ID;";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String userID =  rs.getString("User_ID");
+                allUserIDsList.add(userID);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return allUserIDsList;
+
+    }
+
+
+    //queries for adding/modifying/deleting appointments to/from database
+    public static void addAppointment(AppointmentModel newAppointment) {
+        //run db insert command to add customer
+        //INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, 'test2', 'testAddy', 'testCode', 'Phone', '104');
+        int appointmentID;
+        String newTitle = newAppointment.getTitle();
+        String newDesc = newAppointment.getDescription();
+        String newLoc = newAppointment.getLocation();
+        int newContactID = newAppointment.getContactID();
+        String newContactName = newAppointment.getContactName();
+        String newType = newAppointment.getType();
+
+
+        LocalDateTime newStartDateTime = newAppointment.getStartDateTime();
+        LocalDateTime newEndDateTime = newAppointment.getEndDateTime();
+
+
+        int newCustomerID = newAppointment.getCustomerID();
+        int newUserID = newAppointment.getUserID();
+        try {
+//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', " + newContactID + ", '" + newType + "', ?, ?, " + newCustomerID + ", " + newUserID + ");";
+            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setString(1,newTitle);
+            ps.setString(2, newDesc);
+            ps.setString(3, newLoc);
+            ps.setInt(4, newContactID);
+            ps.setString(5, newType);
+            ps.setTimestamp(6,Timestamp.valueOf(newStartDateTime));
+            ps.setTimestamp(7, Timestamp.valueOf(newEndDateTime));
+            ps.setInt(8, newCustomerID);
+            ps.setInt(9, newUserID);
+            int stmt = ps.executeUpdate();
+
+
+//            '" + Timestamp.valueOf(newStartDateTime) + "', '" + Timestamp.valueOf(newEndDateTime) + "'
+//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', '" + newContactID + "', '" + newType + "', '" + newStartDate + " " + newStartTime + "', '" + newEndDate + " " + newEndTime + "', '" + newCustomerID + "', '" + newUserID + "');";
+
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    //public static void modifyAppointment(AppointmentModel updateAppointment){}
+
+    //public static void deleteAppointment(Integer selectedAppointment){}
+
 
 
     //queries to populate main page
