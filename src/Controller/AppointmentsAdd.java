@@ -250,9 +250,14 @@ public class AppointmentsAdd implements Initializable {
             LocalDateTime NE = endDateTime;
 
             boolean startOverlap = ( ( NS.isAfter(OS) || NS.isEqual(OS ) ) && NS.isBefore(OE) );
-            boolean endOverlap = ( ( NE.isBefore(OE) || NE.isEqual(OE) ) && NS.isAfter(OS) );
+            boolean endOverlap = ( NE.isAfter(OS) && ( NE.isEqual(OE) || NE.isBefore(OE) ) );
             boolean startEndOverlap = ( ( NS.isBefore(OS) || NS.isEqual(OS) ) && (NE.isAfter(OE) || NE.isEqual(OE) ) );
 
+
+            if(startEndOverlap) {
+                scheduleErrorsSetMessage("startEndOverlap");
+                return;
+            }
 
             if(startOverlap) {
             scheduleErrorsSetMessage("startOverlap");
@@ -264,10 +269,7 @@ public class AppointmentsAdd implements Initializable {
                 return;
             }
 
-            if(startEndOverlap) {
-                scheduleErrorsSetMessage("startEndOverlap");
-                return;
-            }
+
         }
     }
 
