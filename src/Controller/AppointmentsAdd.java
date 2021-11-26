@@ -98,8 +98,16 @@ public class AppointmentsAdd implements Initializable {
             scheduleErrors = "The office will closed at the requested time and date of your appointment";
         }
 
-        if (type == "overlap") {
-            scheduleErrors = "There is another appointment at that requested time";
+        if (type == "startOverlap") {
+            scheduleErrors = "The start time of your requested appointment conflicts with an existing appointment";
+        }
+
+        if (type == "endOverlap") {
+            scheduleErrors = "The end time of your requested appointment conflicts with an existing appointment";
+        }
+
+        if (type == "startEndOverlap") {
+            scheduleErrors = "There is another appointment already at the requested time";
         }
 
     }
@@ -233,20 +241,34 @@ public class AppointmentsAdd implements Initializable {
 
         //ensure appointment does not conflict with any other appointment
 
-        ArrayList comparisonArray = getAllAppointmentsForCustomer(customerID);
+        ArrayList<AppointmentModel> comparisonArray = getAllAppointmentsForCustomer(customerID);
+        for (AppointmentModel A : comparisonArray) {
+
+            LocalDateTime OS = A.getStartDateTime();
+            LocalDateTime OE = A.getEndDateTime();
+            LocalDateTime NS = startDateTime;
+            LocalDateTime NE = endDateTime;
+
+            boolean startOverlap = ( ( NS.isAfter(OS) || NS.isEqual(OS ) ) && NS.isBefore(OE) );
+            boolean endOverlap = ( ( NE.isBefore(OE) || NE.isEqual(OE) ) && NS.isAfter(OS) );
+            boolean startEndOverlap = ( ( NS.isBefore(OS) || NS.isEqual(OS) ) && (NE.isAfter(OE) || NE.isEqual(OE) ) );
 
 
+            if(startOverlap) {
+            scheduleErrorsSetMessage("startOverlap");
+            return;
+            }
 
+            if(endOverlap) {
+                scheduleErrorsSetMessage("endOverlap");
+                return;
+            }
 
-        //else if
-                //create observable array list by calling query in appointmentQuery
-                //compare new appointment with any existing appointments
-                //return error message if overlap
-//
-//
-//            scheduleErrorsSetMessage("overlap");
-//            return;
-
+            if(startEndOverlap) {
+                scheduleErrorsSetMessage("startEndOverlap");
+                return;
+            }
+        }
     }
 
 
