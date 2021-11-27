@@ -124,7 +124,34 @@ public class AppointmentQuery {
 
 
     //query for sending appointment data to the update screen
-    //public static AppointmentModel getCurrentAppointment(Integer currentAppointmentID){}
+    public static AppointmentModel getCurrentAppointment(Integer currentAppointmentID){
+        AppointmentModel currentAppointment = null;
+        try {
+            String sql = "select * from appointments WHERE Appointment_ID = " + currentAppointmentID + ";";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentID = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                int contactID = rs.getInt("Contact_ID");
+                String contactName = rs.getString("Contact_Name");
+                String type = rs.getString("Type");
+                LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
+                int customerID = rs.getInt("Customer_ID");
+                int userID = rs.getInt("User_ID");
+
+                currentAppointment = new AppointmentModel(appointmentID, title, description, location, contactName, type, startDateTime, endDateTime, customerID, userID, contactID);
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return currentAppointment;
+    }
+
     //--code--
 
 
@@ -257,6 +284,51 @@ public class AppointmentQuery {
         try {
 //            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', " + newContactID + ", '" + newType + "', ?, ?, " + newCustomerID + ", " + newUserID + ");";
             String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setString(1,newTitle);
+            ps.setString(2, newDesc);
+            ps.setString(3, newLoc);
+            ps.setInt(4, newContactID);
+            ps.setString(5, newType);
+            ps.setTimestamp(6,Timestamp.valueOf(newStartDateTime));
+            ps.setTimestamp(7, Timestamp.valueOf(newEndDateTime));
+            ps.setInt(8, newCustomerID);
+            ps.setInt(9, newUserID);
+            int stmt = ps.executeUpdate();
+
+
+//            '" + Timestamp.valueOf(newStartDateTime) + "', '" + Timestamp.valueOf(newEndDateTime) + "'
+//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', '" + newContactID + "', '" + newType + "', '" + newStartDate + " " + newStartTime + "', '" + newEndDate + " " + newEndTime + "', '" + newCustomerID + "', '" + newUserID + "');";
+
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void updateAppointment(AppointmentModel updateAppointment) {
+        //run db insert command to add customer
+        //INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, 'test2', 'testAddy', 'testCode', 'Phone', '104');
+        Integer appointmentID = updateAppointment.getAppointmentID();
+        String newTitle = updateAppointment.getTitle();
+        String newDesc = updateAppointment.getDescription();
+        String newLoc = updateAppointment.getLocation();
+        int newContactID = updateAppointment.getContactID();
+        String newContactName = updateAppointment.getContactName();
+        String newType = updateAppointment.getType();
+
+
+        LocalDateTime newStartDateTime = updateAppointment.getStartDateTime();
+        LocalDateTime newEndDateTime = updateAppointment.getEndDateTime();
+
+
+        int newCustomerID = updateAppointment.getCustomerID();
+        int newUserID = updateAppointment.getUserID();
+        try {
+//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', " + newContactID + ", '" + newType + "', ?, ?, " + newCustomerID + ", " + newUserID + ");";
+            String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Contact_ID = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ? WHERE Appointment_ID = " + appointmentID + ";";
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ps.setString(1,newTitle);

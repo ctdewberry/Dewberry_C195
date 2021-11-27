@@ -1,9 +1,12 @@
 package Model;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class AppointmentModel {
     private int appointmentID;
@@ -28,8 +31,8 @@ public class AppointmentModel {
         this.contactID = contactID; //int
         this.contactName = contactName; //string
         this.type = type; //string
-        this.startDateTime = startDateTime; //string
-        this.endDateTime = endDateTime; //string
+        this.startDateTime = startDateTime; //LocalDateTime
+        this.endDateTime = endDateTime; //LocalDateTime
         this.customerID = customerID; //int
         this.userID = userID; //int
 
@@ -98,19 +101,40 @@ public class AppointmentModel {
         this.type = type;
     }
 
+
+
     public LocalDateTime getStartDateTime() {
         return startDateTime;
 //        customerNextAppointment = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a z"));
 
     }
+
     public String getStartDateTimeString(){
         return this.getStartDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
 
     }
 
+
+
+
+    public LocalDate getStartDate(){
+        return this.startDateTime.toLocalDate();
+    }
+
+    public LocalTime getStartTime() {
+        return this.startDateTime.toLocalTime();
+    }
+
+    public String getStartTimeString(){
+        return this.getStartDateTime().format(DateTimeFormatter.ofPattern("hh:mm a"));
+    }
+
+
     public void setStartDateTime(LocalDateTime startDateTime) {
         this.startDateTime = startDateTime;
     }
+
+
 
 
     public LocalDateTime getEndDateTime() {
@@ -122,9 +146,26 @@ public class AppointmentModel {
 
     }
 
+//
+    public LocalDate getEndDate(){
+        return this.endDateTime.toLocalDate();
+    }
+
+    public LocalTime getEndTime() {
+        return this.endDateTime.toLocalTime();
+    }
+
+    public String getEndTimeString(){
+        return this.getEndDateTime().format(DateTimeFormatter.ofPattern("hh:mm a"));
+    }
+    //
+
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
     }
+
+
+
 
 
     public int getCustomerID() {
