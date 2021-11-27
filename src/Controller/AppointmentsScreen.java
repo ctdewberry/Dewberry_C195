@@ -1,5 +1,7 @@
 package Controller;
 
+import DAO.AppointmentQuery;
+import DAO.CustomerQuery;
 import Model.AppointmentModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppointmentsScreen implements Initializable {
@@ -133,15 +136,56 @@ public class AppointmentsScreen implements Initializable {
 
     @FXML
     void onActionModifyAppointment(ActionEvent event) throws IOException {
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/AppointmentsModify.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.setTitle("Modify Appointments");
-        stage.show();
+
+        try {
+
+            int currentAppointment = appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentID();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/AppointmentModify.fxml"));
+            loader.load();
+            AppointmentsModify AppointmentModify = loader.getController();
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            AppointmentModify.sentAppointment(AppointmentQuery.getCurrentAppointment(currentAppointment));
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.setTitle("Modify Appointment");
+            stage.show();
+        } catch (NullPointerException e) {
+            return;
+        }
+
+
+
+//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+//        scene = FXMLLoader.load(getClass().getResource("/view/AppointmentsModify.fxml"));
+//        stage.setScene(new Scene(scene));
+//        stage.setTitle("Modify Appointments");
+//        stage.show();
     }
 
     @FXML
     void onActionDeleteAppointment(ActionEvent event) throws IOException {
+        try {
+            int currentAppointment = appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentID();
+            String currentName = appointmentsTableView.getSelectionModel().getSelectedItem().getDescription();
+            Alert alertConfirmAppointmentDelete = new Alert(Alert.AlertType.CONFIRMATION);
+            alertConfirmAppointmentDelete.setTitle("Delete appointment");
+            alertConfirmAppointmentDelete.setHeaderText("Delete appointment");
+            alertConfirmAppointmentDelete.setContentText("Do you want to delete appointment: " + currentName + "?");
+            Optional<ButtonType> result = alertConfirmAppointmentDelete.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                AppointmentQuery.deleteAppointment(currentAppointment);
+                appointmentsTableView.setItems(DAO.AppointmentQuery.getAllAppointments());
+
+                Alert alertConfirmAppointmentIsDeleted = new Alert(Alert.AlertType.INFORMATION);
+                alertConfirmAppointmentIsDeleted.setTitle("Delete appointment");
+                alertConfirmAppointmentIsDeleted.setHeaderText("Delete appointment");
+                alertConfirmAppointmentIsDeleted.setContentText("Appointment:" + currentName + " has been deleted.");
+                Optional<ButtonType> result2 = alertConfirmAppointmentIsDeleted.showAndWait();
+            }
+        } catch (Exception e) {
+            System.out.println("No selected appointments");
+        }
     }
 
 

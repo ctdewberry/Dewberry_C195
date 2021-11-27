@@ -355,7 +355,18 @@ public class AppointmentQuery {
 
     //public static void modifyAppointment(AppointmentModel updateAppointment){}
 
-    //public static void deleteAppointment(Integer selectedAppointment){}
+    public static void deleteAppointment(Integer selectedAppointment){
+        try {
+            String sql1 = "DELETE FROM appointments WHERE Appointment_ID = '" + selectedAppointment + "'";
+            Statement stmt = DBConnection.getConnection().createStatement();
+            stmt.executeUpdate(sql1);
+
+            //test
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
 
 
