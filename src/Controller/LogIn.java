@@ -3,7 +3,6 @@
 package Controller;
 
         import DAO.UserDaoImpl;
-        import Main.Main;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
         import javafx.fxml.FXMLLoader;
@@ -16,8 +15,6 @@ package Controller;
 
         import java.io.IOException;
         import java.net.URL;
-        import java.time.LocalDateTime;
-        import java.time.ZoneId;
         import java.time.ZonedDateTime;
         import java.time.format.DateTimeFormatter;
         import java.util.Optional;
@@ -43,6 +40,10 @@ public class LogIn implements Initializable {
     private Button login2;
 
     public static void logInUser(){
+//        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm:ss z");
+//        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+//        System.out.println(formatter.format(System.currentTimeMillis()));
+//
         loggedIn = true;
     }
     public static void logOutUser(){
@@ -95,8 +96,11 @@ public class LogIn implements Initializable {
     void onActionLogin(ActionEvent event) throws IOException {
 //        System.out.println(username.getText());
         UserDaoImpl.testCredentials(username.getText(), password.getText());
+
         if (loggedIn) {
             UserDaoImpl.setCredentials(username.getText());
+            UserDaoImpl.recordLoginAttempts(username.getText(), "LogIn Attempt Successful");
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/MainPage.fxml"));
             loader.load();
@@ -111,6 +115,8 @@ public class LogIn implements Initializable {
             stage.show();
         } else {
             loginSuccess.setText(rbLang.getString("Invalid credentials"));
+            UserDaoImpl.recordLoginAttempts(username.getText(), "LogIn Attempt Unsuccessful");
+
             System.out.println("invalid credentials");
         }
 

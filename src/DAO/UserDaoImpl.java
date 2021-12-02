@@ -3,8 +3,11 @@ package DAO;
 import Controller.LogIn;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.TimeZone;
+import java.io.*;
 
 
 public class UserDaoImpl {
@@ -44,4 +47,17 @@ public class UserDaoImpl {
     public static String getCurrentUserName(){
         return currentUserName;
     }
+
+    public static void recordLoginAttempts(String username, String success) throws IOException{
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm:ss z");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String loginTime = formatter.format(System.currentTimeMillis());
+//        System.out.println(formatter.format(System.currentTimeMillis()));
+//        System.out.println(username);
+//        System.out.println(success);
+        System.out.println("Attempted login with username: " + username + " on " + loginTime + ". Result: " + success);
+
+
+    }
+
 }
