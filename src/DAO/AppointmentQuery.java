@@ -111,6 +111,7 @@ public class AppointmentQuery {
         Integer newAppointmentID = null;
         try {
             String sql = "select MAX(Appointment_ID) from appointments";
+//            String sql = "select AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA = 'client_schedule' and TABLE_NAME = 'appointments'";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -127,7 +128,7 @@ public class AppointmentQuery {
     public static AppointmentModel getCurrentAppointment(Integer currentAppointmentID){
         AppointmentModel currentAppointment = null;
         try {
-            String sql = "select * from appointments WHERE Appointment_ID = " + currentAppointmentID + ";";
+            String sql = "select * from appointments join contacts where appointments.Contact_ID = contacts.contact_ID and Appointment_ID=" + currentAppointmentID + ";";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

@@ -141,7 +141,7 @@ public class AppointmentsScreen implements Initializable {
 
             int currentAppointment = appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentID();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/AppointmentModify.fxml"));
+            loader.setLocation(getClass().getResource("/view/AppointmentsModify.fxml"));
             loader.load();
             AppointmentsModify AppointmentModify = loader.getController();
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
