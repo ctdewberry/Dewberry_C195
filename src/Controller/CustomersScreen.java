@@ -164,7 +164,12 @@ public class CustomersScreen implements Initializable {
     }
 
     /** Refresh Implementation. Method to detect the selected customer and query their next appointment.
-     * This is the interface of the lambda used above*/
+     * This is the interface of the lambda used above
+     * Lambda used above to Refresh Selected Customer info. Below the customer table view there is some text that updates
+     * with the selected customers next appointment. Though not required, in the real world this would be a great
+     * feature for the user as they would be able to quickly see the customers next appointment without having to
+     * switch to the appointment screen or report screen. I felt this use was justified as I can see a feature like this
+     * being used in the real world.*/
 
     private void refreshSelectedCustomer() {
         try {

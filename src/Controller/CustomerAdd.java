@@ -224,6 +224,11 @@ public class CustomerAdd implements Initializable {
     }
 
     /**update division comboBox. updates combobox filtered by country
+     * Lambda listed above to update Update Division List. The lambda updates the division list
+     * whenever either the comboBox for countries or the comboBox for divisions is clicked. Without
+     * this function it was possible that the user could choose invalid divisions that did not match
+     * the country. By running this lambda, i am able to ensure that the user will only ever choose
+     * valid division list options.
      */
     private void updateDivisionList(){
         try {
