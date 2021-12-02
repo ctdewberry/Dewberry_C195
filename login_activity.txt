@@ -16,3 +16,5 @@ Attempted login with username: admind on 12/02/2021 at 12:54:27 UTC. Result: Log
 Attempted login with username: admin on 12/02/2021 at 12:54:32 UTC. Result: LogIn Attempt Successful
 Attempted login with username: test on 12/02/2021 at 12:55:37 UTC. Result: LogIn Attempt Successful
 Attempted login with username: test on 12/02/2021 at 12:55:49 UTC. Result: LogIn Attempt Successful
+Attempted login with username: No username entered on 12/02/2021 at 12:56:44 UTC. Result: LogIn Attempt Unsuccessful
+Attempted login with username: test on 12/02/2021 at 12:56:55 UTC. Result: LogIn Attempt Successful
