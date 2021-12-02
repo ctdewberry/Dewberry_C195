@@ -420,7 +420,7 @@ public class AppointmentQuery {
                 String startDateTime = rs.getTimestamp("Start").toLocalDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
                 timeDiffStart = Math.toIntExact(Duration.between(ZonedDateTime.now(), timeApptStart).getSeconds() / 60);
                 if (timeDiffStart <= 15) {
-                    isApptSoon = "Your next appointment is within 15 minutes";
+                    isApptSoon = "Your next appointment \nis within 15 minutes";
                     Alert alertAppointmentSoon = new Alert(Alert.AlertType.INFORMATION);
                     alertAppointmentSoon.setTitle("Upcoming Appointment");
                     alertAppointmentSoon.setHeaderText("Your next appointment is within 15 minutes");

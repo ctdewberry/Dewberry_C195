@@ -18,3 +18,11 @@ Attempted login with username: test on 12/02/2021 at 12:55:37 UTC. Result: LogIn
 Attempted login with username: test on 12/02/2021 at 12:55:49 UTC. Result: LogIn Attempt Successful
 Attempted login with username: No username entered on 12/02/2021 at 12:56:44 UTC. Result: LogIn Attempt Unsuccessful
 Attempted login with username: test on 12/02/2021 at 12:56:55 UTC. Result: LogIn Attempt Successful
+Attempted login with username: test on 12/02/2021 at 13:04:19 UTC. Result: Log In Attempt Successful
+Attempted login with username: test on 12/02/2021 at 13:05:37 UTC. Result: Log In Attempt Successful
+Attempted login with username: test on 12/02/2021 at 13:06:42 UTC. Result: Log In Attempt Successful
+Attempted login with username: No username entered on 12/02/2021 at 13:16:07 UTC. Result: Log In Attempt Unsuccessful
+Attempted login with username: test on 12/02/2021 at 13:16:10 UTC. Result: Log In Attempt Successful
+Attempted login with username: test on 12/02/2021 at 13:17:45 UTC. Result: Log In Attempt Successful
+Attempted login with username: test on 12/02/2021 at 13:19:39 UTC. Result: Log In Attempt Successful
+Attempted login with username: test on 12/02/2021 at 13:22:46 UTC. Result: Log In Attempt Successful

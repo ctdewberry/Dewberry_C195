@@ -10,7 +10,7 @@
     <children>
         <Label layoutX="531.0" layoutY="62.0" text="Next Appointment Details">
             <font>
-                <Font size="27.0" />
+                <Font size="28.0" />
             </font>
         </Label>
         <Button layoutX="56.0" layoutY="56.0" mnemonicParsing="false" onAction="#onActionCustomers" text="Customers">
@@ -38,9 +38,9 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Text fx:id="upcomingAppointments" layoutX="532.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments">
+      <Text fx:id="upcomingAppointments" layoutX="532.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments">
          <font>
-            <Font size="20.0" />
+            <Font size="28.0" />
          </font></Text>
       <Text layoutX="532.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment ID">
          <font>
