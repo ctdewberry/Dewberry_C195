@@ -36,6 +36,8 @@ public class Main extends Application {
         instance = this;
         this.primaryStage = primaryStage;
         ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
+//        ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.FRENCH);
+
         Parent root = FXMLLoader.load(getClass().getResource("/View/LogIn.fxml"), rb);
         this.primaryStage.setTitle(rb.getString("Log In"));
         this.primaryStage.setScene(new Scene(root, 600, 400));

@@ -36,11 +36,17 @@ public class LogIn implements Initializable {
      */
     Parent scene;
 
+    /**
+     * Obtains resource bundle
+     */
     @FXML
+//    private ResourceBundle rbLang = ResourceBundle.getBundle("Main/rbLang", Locale.FRANCE);
     private ResourceBundle rbLang = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
 
 
-
+    /**
+     *
+     */
     @FXML
     private Label login1;
 
