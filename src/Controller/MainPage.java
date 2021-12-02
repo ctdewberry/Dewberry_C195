@@ -22,11 +22,20 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
+/**
+ * The type Main page.
+ */
 public class MainPage implements Initializable {
 
 
+    /**
+     * The Stage.
+     */
     Stage stage;
 
+    /**
+     * The Scene.
+     */
     Parent scene;
 
     @FXML
@@ -44,6 +53,12 @@ public class MainPage implements Initializable {
     @FXML
     private Text upcomingAppointments;
 
+    /**
+     * On action customers.
+     * method that loads the customer screen where the user can view/add/update/delete customers
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionCustomers(ActionEvent event) throws IOException {
 
@@ -65,9 +80,17 @@ public class MainPage implements Initializable {
     }
 
 
-
+    /**
+     * On action back to login.
+     * method that takes user back to log in screen
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionBackToLogin(ActionEvent event) throws IOException {
+        /**
+         * call method to log out user when going back to login page
+         */
         LogIn.logOutUser();
 
 
@@ -83,6 +106,12 @@ public class MainPage implements Initializable {
 
     }
 
+    /**
+     * On action appointments.
+     * method that loads the customer screen where the user can view/add/update/delete appointments
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionAppointments(ActionEvent event) throws IOException {
 
@@ -102,6 +131,12 @@ public class MainPage implements Initializable {
     }
 
 
+    /**
+     * On action reports.
+     * method that loads the customer screen where the user can view/add/update/delete customers
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionReports(ActionEvent event) throws IOException {
 
@@ -120,6 +155,12 @@ public class MainPage implements Initializable {
 
     }
 
+    /**
+     * On action exit.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionExit(ActionEvent event) throws IOException {
 
@@ -135,7 +176,9 @@ public class MainPage implements Initializable {
     }
 
 
-
+    /**
+     * Initialize.
+     */
     @FXML
     void initialize() {
 

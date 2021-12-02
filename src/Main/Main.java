@@ -49,10 +49,11 @@ public class Main extends Application {
      *
      * @param args the input arguments
      *
-     * Connects to the database through DBConnection in DAO
      */
     public static void main(String[] args) {
-
+        /**
+         * Connects to the database through DBConnection in DAO
+         */
         DBConnection.startConnection();
         launch(args);
         DBConnection.closeConnection();
