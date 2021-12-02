@@ -320,14 +320,16 @@ public class AppointmentsAdd implements Initializable {
 //        if (comboBoxApptType.getSelectionModel().isEmpty()) {
 //            formatErrorsAddMessage("Type", "empty");
 //        }
-        if (comboBoxApptType.getSelectionModel().isEmpty()) {
-            formatErrorsAddMessage("Type", "empty");
-        } else {
+
+        if (comboBoxApptType.getEditor().getText().isEmpty()) {
             try {
                 type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
             } catch (Exception entryError) {
                 formatErrorsAddMessage("Type", "empty");
             }
+            formatErrorsAddMessage("Type", "empty");
+        } else {
+            type = comboBoxApptType.getEditor().getText();
         }
 
 

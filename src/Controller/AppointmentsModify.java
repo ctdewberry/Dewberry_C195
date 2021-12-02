@@ -338,14 +338,25 @@ public class AppointmentsModify implements Initializable {
 //            formatErrorsAddMessage("Type", "empty");
 //        }
 
-        if (comboBoxApptType.getSelectionModel().isEmpty()) {
-            formatErrorsAddMessage("Type", "empty");
-        } else {
+//        if (comboBoxApptType.getSelectionModel().isEmpty()) {
+//            formatErrorsAddMessage("Type", "empty");
+//        } else {
+//            try {
+//                type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
+//            } catch (Exception entryError) {
+//                formatErrorsAddMessage("Type", "empty");
+//            }
+//        }
+
+        if (comboBoxApptType.getEditor().getText().isEmpty()) {
             try {
                 type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
             } catch (Exception entryError) {
                 formatErrorsAddMessage("Type", "empty");
             }
+            formatErrorsAddMessage("Type", "empty");
+        } else {
+            type = comboBoxApptType.getEditor().getText();
         }
 
         LocalDateTime startDateTime = null;
