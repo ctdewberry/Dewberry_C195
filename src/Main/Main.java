@@ -26,7 +26,6 @@ public class Main extends Application {
 
     /**
      * Sets primary stage
-     * Gets resource bundle for localization
      */
 
 
@@ -35,6 +34,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         instance = this;
         this.primaryStage = primaryStage;
+        /**
+         * Gets resource bundle for localization
+         * Loads the LogIn page as the starting page
+         */
         ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
 //        ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.FRENCH);
 

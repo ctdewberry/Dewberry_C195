@@ -405,19 +405,30 @@ public class AppointmentQuery {
     }
 
 
-    //query to see if appointment is within 15 min of login
+    /**
+     * query to see if appointment is within 15 min of login.
+     */
+
     public static String checkIfNextAppointmentIsSoon() {
         String isApptSoon = null;
         Integer timeDiffStart = 0;
+        /**
+         * SQL query to get data from soonest appointment
+         */
         try {
             String sql = "select Appointment_ID, Start, Type, User_ID from appointments WHERE (Start >= CURRENT_TIMESTAMP()) AND User_ID = " + UserDaoImpl.getCurrentUserID() + " ORDER By Start ASC LIMIT 1;";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            /**
+             * If an appointment is found, get the details to present to the user
+             */
             if (rs.next()) {
                 ZonedDateTime timeApptStart = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault());
-
                 int appointmentID = rs.getInt("Appointment_ID");
-                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+                String startDateTime = timeApptStart.format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a z"));
+                /**
+                 * Check to see if the next appointment is within 15 minutes. If so, trigger an alert to the user every time they visit the Main Page
+                 */
                 timeDiffStart = Math.toIntExact(Duration.between(ZonedDateTime.now(), timeApptStart).getSeconds() / 60);
                 if (timeDiffStart <= 15) {
                     isApptSoon = "Your next appointment \nis within 15 minutes";
@@ -427,11 +438,11 @@ public class AppointmentQuery {
                     alertAppointmentSoon.setContentText("Appointment ID: " + appointmentID + "\n" + "Appointment starts at: " + startDateTime);
                     alertAppointmentSoon.showAndWait();
                 } else {
-                    isApptSoon = "No upcoming appointments \nfor "+ UserDaoImpl.getCurrentUserName();
+                    isApptSoon = "No appointments within \n15 minutes for "+ UserDaoImpl.getCurrentUserName();
                 }
 
             } else {
-                isApptSoon = "No upcoming appointments";
+                isApptSoon = "No appointments within \n15 minutes for user: "+ UserDaoImpl.getCurrentUserName();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

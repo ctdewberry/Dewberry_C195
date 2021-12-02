@@ -53,5 +53,10 @@
          </toggleGroup></RadioButton>
         <RadioButton fx:id="currentMonthBtn" layoutX="150.0" layoutY="71.0" mnemonicParsing="false" onAction="#onClickCurrentMonth" text="Current Month" toggleGroup="$appointmentTimeFrame" />
         <RadioButton fx:id="allAppointmentsButton" layoutX="14.0" layoutY="71.0" mnemonicParsing="false" onAction="#onClickAllAppointments" selected="true" text="All Appointments" toggleGroup="$appointmentTimeFrame" />
+      <Label fx:id="userZone" layoutX="724.0" layoutY="21.0" text="Label">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

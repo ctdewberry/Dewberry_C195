@@ -144,7 +144,7 @@ public class LogIn implements Initializable {
 
     }
 
-    private static String getUserTimeZone(){
+    public static String getUserTimeZone(){
         ZonedDateTime localDateTime = ZonedDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy z");
         String userLocalDateTime = formatter.format(localDateTime);

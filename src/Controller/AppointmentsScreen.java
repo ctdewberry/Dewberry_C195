@@ -87,7 +87,8 @@ public class AppointmentsScreen implements Initializable {
     @FXML
     private TableColumn<AppointmentModel, Integer> apptContactIDCol;
 
-
+    @FXML
+    private Label userZone;
 
 
 
@@ -198,6 +199,7 @@ public class AppointmentsScreen implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        userZone.setText(LogIn.getUserTimeZone());
         appointmentsTableView.setItems(DAO.AppointmentQuery.getAllAppointments());
         apptIDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));

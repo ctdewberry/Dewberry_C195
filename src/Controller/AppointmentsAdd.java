@@ -241,6 +241,12 @@ public class AppointmentsAdd implements Initializable {
         ArrayList<AppointmentModel> comparisonArray = getAllAppointmentsForCustomer(customerID);
         for (AppointmentModel A : comparisonArray) {
 
+            /**
+             * OS =
+             * OE =
+             * NS =
+             * NE =
+             */
             LocalDateTime OS = A.getStartDateTime();
             LocalDateTime OE = A.getEndDateTime();
             LocalDateTime NS = startDateTime;
@@ -390,8 +396,8 @@ public class AppointmentsAdd implements Initializable {
                     "\n Location: " + loc +
                     "\n Contact Name: " + contactName +
                     "\n Type: " + type +
-                    "\n Start Time: " + startDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a ")) + TimeZone.getDefault().getID() +
-                    "\n End Time: " + endDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a ")) + TimeZone.getDefault().getID() +
+                    "\n Start Time: " + startDateTime.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a z")) +
+                    "\n End Time: " + endDateTime.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a z")) +
                     "\n Customer ID: " + customerID +
                     "\n User ID: " + userID +
                     "\n Contact ID: " + contactID);
