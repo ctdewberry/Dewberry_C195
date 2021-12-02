@@ -163,7 +163,7 @@ public class AppointmentsScreen implements Initializable {
 
     /**
      * On action modify appointment.
-     * Opens window to modify seleted appointment
+     * Opens window to modify selected appointment
      * @param event the event
      * @throws IOException the io exception
      */

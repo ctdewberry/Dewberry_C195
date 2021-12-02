@@ -66,9 +66,10 @@ public class CustomersScreen implements Initializable {
     @FXML
     private TableColumn<CustomerModel, String> custCountryCol;
 
-
     @FXML
     private Text nextAppointment;
+
+
 
 
     /**
@@ -86,6 +87,8 @@ public class CustomersScreen implements Initializable {
         stage.setTitle("Main Menu");
         stage.show();
     }
+
+
 
     /**
      * On action add customer.
@@ -162,9 +165,8 @@ public class CustomersScreen implements Initializable {
         custCountryIDCol.setCellValueFactory(new PropertyValueFactory<>("customerCountryID"));
         custCountryCol.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
         customerTableView.getSortOrder().add(custIDCol);
-        //lambda to refresh selected customer (provides a quick look into the customers next appointment)
         /**
-         * Refreshes customer's next appointment information (below the table) when a customer is selected in the table
+         * Lambda method to refresh customer's next appointment information (below the table) when a customer is selected in the table
          */
         customerTableView.setOnMouseClicked(e -> refreshSelectedCustomer());
     }

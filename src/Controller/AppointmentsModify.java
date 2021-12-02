@@ -23,9 +23,18 @@ package Controller;
         import static DAO.AppointmentQuery.getAllAppointmentsForCustomer;
         import static DAO.AppointmentQuery.getContactIDFromName;
 
+/**
+ * The type Appointments modify.
+ */
 public class AppointmentsModify implements Initializable {
 
+    /**
+     * The Stage.
+     */
     Stage stage;
+    /**
+     * The Scene.
+     */
     Parent scene;
 
     @FXML
@@ -65,6 +74,11 @@ public class AppointmentsModify implements Initializable {
     private ComboBox comboBoxApptUserID = new ComboBox();
 
 
+    /**
+     * Sent appointment.
+     *
+     * @param AppointmentModel the appointment model
+     */
     public void sentAppointment(AppointmentModel AppointmentModel)
     {
         currentApptID.setText(String.valueOf(AppointmentModel.getAppointmentID()));
@@ -81,10 +95,22 @@ public class AppointmentsModify implements Initializable {
         comboBoxApptUserID.getSelectionModel().select(Integer.valueOf(AppointmentModel.getUserID()));
     }
 
+    /**
+     * The Formatting errors.
+     */
     static ArrayList<String> formattingErrors = new ArrayList<String>();
+    /**
+     * The Schedule errors.
+     */
     static String scheduleErrors = null;
 
 
+    /**
+     * Format errors add message.
+     *
+     * @param errorMessage the error message
+     * @param type         the type
+     */
     public static void formatErrorsAddMessage(String errorMessage, String type) {
 
         if (type == "empty") {
@@ -103,6 +129,11 @@ public class AppointmentsModify implements Initializable {
 
     }
 
+    /**
+     * Schedule errors set message.
+     *
+     * @param type the type
+     */
     public static void scheduleErrorsSetMessage(String type) {
 
         if (type == "endBeforeStart") {
@@ -142,13 +173,13 @@ public class AppointmentsModify implements Initializable {
     }
 
 
-
-
-
-
-
-
-
+    /**
+     * Date time conversion local date time.
+     *
+     * @param dateInput the date input
+     * @param timeInput the time input
+     * @return the local date time
+     */
     public static LocalDateTime dateTimeConversion(DatePicker dateInput, TextField timeInput) {
         String errorType = null;
         LocalDateTime convertedDateTime = null;
@@ -212,6 +243,14 @@ public class AppointmentsModify implements Initializable {
         return convertedDateTime;
     }
 
+    /**
+     * Validate appointments.
+     *
+     * @param startDateTime the start date time
+     * @param endDateTime   the end date time
+     * @param customerID    the customer id
+     * @param appointmentID the appointment id
+     */
     public void validateAppointments(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer customerID, Integer appointmentID) {
 
 
@@ -290,7 +329,12 @@ public class AppointmentsModify implements Initializable {
     }
 
 
-
+    /**
+     * On action modify appointment.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionModifyAppointment(ActionEvent event) throws IOException {
 
@@ -444,6 +488,12 @@ public class AppointmentsModify implements Initializable {
     }
 
 
+    /**
+     * On action cancel.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
 
@@ -464,10 +514,9 @@ public class AppointmentsModify implements Initializable {
     }
 
 
-
-
-
-
+    /**
+     * Initialize.
+     */
     @FXML
     void initialize() {
 
