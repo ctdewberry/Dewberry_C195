@@ -73,19 +73,7 @@ public class LogIn implements Initializable {
     private Label loginSuccess;
 
 
-    //delete these two methods later, dont forget to update the view
-    @FXML
-    void onActionTest(ActionEvent event) {
-        username.setText("test");
-        password.setText("test");
 
-    }
-    @FXML
-    void onActionAdmin(ActionEvent event) {
-        username.setText("admin");
-        password.setText("admin");
-
-    }
 
     @FXML
     void onActionLogin(ActionEvent event) throws IOException {
