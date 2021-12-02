@@ -311,10 +311,23 @@ public class AppointmentsAdd implements Initializable {
         }
 
         String type = null;
-        try {
-            type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
-        } catch (Exception entryError) {
+//        try {
+//            type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
+//        } catch (Exception entryError) {
+//            formatErrorsAddMessage("Type", "empty");
+//        }
+
+//        if (comboBoxApptType.getSelectionModel().isEmpty()) {
+//            formatErrorsAddMessage("Type", "empty");
+//        }
+        if (comboBoxApptType.getSelectionModel().isEmpty()) {
             formatErrorsAddMessage("Type", "empty");
+        } else {
+            try {
+                type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
+            } catch (Exception entryError) {
+                formatErrorsAddMessage("Type", "empty");
+            }
         }
 
 
