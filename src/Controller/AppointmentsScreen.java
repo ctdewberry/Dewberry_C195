@@ -3,6 +3,7 @@ package Controller;
 import DAO.AppointmentQuery;
 import DAO.CustomerQuery;
 import Model.AppointmentModel;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -205,21 +206,10 @@ public class AppointmentsScreen implements Initializable {
         apptContactIDCol.setCellValueFactory(new PropertyValueFactory<>("contactID"));
         apptContactNameCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
         apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-        apptStartDateTimeCol.setCellValueFactory(
-                startDateString -> {
-                    SimpleStringProperty property = new SimpleStringProperty();
-                    property.set(startDateString.getValue().getStartDateTimeString());
-                    return property;
-                }
-        );
-        apptEndDateTimeCol.setCellValueFactory(
-                endDateString -> {
-                    SimpleStringProperty property = new SimpleStringProperty();
-                    property.set(endDateString.getValue().getEndDateTimeString());
-                    return property;
-                }
-        );
-
+        //lambda to get the start date and time formatted for use in table
+        apptStartDateTimeCol.setCellValueFactory( startDateString -> new ReadOnlyStringWrapper(startDateString.getValue().getStartDateTimeString()));
+        //lambda to get the end date and time formatted for use in table
+        apptEndDateTimeCol.setCellValueFactory( endDateString -> new ReadOnlyStringWrapper(endDateString.getValue().getEndDateTimeString()));
         apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
         appointmentsTableView.getSortOrder().add(apptIDCol);
