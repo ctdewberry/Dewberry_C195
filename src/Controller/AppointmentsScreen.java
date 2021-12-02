@@ -167,11 +167,11 @@ public class AppointmentsScreen implements Initializable {
     void onActionDeleteAppointment(ActionEvent event) throws IOException {
         try {
             int currentAppointment = appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentID();
-            String currentName = appointmentsTableView.getSelectionModel().getSelectedItem().getDescription();
+            String currentType = appointmentsTableView.getSelectionModel().getSelectedItem().getType();
             Alert alertConfirmAppointmentDelete = new Alert(Alert.AlertType.CONFIRMATION);
             alertConfirmAppointmentDelete.setTitle("Delete appointment");
             alertConfirmAppointmentDelete.setHeaderText("Delete appointment");
-            alertConfirmAppointmentDelete.setContentText("Do you want to delete appointment: " + currentName + "?");
+            alertConfirmAppointmentDelete.setContentText("Do you want to delete appointment " + currentAppointment + " for: " + currentType + "?");
             Optional<ButtonType> result = alertConfirmAppointmentDelete.showAndWait();
             if (result.get() == ButtonType.OK) {
                 AppointmentQuery.deleteAppointment(currentAppointment);
@@ -180,7 +180,7 @@ public class AppointmentsScreen implements Initializable {
                 Alert alertConfirmAppointmentIsDeleted = new Alert(Alert.AlertType.INFORMATION);
                 alertConfirmAppointmentIsDeleted.setTitle("Delete appointment");
                 alertConfirmAppointmentIsDeleted.setHeaderText("Delete appointment");
-                alertConfirmAppointmentIsDeleted.setContentText("Appointment:" + currentName + " has been deleted.");
+                alertConfirmAppointmentIsDeleted.setContentText("Appointment " + currentAppointment + " for: " + currentType + " has been deleted.");
                 Optional<ButtonType> result2 = alertConfirmAppointmentIsDeleted.showAndWait();
             }
         } catch (Exception e) {
