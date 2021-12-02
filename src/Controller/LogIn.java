@@ -81,7 +81,7 @@ public class LogIn implements Initializable {
 
         if (loggedIn) {
             UserDaoImpl.setCredentials(username.getText());
-            UserDaoImpl.recordLoginAttempts(username.getText(), "LogIn Attempt Successful");
+            UserDaoImpl.recordLoginAttempts(username.getText(), "Log In Attempt Successful");
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/MainPage.fxml"));
@@ -97,7 +97,7 @@ public class LogIn implements Initializable {
             stage.show();
         } else {
             loginSuccess.setText(rbLang.getString("Invalid credentials"));
-            UserDaoImpl.recordLoginAttempts(username.getText(), "LogIn Attempt Unsuccessful");
+            UserDaoImpl.recordLoginAttempts(username.getText(), "Log In Attempt Unsuccessful");
 
             System.out.println("invalid credentials");
         }
