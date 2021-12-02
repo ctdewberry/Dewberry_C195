@@ -8,36 +8,39 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LogIn">
    <children>
-      <Label fx:id="login1" layoutX="22.0" layoutY="22.0" prefHeight="88.0" prefWidth="232.0" text="%Log In">
+      <Label fx:id="login1" layoutX="36.0" layoutY="10.0" prefHeight="88.0" prefWidth="232.0" text="%Log In">
          <font>
             <Font size="64.0" />
          </font>
       </Label>
-      <Label layoutX="30.0" layoutY="125.0" text="%Username">
+      <Label layoutX="40.0" layoutY="130.0" text="%Username">
          <font>
             <Font size="27.0" />
          </font>
       </Label>
-      <Label layoutX="31.0" layoutY="198.0" text="%Password">
+      <Label layoutX="40.0" layoutY="200.0" text="%Password">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label layoutX="322.0" layoutY="46.0" text="%Date and time zone:" />
-      <Label fx:id="userLocation" layoutX="328.0" layoutY="75.0" text="USER_DATE_AND_TIME_ZONE" />
-      <Button fx:id="login2" layoutX="23.0" layoutY="292.0" mnemonicParsing="false" onAction="#onActionLogin" prefHeight="51.0" prefWidth="178.0" text="%Log In">
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="446.0" layoutY="38.0" text="%Date and time zone:" textAlignment="RIGHT" />
+      <Label fx:id="userLocation" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="460.0" layoutY="66.0" text="USER_TIME_ZONE" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Button fx:id="login2" layoutX="40.0" layoutY="300.0" mnemonicParsing="false" onAction="#onActionLogin" prefHeight="80.0" prefWidth="178.0" text="%Log In">
          <font>
             <Font size="34.0" />
          </font>
       </Button>
-      <TextField fx:id="username" layoutX="37.0" layoutY="163.0" />
-      <TextField fx:id="password" layoutX="37.0" layoutY="232.0" />
-      <Button layoutX="415.0" layoutY="292.0" mnemonicParsing="false" onAction="#onActionExit" prefHeight="72.0" prefWidth="132.0" text="%Exit">
+      <TextField fx:id="username" layoutX="40.0" layoutY="170.0" />
+      <TextField fx:id="password" layoutX="40.0" layoutY="240.0" />
+      <Button fx:id="exitButton" layoutX="430.0" layoutY="300.0" mnemonicParsing="false" onAction="#onActionExit" prefHeight="80.0" prefWidth="130.0" text="%Exit">
          <font>
-            <Font size="24.0" />
+            <Font size="34.0" />
          </font>
       </Button>
-      <Label fx:id="loginSuccess" layoutX="324.0" layoutY="130.0" text="%Login credentials">
+      <Label fx:id="loginSuccess" alignment="CENTER_RIGHT" layoutX="340.0" layoutY="135.0" text="%Login credentials" textAlignment="RIGHT">
          <font>
             <Font size="20.0" />
          </font>

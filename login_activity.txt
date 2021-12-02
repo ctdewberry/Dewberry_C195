@@ -61,3 +61,7 @@ Attempted login with username: No username entered on 12/02/2021 at 15:24:01 UTC
 Attempted login with username: No username entered on 12/02/2021 at 15:24:20 UTC. Result: Log In Attempt Unsuccessful
 Attempted login with username: No username entered on 12/02/2021 at 15:24:52 UTC. Result: Log In Attempt Unsuccessful
 Attempted login with username: test on 12/02/2021 at 15:25:01 UTC. Result: Log In Attempt Successful
+Attempted login with username: No username entered on 12/02/2021 at 15:42:16 UTC. Result: Log In Attempt Unsuccessful
+Attempted login with username: No username entered on 12/02/2021 at 15:44:46 UTC. Result: Log In Attempt Unsuccessful
+Attempted login with username: No username entered on 12/02/2021 at 15:53:24 UTC. Result: Log In Attempt Unsuccessful
+Attempted login with username: No username entered on 12/02/2021 at 15:55:13 UTC. Result: Log In Attempt Unsuccessful

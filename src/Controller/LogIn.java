@@ -53,6 +53,10 @@ public class LogIn implements Initializable {
     @FXML
     private Button login2;
 
+    @FXML
+    private Button exitButton;
+
+
     /**
      * Log in user.
      */
@@ -156,7 +160,9 @@ public class LogIn implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login1.setFont(new Font("System",Integer.valueOf(rbLang.getString("login1"))));
         login2.setFont(new Font("System", Integer.valueOf(rbLang.getString("login2"))));
+        loginSuccess.setLayoutX(Integer.valueOf(rbLang.getString("loginCred")));
         loginSuccess.setMaxWidth(260);
+        exitButton.setFont(new Font("System", Integer.valueOf(rbLang.getString("exitSize"))));
         if(Boolean.valueOf(rbLang.getString("loginSuccessWrap")) == Boolean.TRUE) {
             loginSuccess.setWrapText(true);
         }
