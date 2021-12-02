@@ -23,8 +23,6 @@ import javafx.stage.Stage;
 
 public class MainPage implements Initializable {
 
-    @FXML
-    private ResourceBundle rbLang = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
 
     Stage stage;
 

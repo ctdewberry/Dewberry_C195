@@ -42,9 +42,5 @@
         <Button layoutX="250.0" layoutY="640.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
       <Label layoutX="250.0" layoutY="420.0" text="Start Time" />
       <Label layoutX="250.0" layoutY="480.0" text="End Time" />
-      <Button layoutX="278.0" layoutY="165.0" mnemonicParsing="false" onAction="#onActionFillAllButDate" text="fillAllButDate" />
-      <Button layoutX="271.0" layoutY="296.0" mnemonicParsing="false" onAction="#onActionTest" text="test" />
-      <Button layoutX="278.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFillAllButTime" text="fillAllButTime" />
-      <Button layoutX="274.0" layoutY="245.0" mnemonicParsing="false" onAction="#onActionFillAllButDateTime" text="fillAllButDateTime" />
     </children>
 </AnchorPane>
