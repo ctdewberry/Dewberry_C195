@@ -78,7 +78,5 @@ public class ReportBResults implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        reportTypeBox.setValue("Appointments by type/month");
-        reportTypeBox.setItems(reportTypeList);
     }
 }

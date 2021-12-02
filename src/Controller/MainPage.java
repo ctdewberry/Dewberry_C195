@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import DAO.AppointmentQuery;
+import DAO.UserDaoImpl;
 import Model.AppointmentModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,7 +35,8 @@ public class MainPage implements Initializable {
     @FXML
     private Text nextApptDateTime;
 
-
+    @FXML
+    private Text username;
 
     @FXML
     private Text nextApptType;
@@ -140,6 +142,7 @@ public class MainPage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        username.setText(UserDaoImpl.getCurrentUserName());
         if(DAO.AppointmentQuery.checkIfFutureAppointments()) {
             AppointmentModel upcomingAppointment = DAO.AppointmentQuery.getNextAppointment();
             nextApptID.setText(String.valueOf(upcomingAppointment.getAppointmentID()));

@@ -10,12 +10,25 @@ import javafx.stage.Stage;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * C195 Final Project
+ * @author Caleb Dewberry
+ * WGU Student ID: #001222626
+ */
 
+
+/**
+ * The type Main.
+ */
 public class Main extends Application {
     private static Main instance;
-    public static Main getInstance() {
-        return instance;
-    }
+
+
+    /**
+     * Sets primary stage
+     * Gets resource bundle for localization
+     */
+
 
     private Stage primaryStage;
     @Override
@@ -29,14 +42,18 @@ public class Main extends Application {
         this.primaryStage.show();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     *
+     * Connects to the database through DBConnection in DAO
+     */
     public static void main(String[] args) {
 
         DBConnection.startConnection();
         launch(args);
         DBConnection.closeConnection();
     }
-
-
-
 }
 

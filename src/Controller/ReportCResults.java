@@ -35,46 +35,8 @@ public class ReportCResults implements Initializable {
      */
 
     @FXML
-    void onActionBack(ActionEvent event) throws IOException {
-
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/MainPage.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.setTitle("Main Menu");
-
-        stage.show();
-    }
-
-    @FXML
     private ChoiceBox reportTypeBox;
 
-    @FXML
-    void onActionReportOptions(ActionEvent event) throws IOException {
-
-
-        int selectedReportIndex = reportTypeList.indexOf(reportTypeBox.getValue());
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-
-        switch (selectedReportIndex) {
-            case 0:
-                scene = FXMLLoader.load(getClass().getResource("/view/ReportA.fxml"));
-                break;
-            case 1:
-                scene = FXMLLoader.load(getClass().getResource("/view/ReportB.fxml"));
-                break;
-            case 2:
-                scene = FXMLLoader.load(getClass().getResource("/view/ReportC.fxml"));
-                break;
-        }
-
-        stage.setScene(new Scene(scene));
-        stage.setTitle("Reports");
-
-        stage.show();
-
-
-
-    }
 
 
     @FXML
@@ -84,7 +46,6 @@ public class ReportCResults implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        reportTypeBox.setValue("Appointments by type/month");
-        reportTypeBox.setItems(reportTypeList);
+
     }
 }

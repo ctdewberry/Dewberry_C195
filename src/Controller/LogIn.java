@@ -21,10 +21,19 @@ package Controller;
         import java.util.ResourceBundle;
         import java.util.Locale;
 
+/**
+ * The type Log in.
+ */
 public class LogIn implements Initializable {
 
     private static boolean loggedIn;
+    /**
+     * The Stage.
+     */
     Stage stage;
+    /**
+     * The Scene.
+     */
     Parent scene;
 
     @FXML
@@ -38,9 +47,16 @@ public class LogIn implements Initializable {
     @FXML
     private Button login2;
 
+    /**
+     * Log in user.
+     */
     public static void logInUser(){
         loggedIn = true;
     }
+
+    /**
+     * Log out user.
+     */
     public static void logOutUser(){
         loggedIn = false;
     }
@@ -54,6 +70,12 @@ public class LogIn implements Initializable {
     @FXML
     private TextField password;
 
+    /**
+     * On action exit.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionExit(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -73,8 +95,12 @@ public class LogIn implements Initializable {
     private Label loginSuccess;
 
 
-
-
+    /**
+     * On action login.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionLogin(ActionEvent event) throws IOException {
         UserDaoImpl.testCredentials(username.getText(), password.getText());
@@ -112,7 +138,9 @@ public class LogIn implements Initializable {
     }
 
 
-
+    /**
+     * Initialize.
+     */
     @FXML
     void initialize() {
 

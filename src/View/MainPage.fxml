@@ -8,32 +8,32 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainPage">
     <children>
-        <Label layoutX="531.0" layoutY="62.0" text="Next Appointment Details">
+        <Label layoutX="532.0" layoutY="43.0" text="Future Appointment Details">
             <font>
                 <Font size="28.0" />
             </font>
         </Label>
-        <Button layoutX="56.0" layoutY="56.0" mnemonicParsing="false" onAction="#onActionCustomers" text="Customers">
+        <Button layoutX="60.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionCustomers" text="Customers">
             <font>
                 <Font size="24.0" />
             </font>
         </Button>
-        <Button layoutX="56.0" layoutY="158.0" mnemonicParsing="false" onAction="#onActionAppointments" text="Appointments">
+        <Button layoutX="60.0" layoutY="240.0" mnemonicParsing="false" onAction="#onActionAppointments" text="Appointments">
             <font>
                 <Font size="24.0" />
             </font>
         </Button>
-        <Button layoutX="56.0" layoutY="263.0" mnemonicParsing="false" onAction="#onActionReports" text="Reports">
+        <Button layoutX="60.0" layoutY="340.0" mnemonicParsing="false" onAction="#onActionReports" text="Reports">
             <font>
                 <Font size="24.0" />
             </font>
         </Button>
-        <Button layoutX="828.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit">
+        <Button layoutX="850.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit">
             <font>
                 <Font size="24.0" />
             </font>
         </Button>
-      <Button layoutX="63.0" layoutY="486.0" mnemonicParsing="false" onAction="#onActionBackToLogin" text="Back to Login">
+      <Button layoutX="60.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionBackToLogin" text="Back to Login">
          <font>
             <Font size="24.0" />
          </font>
@@ -42,23 +42,33 @@
          <font>
             <Font size="28.0" />
          </font></Text>
-      <Text layoutX="532.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment ID">
+      <Text layoutX="568.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment ID">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="532.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date and Time">
+      <Text layoutX="568.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date and Time">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="532.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
+      <Text layoutX="568.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text fx:id="nextApptID" layoutX="532.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments" />
-      <Text fx:id="nextApptDateTime" layoutX="532.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments" />
-      <Text fx:id="nextApptType" layoutX="532.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments" />
+      <Text fx:id="nextApptID" layoutX="568.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments" />
+      <Text fx:id="nextApptDateTime" layoutX="568.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments" />
+      <Text fx:id="nextApptType" layoutX="568.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No upcoming appointments" />
+      <Text fx:id="username" layoutX="140.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text layoutX="60.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

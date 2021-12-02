@@ -427,7 +427,7 @@ public class AppointmentQuery {
                     alertAppointmentSoon.setContentText("Appointment ID: " + appointmentID + "\n" + "Appointment starts at: " + startDateTime);
                     alertAppointmentSoon.showAndWait();
                 } else {
-                    isApptSoon = "No upcoming appointments";
+                    isApptSoon = "No upcoming appointments \nfor "+ UserDaoImpl.getCurrentUserName();
                 }
 
             } else {
