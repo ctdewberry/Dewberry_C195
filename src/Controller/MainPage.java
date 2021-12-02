@@ -23,6 +23,9 @@ import javafx.stage.Stage;
 
 public class MainPage implements Initializable {
 
+    @FXML
+    private ResourceBundle rbLang = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
+
     Stage stage;
 
     Parent scene;
@@ -72,7 +75,7 @@ public class MainPage implements Initializable {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load((getClass().getResource("/view/LogIn.fxml")), rb);
         stage.setScene(new Scene(scene));
-        stage.setTitle("Log In");
+        stage.setTitle(rb.getString("Log In"));
         stage.show();
 
 
