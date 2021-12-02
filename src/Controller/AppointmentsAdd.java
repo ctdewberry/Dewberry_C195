@@ -90,8 +90,8 @@ public class AppointmentsAdd implements Initializable {
 
     /**
      * Format errors add message.
-     * Formatting errors detected call this method to provide details to the list of compiled
-     * errors that will be presented to the user
+     * Formatting errors detected call this method to provide details to the
+     * list of compiled errors that will be presented to the user
      *
      * @param errorMessage the error message
      * @param type         the type
@@ -115,8 +115,8 @@ public class AppointmentsAdd implements Initializable {
 
     /**
      * Schedule errors set message.
-     * Scheduling errors detected call this method to provide details to the list of compiled
-     * error that will be presented to the user
+     * Scheduling errors detected call this method to provide details to
+     * the list of compiled error that will be presented to the user
      *
      * @param type the type
      */
@@ -199,7 +199,7 @@ public class AppointmentsAdd implements Initializable {
                 dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
             } catch (Exception d) {
                 /**
-                 * Catches error in inputted text, text enteres is unable to be parsed
+                 * Catches error in inputted text, text entered is unable to be parsed
                  * Add error code to aggregated error messages
                  */
                 formatErrorsAddMessage("Error in date input (via text input)", "dateTime");
@@ -214,7 +214,7 @@ public class AppointmentsAdd implements Initializable {
                 dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
             } catch (Exception datePickerError) {
                 /**
-                 * Cataches error in attempting to extract date picker date
+                 * Catches error in attempting to extract date picker date
                  */
                 formatErrorsAddMessage("Error in date input (via Date Picker input)", "dateTime");
             }
@@ -446,7 +446,7 @@ public class AppointmentsAdd implements Initializable {
         }
 
         /**
-         * Send date time fields to be parsed for validation
+         * Send dateTime fields to be parsed for validation
          */
 
         LocalDateTime startDateTime = null;
@@ -477,7 +477,7 @@ public class AppointmentsAdd implements Initializable {
         }
 
         /**
-         * If dateTimes were successfully parsed, sent them to be validated
+         * If dateTimes were successfully parsed, send them to be validated
          */
         if (startDateTime != null && endDateTime != null && customerID != 0) {
             validateAppointments(startDateTime, endDateTime, customerID);
@@ -529,7 +529,7 @@ public class AppointmentsAdd implements Initializable {
             if (result.get() == ButtonType.OK) {
 
                 /**
-                 * Upon confirmation, sent the data to addAppointment query for databased insert
+                 * Upon confirmation, send the data to addAppointment query for database insert
                  */
 
                 AppointmentQuery.addAppointment(new AppointmentModel(id, title, desc, loc, contactName, type, startDateTime, endDateTime, customerID, userID, contactID));

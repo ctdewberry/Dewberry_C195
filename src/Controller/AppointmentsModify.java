@@ -76,7 +76,8 @@ public class AppointmentsModify implements Initializable {
 
     /**
      * Sent appointment.
-     *
+     * Obtain appointment information from selected appointment
+     * and prepopulate input fields
      * @param AppointmentModel the appointment model
      */
     public void sentAppointment(AppointmentModel AppointmentModel)
@@ -97,16 +98,22 @@ public class AppointmentsModify implements Initializable {
 
     /**
      * The Formatting errors.
+     * This array compiles a list of errors collected upon new appointment update attempt
+     * The results will be output to the user for correction before being allowed
+     * to update an appointment
      */
     static ArrayList<String> formattingErrors = new ArrayList<String>();
     /**
      * The Schedule errors.
+     * Sets schedule errors to null until an error is detected
      */
     static String scheduleErrors = null;
 
 
     /**
      * Format errors add message.
+     * Formatting errors detected call this method to provide details to the
+     * list of compiled errors that will be presented to the user
      *
      * @param errorMessage the error message
      * @param type         the type
@@ -131,6 +138,8 @@ public class AppointmentsModify implements Initializable {
 
     /**
      * Schedule errors set message.
+     * Scheduling errors detected call this method to provide details to
+     * the list of compiled error that will be presented to the user
      *
      * @param type the type
      */
@@ -163,6 +172,9 @@ public class AppointmentsModify implements Initializable {
 
 
 
+    /**
+     * Clears the list of error messages for appointment update reattempt
+     */
 
     private void clearFormatErrorMessages() {
         formattingErrors.clear();
@@ -175,6 +187,10 @@ public class AppointmentsModify implements Initializable {
 
     /**
      * Date time conversion local date time.
+     * Parses date and time input fields
+     * Distinguishes between text and date picker
+     * Once parsed it returns a local date time to be used
+     * for appointment update
      *
      * @param dateInput the date input
      * @param timeInput the time input
@@ -193,36 +209,53 @@ public class AppointmentsModify implements Initializable {
         }
 
 
-        //see if there is text, if so: parse it
+        /**
+         * Checks date picker field for text. If found it parses the date
+         */
         if (!dateInput.getEditor().getText().isEmpty()) {
             try {
                 String myTextDate = dateInput.getEditor().getText();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
                 myInputDate = LocalDate.parse(myTextDate, formatter);
-                //reset value incase user had selected a date, deleted it, and then type in a date
+                /**
+                 * Reset value of dateInput to rectify bug when users uses date picker to select
+                 * a date, deletes it, and then attempts to type in a date
+                 */
                 dateInput.setValue(null);
                 dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
             } catch (Exception d) {
-//                errorType = "Error in date input";
-                //there was inparsable text
+                /**
+                 * Catches error in inputted text, text entered is unable to be parsed
+                 * Add error code to aggregated error messages
+                 */
                 formatErrorsAddMessage("Error in date input (via text input)", "dateTime");
             }
 
-            //obtain value of date from date picker
+            /**
+             * Attempt to obtain value of date when user used datepicker instead of entering text
+             */
         } else if (dateInput.getValue() != null) {
             try {
                 myInputDate = dateInput.getValue();
                 dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
             } catch (Exception datePickerError) {
+                /**
+                 * Catches error in attempting to extract date picker date
+                 */
                 formatErrorsAddMessage("Error in date input (via Date Picker input)", "dateTime");
             }
         } else {
+            /**
+             * No information is in date picker field. Return error of an empty field
+             */
             formatErrorsAddMessage("Date entry is empty", "dateTime");
         }
 
 
-        //convert time from time input
-
+        /**
+         * Attempt parsing of entered time, allowing for use of various commonly used
+         * formats when entering
+         */
         try {
             DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("h:mm[ ][]a");
             DateTimeFormatter convertFormat = DateTimeFormatter.ofPattern("H:mm:ss");
@@ -230,11 +263,15 @@ public class AppointmentsModify implements Initializable {
             String correctCaps = timeInput.getText().replace("am", "AM").replace("pm", "PM");
             myInputTime = LocalTime.parse(correctCaps, parseFormat);
         } catch (Exception e) {
-//            errorType = "Error in time input";
+            /**
+             * Catches exception, unable to parse entered time
+             */
             formatErrorsAddMessage("Error in time input", "dateTime");
         }
 
-
+        /**
+         * If both date and time pass all parsing requirements, combine to create a localDateTime and return
+         */
         if (myInputDate != null && myInputTime != null) {
             convertedDateTime = LocalDateTime.of(myInputDate, myInputTime);
         }
@@ -245,26 +282,39 @@ public class AppointmentsModify implements Initializable {
 
     /**
      * Validate appointments.
-     *
+     * Validate appointments based on various criteria
      * @param startDateTime the start date time
      * @param endDateTime   the end date time
      * @param customerID    the customer id
      * @param appointmentID the appointment id
      */
     public void validateAppointments(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer customerID, Integer appointmentID) {
+        /**
+         * Method will not return anything, but will add to aggregated error list if there are any issues
+         * notifying the user of what needs to be corrected
+         */
 
 
-        //ensure appointment ends after it starts
+        /**
+         * Validation 1:
+         * Ensure end date of appointment comes after start date
+         */
         if (!(startDateTime.compareTo(endDateTime) < 0)) {
             scheduleErrorsSetMessage("endBeforeStart");
             return;
         }
 
 
-        //ensure appointment is during business hours
+        /**
+         * Validation 2:
+         * Ensure appointment is scheduled during business hours
+         */
 
-        //<editor-fold desc="Description">
-        //setup checks for start of appointment
+        /**
+         * Prepare variables for use in checking business hours
+         * Convert requested appointment date to zoned date time of the business (EST)
+         * and convert to local date time for comparison
+         */
         ZonedDateTime localZoneStartOfAppointment = startDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime localZoneEndOfAppointment = endDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime targetZoneStartOfAppointment = localZoneStartOfAppointment.withZoneSameInstant(ZoneId.of("US/Eastern"));
@@ -272,12 +322,20 @@ public class AppointmentsModify implements Initializable {
         LocalDateTime localizedAppointmentStartTime = targetZoneStartOfAppointment.toLocalDateTime();
         LocalDateTime localizedAppointmentEndTime = targetZoneEndOfAppointment.toLocalDateTime();
 
-        //parse the date of the appointment for use later
+        /**
+         * Parse and convert business operating hours to local date time for comparison
+         */
         LocalDate localDate = localizedAppointmentStartTime.toLocalDate();
         LocalTime localOpeningHours = LocalTime.of(8,0);
         LocalTime localClosingHours = LocalTime.of(22,0);
         LocalDateTime localOpeningTime = LocalDateTime.of(localDate,localOpeningHours);
         LocalDateTime localClosingTime = LocalDateTime.of(localDate,localClosingHours);
+
+        /**
+         * Compare operating hours of business with requested appointment time.
+         * Return appropriate error
+         */
+
 
         long timeDiffStart = ChronoUnit.MINUTES.between(localOpeningTime,localizedAppointmentStartTime);
         long timeDiffClose = ChronoUnit.MINUTES.between(localizedAppointmentEndTime, localClosingTime);
@@ -286,28 +344,51 @@ public class AppointmentsModify implements Initializable {
             scheduleErrorsSetMessage("officeClosed");
             return;
         }
-        //</editor-fold>
 
 
 
 
 
-        //ensure appointment does not conflict with any other appointment
+
+        /**
+         * Validation 3:
+         * Compare requested appointment time with any other appointments for the same customer
+         * Exclude current appointment from search
+         */
 
         ArrayList<AppointmentModel> comparisonArray = getAllAppointmentsForCustomer(customerID);
         for (AppointmentModel A : comparisonArray) {
             if (A.getAppointmentID() != appointmentID) {
 
-                LocalDateTime OS = A.getStartDateTime();
-                LocalDateTime OE = A.getEndDateTime();
+                /**
+                 * Variables condensed for easier handling
+                 * ES = [E]xisting [S]tart - Start DateTime of existing appointments
+                 * EE = [E]xisting [E]nd - End DateTime of existing appointments
+                 * NS = [N]ew [S]tart - Start DateTime of requested appointment
+                 * NE = [N]ew [E]nd - End DateTime of requested appointment
+                 */
+                LocalDateTime ES = A.getStartDateTime();
+                LocalDateTime EE = A.getEndDateTime();
                 LocalDateTime NS = startDateTime;
                 LocalDateTime NE = endDateTime;
 
-                boolean startOverlap = ((NS.isAfter(OS) || NS.isEqual(OS)) && NS.isBefore(OE));
-                boolean endOverlap = (NE.isAfter(OS) && (NE.isEqual(OE) || NE.isBefore(OE)));
-                boolean startEndOverlap = ((NS.isBefore(OS) || NS.isEqual(OS)) && (NE.isAfter(OE) || NE.isEqual(OE)));
+                /**
+                 * Check to see if requested appointment will start during an existing appointment
+                 */
+                boolean startOverlap = ((NS.isAfter(ES) || NS.isEqual(ES)) && NS.isBefore(EE));
+                /**
+                 * Check to see if requested appointment will end during an existing appointment
+                 */
+                boolean endOverlap = (NE.isAfter(ES) && (NE.isEqual(EE) || NE.isBefore(EE)));
+                /**
+                 * Check to see if requested appointment will overlap an existing appointment
+                 */
+                boolean startEndOverlap = ((NS.isBefore(ES) || NS.isEqual(ES)) && (NE.isAfter(EE) || NE.isEqual(EE)));
 
 
+                /**
+                 * Return the appropriate error from the previous comparisons
+                 */
                 if (startEndOverlap) {
                     scheduleErrorsSetMessage("startEndOverlap");
                     return;
@@ -331,12 +412,16 @@ public class AppointmentsModify implements Initializable {
 
     /**
      * On action modify appointment.
-     *
+     * Parses data from entered fields to sent to UpdateAppointment query
      * @param event the event
      * @throws IOException the io exception
      */
     @FXML
     void onActionModifyAppointment(ActionEvent event) throws IOException {
+
+        /**
+         * Check all fields for empty or erroneous data
+         */
 
 
         int appointmentID = Integer.parseInt(currentApptID.getText());
@@ -394,7 +479,9 @@ public class AppointmentsModify implements Initializable {
 
 
 
-
+        /**
+         * Send dateTime fields to be parsed for validation
+         */
 
         LocalDateTime startDateTime = null;
         try {
@@ -427,9 +514,17 @@ public class AppointmentsModify implements Initializable {
             formatErrorsAddMessage("User ID", "empty");
         }
 
+        /**
+         * If dateTimes were successfully parsed, send them to be validated
+         */
         if (startDateTime != null && endDateTime != null && customerID != 0) {
             validateAppointments(startDateTime, endDateTime, customerID, appointmentID);
         }
+
+        /**
+         * Test to see if any errors collected
+         * If so, alert the user of what needs to be corrected
+         */
 
         if (!formattingErrors.isEmpty()) {
             Alert formatAlert = new Alert(Alert.AlertType.ERROR);
@@ -448,7 +543,10 @@ public class AppointmentsModify implements Initializable {
         } else {
             String customerName = CustomerQuery.getCurrentCustomer(customerID).getCustomerName();
 
-
+            /**
+             * If all data is valid, prompt the user with confirmation of the data
+             * collected and confirm they wish to update the appointment with entered info
+             */
             Alert alertConfirmAppointmentCreation = new Alert(Alert.AlertType.CONFIRMATION);
             alertConfirmAppointmentCreation.setTitle("Update appointment");
             alertConfirmAppointmentCreation.setHeaderText("Update appointment");
@@ -466,6 +564,10 @@ public class AppointmentsModify implements Initializable {
                     "\n Contact ID: " + contactID);
             Optional<ButtonType> result = alertConfirmAppointmentCreation.showAndWait();
             if (result.get() == ButtonType.OK) {
+
+                /**
+                 * Upon confirmation, send the data to UpdateAppointment query for database update
+                 */
 
 
                 AppointmentQuery.updateAppointment(new AppointmentModel(appointmentID, title, desc, loc, contactName, type, startDateTime, endDateTime, customerID, userID, contactID));
@@ -490,7 +592,7 @@ public class AppointmentsModify implements Initializable {
 
     /**
      * On action cancel.
-     *
+     * Prompt customer for confirmation of cancelling update of appointment
      * @param event the event
      * @throws IOException the io exception
      */
@@ -524,10 +626,12 @@ public class AppointmentsModify implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        /**
+         * Populate combo boxes
+         */
         comboBoxApptContact.getItems().setAll(AppointmentQuery.getAllContacts());
         comboBoxApptType.getItems().setAll(AppointmentQuery.getAllTypes());
         comboBoxApptCustID.getItems().setAll(AppointmentQuery.getAllCustomerIDs());
         comboBoxApptUserID.getItems().setAll(AppointmentQuery.getAllUserIDs());
-        currentApptID.setText(String.valueOf(AppointmentQuery.getHighestAppointmentID()));
     }
 }
