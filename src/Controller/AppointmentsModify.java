@@ -348,16 +348,39 @@ public class AppointmentsModify implements Initializable {
 //            }
 //        }
 
+//        if (comboBoxApptType.getEditor().getText().isEmpty()) {
+//            try {
+//                type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
+//            } catch (Exception entryError) {
+//                formatErrorsAddMessage("Type", "empty");
+//            }
+//            formatErrorsAddMessage("Type", "empty");
+//        } else {
+//            type = comboBoxApptType.getEditor().getText();
+//        }
+
+        Boolean noText = true;
         if (comboBoxApptType.getEditor().getText().isEmpty()) {
             try {
                 type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
+                noText = false;
+                if (type.isEmpty()) {
+                    noText = true;
+                }
             } catch (Exception entryError) {
-                formatErrorsAddMessage("Type", "empty");
-            }
-            formatErrorsAddMessage("Type", "empty");
-        } else {
+                noText = true;
+            }} else {
             type = comboBoxApptType.getEditor().getText();
+            noText = false;
         }
+
+        if (noText) {
+            formatErrorsAddMessage("Type", "empty");
+        }
+
+
+
+
 
         LocalDateTime startDateTime = null;
         try {
@@ -370,6 +393,10 @@ public class AppointmentsModify implements Initializable {
             endDateTime = dateTimeConversion(datePickerApptEndDate, apptEndTime);
         } catch (Exception entryError) {
         }
+
+
+
+
 
 
         int customerID = 0;
@@ -479,11 +506,13 @@ public class AppointmentsModify implements Initializable {
         apptTitle.setText("titleFromButton");
         apptDesc.setText("descFromButton");
         apptLoc.setText("locFromButton");
-
+        apptStartTime.setText("06:30 PM");
+        apptEndTime.setText("08:30 PM");
         comboBoxApptContact.getSelectionModel().selectFirst();
-        comboBoxApptType.getSelectionModel().selectFirst();
         comboBoxApptCustID.getSelectionModel().selectFirst();
         comboBoxApptUserID.getSelectionModel().selectFirst();
+        datePickerApptStartDate.setValue(LocalDate.now());
+        datePickerApptEndDate.setValue(LocalDate.now());
 
 
     }

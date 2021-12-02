@@ -171,7 +171,6 @@ public class AppointmentsAdd implements Initializable {
                 formatErrorsAddMessage("Error in date input (via Date Picker input)", "dateTime");
             }
         } else {
-//            System.out.println("Null input for date");
             formatErrorsAddMessage("Date entry is empty", "dateTime");
         }
 
@@ -321,15 +320,24 @@ public class AppointmentsAdd implements Initializable {
 //            formatErrorsAddMessage("Type", "empty");
 //        }
 
+        Boolean noText = true;
         if (comboBoxApptType.getEditor().getText().isEmpty()) {
             try {
                 type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
+                noText = false;
+                if (type.isEmpty()) {
+                    noText = true;
+                }
             } catch (Exception entryError) {
-                formatErrorsAddMessage("Type", "empty");
+                noText = true;
             }
-            formatErrorsAddMessage("Type", "empty");
         } else {
             type = comboBoxApptType.getEditor().getText();
+            noText = false;
+        }
+
+        if (noText) {
+            formatErrorsAddMessage("Type", "empty");
         }
 
 
@@ -453,11 +461,13 @@ public class AppointmentsAdd implements Initializable {
         apptTitle.setText("titleFromButton");
         apptDesc.setText("descFromButton");
         apptLoc.setText("locFromButton");
-
+        apptStartTime.setText("06:30 PM");
+        apptEndTime.setText("08:30 PM");
         comboBoxApptContact.getSelectionModel().selectFirst();
-        comboBoxApptType.getSelectionModel().selectFirst();
         comboBoxApptCustID.getSelectionModel().selectFirst();
         comboBoxApptUserID.getSelectionModel().selectFirst();
+        datePickerApptStartDate.setValue(LocalDate.now());
+        datePickerApptEndDate.setValue(LocalDate.now());
 
 
     }
@@ -469,14 +479,12 @@ public class AppointmentsAdd implements Initializable {
             startDateTime = dateTimeConversion(datePickerApptStartDate, apptStartTime);
         } catch (Exception entryError) {
         }
-        System.out.println(startDateTime);
 
         LocalDateTime endDateTime = null;
         try {
             endDateTime = dateTimeConversion(datePickerApptEndDate, apptEndTime);
         } catch (Exception entryError) {
         }
-        System.out.println(endDateTime);
 
         if ((startDateTime != null & endDateTime != null)) {
 

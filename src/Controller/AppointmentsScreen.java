@@ -185,7 +185,11 @@ public class AppointmentsScreen implements Initializable {
                 Optional<ButtonType> result2 = alertConfirmAppointmentIsDeleted.showAndWait();
             }
         } catch (Exception e) {
-            System.out.println("No selected appointments");
+            Alert noAppointmentsSelectedForDeletion = new Alert(Alert.AlertType.INFORMATION);
+            noAppointmentsSelectedForDeletion.setTitle("Delete appointment");
+            noAppointmentsSelectedForDeletion.setHeaderText("Delete appointment");
+            noAppointmentsSelectedForDeletion.setContentText("Please select an appointment for deletion.");
+            Optional<ButtonType> result2 = noAppointmentsSelectedForDeletion.showAndWait();
         }
     }
 

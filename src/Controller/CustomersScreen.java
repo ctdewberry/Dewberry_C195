@@ -166,7 +166,11 @@ public class CustomersScreen implements Initializable {
                 Optional<ButtonType> result2 = alertConfirmCustomerIsDeleted.showAndWait();
             }
         } catch (Exception e) {
-            System.out.println("No selected customers");
+            Alert noCustomerSelectedForDeletion = new Alert(Alert.AlertType.INFORMATION);
+            noCustomerSelectedForDeletion.setTitle("Delete customer");
+            noCustomerSelectedForDeletion.setHeaderText("Delete customer");
+            noCustomerSelectedForDeletion.setContentText("Please select a customer for deletion.");
+            Optional<ButtonType> result2 = noCustomerSelectedForDeletion.showAndWait();
         }
     }
 }
