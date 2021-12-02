@@ -96,8 +96,6 @@ public class ReportsQuery {
 
             while (rs.next()) {
                 ReportATotals = rs.getInt(1);
-                System.out.println(ReportATotals);
-//                System.out.println(Reports.chosenTypeForReport);
 
 
             }

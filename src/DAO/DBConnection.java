@@ -28,7 +28,6 @@ public class DBConnection {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {//Use Printstacktrace for outputting exceptions
             e.printStackTrace();
-            //System.out.println(e.getMessage());
         }
         return conn;
     }

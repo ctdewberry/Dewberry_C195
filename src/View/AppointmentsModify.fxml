@@ -42,9 +42,5 @@
       <Label layoutX="250.0" layoutY="480.0" text="End Time" />
       <TextField fx:id="apptStartTime" layoutX="250.0" layoutY="440.0" promptText="Format: 04:30 PM " />
       <TextField fx:id="apptEndTime" layoutX="250.0" layoutY="500.0" promptText="Format: 6:30pm" />
-      <Button layoutX="288.0" layoutY="175.0" mnemonicParsing="false" onAction="#onActionFillAllButDate" text="fillAllButDate" />
-      <Button layoutX="281.0" layoutY="306.0" mnemonicParsing="false" onAction="#onActionTest" text="test" />
-      <Button layoutX="288.0" layoutY="210.0" mnemonicParsing="false" onAction="#onActionFillAllButTime" text="fillAllButTime" />
-      <Button layoutX="284.0" layoutY="255.0" mnemonicParsing="false" onAction="#onActionFillAllButDateTime" text="fillAllButDateTime" />
     </children>
 </AnchorPane>

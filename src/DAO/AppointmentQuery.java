@@ -109,12 +109,8 @@ public class AppointmentQuery {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-
         Integer newAppointmentID = null;
         try {
-//            String sql = "select MAX(Appointment_ID) from appointments";
-//            String sql = "ANALYZE TABLE appointments; select auto_increment from information_schema.TABLES where (TABLE_NAME = 'appointments');";
             String sql = "select auto_increment from information_schema.TABLES where (TABLE_NAME = 'appointments');";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

@@ -42,7 +42,5 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Button layoutX="254.0" layoutY="257.0" mnemonicParsing="false" onAction="#onActionTest" text="test" />
-      <Button layoutX="254.0" layoutY="316.0" mnemonicParsing="false" onAction="#onActionAdmin" text="admin" />
    </children>
 </AnchorPane>

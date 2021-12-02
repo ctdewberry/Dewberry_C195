@@ -30,39 +30,6 @@ public class ReportA implements Initializable {
     @FXML
     private ChoiceBox choiceBoxType;
 
-    @FXML
-    void onActionCancel(ActionEvent event) throws IOException {
-
-        Alert alertConfirmCancel = new Alert(Alert.AlertType.CONFIRMATION);
-        alertConfirmCancel.setTitle("Cancel");
-        alertConfirmCancel.setHeaderText("Cancel");
-        alertConfirmCancel.setContentText("Do you want to Cancel?");
-
-        Optional<ButtonType> result = alertConfirmCancel.showAndWait();
-        if (result.get() == ButtonType.OK) {
-
-            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/view/Reports.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.setTitle("Reports");
-            stage.show();
-        }
-    }
-
-
-    @FXML
-    private Button testButton;
-
-
-
-    @FXML
-    void onActionRunReportA(ActionEvent event) throws IOException  {
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/ReportAResults.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.setTitle("Report Results");
-        stage.show();
-    }
 
     @FXML
     void initialize() {

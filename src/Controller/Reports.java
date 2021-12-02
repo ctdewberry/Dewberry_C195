@@ -213,6 +213,8 @@ public class Reports implements Initializable {
             reportAMonthChoice.setText(selectedMonthString + " " +selectedYearString);
             reportATypeChoice.setText(chosenType);
             reportATotalAppointments.setText(String.valueOf(ReportsQuery.ReportATotalsQuery(selectedMonth,selectedYear,chosenType)));
+            reportTypeBox.getSelectionModel().selectFirst();
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -247,6 +249,8 @@ public class Reports implements Initializable {
             apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
             apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
             reportContactTableView.getSortOrder().add(apptIDCol);
+            reportTypeBox.getSelectionModel().select(1);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -279,6 +283,8 @@ public class Reports implements Initializable {
             apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
             apptContactIDCol.setCellValueFactory(new PropertyValueFactory<>("contactID"));
             reportLocationTableView.getSortOrder().add(apptIDCol);
+            reportTypeBox.getSelectionModel().select(2);
+
 
         } catch (Exception e) {
             e.printStackTrace();

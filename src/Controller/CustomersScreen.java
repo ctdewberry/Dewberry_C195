@@ -153,7 +153,7 @@ public class CustomersScreen implements Initializable {
             Alert alertConfirmCustomerDelete = new Alert(Alert.AlertType.CONFIRMATION);
             alertConfirmCustomerDelete.setTitle("Delete customer");
             alertConfirmCustomerDelete.setHeaderText("Delete customer");
-            alertConfirmCustomerDelete.setContentText("Do you want to delete customer: " + currentName + "?");
+            alertConfirmCustomerDelete.setContentText("Do you want to delete customer: " + currentName + "? \nThis will delete all of this customers appointments.");
             Optional<ButtonType> result = alertConfirmCustomerDelete.showAndWait();
             if (result.get() == ButtonType.OK) {
                 CustomerQuery.deleteCustomer(currentCustomer);
