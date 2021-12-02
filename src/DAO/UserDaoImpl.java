@@ -32,12 +32,10 @@ public class UserDaoImpl {
         }
     }
 
-    /**
-     * The constant currentUserID.
+    /**The constant currentUserID.
      */
     public static int currentUserID;
-    /**
-     * The constant currentUserName.
+    /**The constant currentUserName.
      */
     public static String currentUserName;
 

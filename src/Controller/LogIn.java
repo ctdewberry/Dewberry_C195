@@ -54,8 +54,7 @@ public class LogIn implements Initializable {
     private Label dateText;
 
 
-    /**
-     * Log in user.
+    /**Log in user.
      */
     public static void logInUser(){
         loggedIn = true;

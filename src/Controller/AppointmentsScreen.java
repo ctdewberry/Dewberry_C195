@@ -85,12 +85,13 @@ public class AppointmentsScreen implements Initializable {
     private Label userZone;
 
 
-
-    @FXML
-    /** onClickAllAppointments. Sets the table view to view all appointments, sorted by appointment id
-     @param event the event
-     @throws IOException the io exception
+    /**
+     * onClickAllAppointments. Set the table view to view all appointments.
+     * sorted by appointment id
+     * @param event the event
+     * @throws IOException the io exception
      */
+    @FXML
     void onClickAllAppointments(ActionEvent event) throws IOException {
         appointmentsTableView.setItems(DAO.AppointmentQuery.getAllAppointments());
         appointmentsTableView.getSortOrder().add(apptIDCol);
@@ -181,8 +182,8 @@ public class AppointmentsScreen implements Initializable {
             stage.setTitle("Modify Appointment");
             stage.show();
         } catch (NullPointerException e) {
-            /**
-             * Catches exception if no user selected when attempting to modify
+            /*
+              Catches exception if no user selected when attempting to modify
              */
             return;
         }
@@ -199,8 +200,8 @@ public class AppointmentsScreen implements Initializable {
      */
     @FXML
     void onActionDeleteAppointment(ActionEvent event) throws IOException {
-        /**
-         * Attempts to delete selected appointment
+        /*
+          Attempts to delete selected appointment
          */
         try {
             int currentAppointment = appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentID();
@@ -210,8 +211,8 @@ public class AppointmentsScreen implements Initializable {
             alertConfirmAppointmentDelete.setHeaderText("Delete appointment");
             alertConfirmAppointmentDelete.setContentText("Do you want to delete appointment " + currentAppointment + " for: " + currentType + "?");
             Optional<ButtonType> result = alertConfirmAppointmentDelete.showAndWait();
-            /**
-             * Confirmation window on delete
+            /*
+              Confirmation window on delete
              */
             if (result.get() == ButtonType.OK) {
                 AppointmentQuery.deleteAppointment(currentAppointment);
@@ -244,10 +245,18 @@ public class AppointmentsScreen implements Initializable {
 
     }
 
+    /**
+     * initialize. initializes table and values on screen load
+     * Lambda used below to format and localize the time and date of the incoming appointments DateTime values
+     * I used this because it was the only way I could find to properly format and localize the dateTime for use in the
+     * table column. I use this lambda several time in this project but it is not my only use of a lambda
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /**
-         *  Initializes table view and various labels and buttons on appointment screen
+        /*
+           Initializes table view and various labels and buttons on appointment screen
          */
 
         userZone.setText(LogIn.getUserTimeZone());
@@ -265,6 +274,11 @@ public class AppointmentsScreen implements Initializable {
          * while also localizing the date and time to the current timezone
          */
         apptStartDateTimeCol.setCellValueFactory( startDateString -> new ReadOnlyStringWrapper(startDateString.getValue().getStartDateTimeString()));
+
+        /**
+         * lambda methods to format the end dates of appointments listed on table in an easily readable format
+         * while also localizing the date and time to the current timezone
+         */
         apptEndDateTimeCol.setCellValueFactory( endDateString -> new ReadOnlyStringWrapper(endDateString.getValue().getEndDateTimeString()));
 
 

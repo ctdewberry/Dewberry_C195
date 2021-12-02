@@ -215,6 +215,16 @@ public class CustomerModify implements Initializable {
 
     }
 
+    /**
+     * initialize. initializes comboBoxes
+     * Lambda listed below to update Update Division List. The lambda updates the division list
+     * whenever either the comboBox for countries or the comboBox for divisions is clicked. Without
+     * this function it was possible that the user could choose invalid divisions that did not match
+     * the country. By running this lambda, i am able to ensure that the user will only ever choose
+     * valid division list options.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxCountry.getItems().setAll(CustomerQuery.getAllCountries());

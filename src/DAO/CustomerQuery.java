@@ -149,9 +149,8 @@ public class CustomerQuery {
         return divisionID;
     }
 
-    /**
-     * Get all countries observable list.
-     * queries all countries to populate the counties combo box
+    /**Get all countries observable list. SQL query for all countries.
+     * populate the counties combo box
      * @return the observable list
      */
     public static ObservableList<String> getAllCountries(){
@@ -170,9 +169,7 @@ public class CustomerQuery {
         return countryList;
     }
 
-    /**
-     * Get filtered divisions observable list.
-     * populates the division combo box based on country selected
+    /**Get filtered divisions observable list. populates the division combo box based on country selected
      * @param selectedCountry the selected country
      * @return the observable list
      */
@@ -193,8 +190,7 @@ public class CustomerQuery {
     }
 
 
-    /**
-     * Add customer.
+    /** Add customer. Gather data to add customer.
      * Data is parsed and validated on the customer add screen
      * It is then sent to this SQL function to be finalized as a customer insert
      * into the database
@@ -218,8 +214,7 @@ public class CustomerQuery {
         }
     }
 
-    /**
-     * Modify customer.
+    /** Modify customer. Gather data to modify customer
      * Data is parsed and validated on the customer modify screen
      * It is then sent to this SQL function to be finalized as a customer update
      * into the database
@@ -244,10 +239,8 @@ public class CustomerQuery {
         }
     }
 
-    /**
-     * Delete customer.
-     * When customer confirms a delete on the customer screen
-     * this sql function is used to finalize the deletion
+    /** Delete customer. Delete selected customer
+     * Confirm with user
      * @param selectedCustomer the selected customer
      */
     public static void deleteCustomer(Integer selectedCustomer) {

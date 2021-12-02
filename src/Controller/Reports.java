@@ -232,6 +232,9 @@ public class Reports implements Initializable {
 
 
     /**On action run report B. Query results for Report B
+     * Lambda used below to format and localize the time and date of the incoming appointments DateTime values
+     * I used this because it was the only way I could find to properly format and localize the dateTime for use in the
+     * table column. I use this lambda several time in this project but it is not my only lambda
      * @param event the event
      * @throws IOException the io exception
      */
@@ -242,9 +245,6 @@ public class Reports implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportBResults.fxml"));
             loader.setController(this);
             mainPain.setCenter(loader.load());
-
-
-
 
             reportBContact.setText(chosenContact);
             reportContactTableView.setItems(ReportsQuery.ReportBAppointmentsByContact(chosenContact));
@@ -275,6 +275,9 @@ public class Reports implements Initializable {
     }
 
     /**On action run report C. Query results for Report C
+     * Lambda used below to format and localize the time and date of the incoming appointments DateTime values
+     * I used this because it was the only way I could find to properly format and localize the dateTime for use in the
+     * table column. I use this lambda several time in this project but it is not my only lambda
      * @param event the event
      * @throws IOException the io exception
      */
@@ -286,9 +289,6 @@ public class Reports implements Initializable {
             loader.setController(this);
             mainPain.setCenter(loader.load());
 
-
-
-
             reportCLocation.setText(chosenLocation);
             reportLocationTableView.setItems(ReportsQuery.ReportCAppointmentsByLocation(chosenLocation));
             apptIDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
@@ -297,11 +297,11 @@ public class Reports implements Initializable {
             apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
 
             /** Format dateTime for column. Lambda to format the start datesTimes
-             * for use in table columns. Localizes time in addition to formatting.
+             * for use in table columns. Localizes dateTime in addition to formatting.
              */
             apptStartDateTimeCol.setCellValueFactory( startDateString -> new ReadOnlyStringWrapper(startDateString.getValue().getStartDateTimeString()));
             /** Format dateTime for column. Lambda to format the end datesTimes
-             * for use in table columns. Localizes time in addition to formatting.
+             * for use in table columns. Localizes dateTime in addition to formatting.
              */
             apptEndDateTimeCol.setCellValueFactory( endDateString -> new ReadOnlyStringWrapper(endDateString.getValue().getEndDateTimeString()));
 

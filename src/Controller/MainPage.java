@@ -76,17 +76,15 @@ public class MainPage implements Initializable {
     }
 
 
-    /**
-     * On action back to login.
-     * Method that takes user back to log in screen
+    /**On action back to login. Load log in screen.
      * @param event the event
      * @throws IOException the io exception
      */
     @FXML
     void onActionBackToLogin(ActionEvent event) throws IOException {
-        /**
-         * Call method to log out user before going back to login page
-         */
+        //Call method to log out user before going back to login page
+
+
         LogIn.logOutUser();
 //        ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.FRENCH);
         ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
@@ -97,9 +95,7 @@ public class MainPage implements Initializable {
         stage.show();
     }
 
-    /**
-     * On action appointments.
-     * Method that loads the appointments screen where the user can view/add/update/delete appointments
+    /** On action appointments. Load appointment screen
      * @param event the event
      * @throws IOException the io exception
      */
@@ -117,9 +113,7 @@ public class MainPage implements Initializable {
     }
 
 
-    /**
-     * On action reports.
-     * Method that loads the customer screen where the user can view reports
+    /**On action reports. Load reports screen.
      * @param event the event
      * @throws IOException the io exception
      */
@@ -136,9 +130,8 @@ public class MainPage implements Initializable {
         stage.show();
     }
 
-    /**
-     * On action exit.
-     * Exits the program after prompting customer to confirm
+    /**On action exit. Exits the program.
+     * Confirm with user
      * @param event the event
      * @throws IOException the io exception
      */
@@ -155,8 +148,7 @@ public class MainPage implements Initializable {
     }
 
 
-    /**
-     * Initialize.
+    /**Initialize.
      */
     @FXML
     void initialize() {

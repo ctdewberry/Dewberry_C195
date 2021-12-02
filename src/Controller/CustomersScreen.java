@@ -134,7 +134,12 @@ public class CustomersScreen implements Initializable {
 
     }
 
-    /** Initialize. Populate customer table on load
+    /** Initialize. Populate customer table on load.
+     * Lambda used below to Refresh Selected Customer info. Below the customer table view there is some text that updates
+     * with the selected customers next appointment. Though not required, in the real world this would be a great
+     * feature for the user as they would be able to quickly see the customers next appointment without having to
+     * switch to the appointment screen or report screen. I felt this use was justified as I can see a feature like this
+     * being used in the real world.
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -158,7 +163,8 @@ public class CustomersScreen implements Initializable {
         customerTableView.setOnMouseClicked(e -> refreshSelectedCustomer());
     }
 
-    /** Refresh Implementation. Method to detect the selected customer and query their next appointment*/
+    /** Refresh Implementation. Method to detect the selected customer and query their next appointment.
+     * This is the interface of the lambda used above*/
 
     private void refreshSelectedCustomer() {
         try {
@@ -198,9 +204,8 @@ public class CustomersScreen implements Initializable {
 
             }
         } catch (Exception e) {
-            /**
-             * Exception caught if no customer selected when user clicks delete
-             */
+            //Exception caught if no customer selected when user clicks delete
+
             Alert noCustomerSelectedForDeletion = new Alert(Alert.AlertType.INFORMATION);
             noCustomerSelectedForDeletion.setTitle("Delete customer");
             noCustomerSelectedForDeletion.setHeaderText("Delete customer");

@@ -246,15 +246,15 @@ public class AppointmentsModify implements Initializable {
 
 
 
-        /**Validation 1. Ensure end date of appointment comes after start date*/
+       //Validation 1. Ensure end date of appointment comes after start date*/
         if (!(startDateTime.compareTo(endDateTime) < 0)) {
             scheduleErrorsSetMessage("endBeforeStart");
             return;
         }
 
 
-        /**Validation 2. Ensure appointment is scheduled during business hours
-         */
+        //Validation 2. Ensure appointment is scheduled during business hours
+
 
         //Prepare variables for use in checking business hours
         //Convert requested appointment date to zoned date time of the business (EST)
@@ -295,9 +295,9 @@ public class AppointmentsModify implements Initializable {
 
 
 
-        /**Validation 3. Compare requested appointment time with any other appointments for the same customer
-         * Exclude current appointment from search
-         */
+       //Validation 3. Compare requested appointment time with any other appointments for the same customer
+       //Exclude current appointment from search
+
 
         ArrayList<AppointmentModel> comparisonArray = getAllAppointmentsForCustomer(customerID);
         for (AppointmentModel A : comparisonArray) {
@@ -419,9 +419,8 @@ public class AppointmentsModify implements Initializable {
 
 
 
-        /**
-         * Send dateTime fields to be parsed for validation
-         */
+        //Send dateTime fields to be parsed for validation
+
 
         LocalDateTime startDateTime = null;
         try {
@@ -454,17 +453,15 @@ public class AppointmentsModify implements Initializable {
             formatErrorsAddMessage("User ID", "empty");
         }
 
-        /**
-         * If dateTimes were successfully parsed, send them to be validated
-         */
+        //If dateTimes were successfully parsed, send them to be validated
+
         if (startDateTime != null && endDateTime != null && customerID != 0) {
             validateAppointments(startDateTime, endDateTime, customerID, appointmentID);
         }
 
-        /**
-         * Test to see if any errors collected
-         * If so, alert the user of what needs to be corrected
-         */
+        //Test to see if any errors collected
+        //If so, alert the user of what needs to be corrected
+
 
         if (!formattingErrors.isEmpty()) {
             Alert formatAlert = new Alert(Alert.AlertType.ERROR);
@@ -483,10 +480,10 @@ public class AppointmentsModify implements Initializable {
         } else {
             String customerName = CustomerQuery.getCurrentCustomer(customerID).getCustomerName();
 
-            /**
-             * If all data is valid, prompt the user with confirmation of the data
-             * collected and confirm they wish to update the appointment with entered info
-             */
+           //If all data is valid, prompt the user with confirmation of the data
+            //collected and confirm they wish to update the appointment with entered info
+
+
             Alert alertConfirmAppointmentCreation = new Alert(Alert.AlertType.CONFIRMATION);
             alertConfirmAppointmentCreation.setTitle("Update appointment");
             alertConfirmAppointmentCreation.setHeaderText("Update appointment");
@@ -505,9 +502,8 @@ public class AppointmentsModify implements Initializable {
             Optional<ButtonType> result = alertConfirmAppointmentCreation.showAndWait();
             if (result.get() == ButtonType.OK) {
 
-                /**
-                 * Upon confirmation, send the data to UpdateAppointment query for database update
-                 */
+                //Upon confirmation, send the data to UpdateAppointment query for database update
+
 
 
                 AppointmentQuery.updateAppointment(new AppointmentModel(appointmentID, title, desc, loc, contactName, type, startDateTime, endDateTime, customerID, userID, contactID));
@@ -530,9 +526,7 @@ public class AppointmentsModify implements Initializable {
     }
 
 
-    /**
-     * On action cancel.
-     * Prompt customer for confirmation of cancelling update of appointment
+    /**On action cancel. Confirm cancel with user.
      * @param event the event
      * @throws IOException the io exception
      */
@@ -556,8 +550,7 @@ public class AppointmentsModify implements Initializable {
     }
 
 
-    /**
-     * Initialize.
+    /**Initialize.
      */
     @FXML
     void initialize() {
@@ -566,9 +559,8 @@ public class AppointmentsModify implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /**
-         * Populate combo boxes
-         */
+       //Populate combo boxes
+
         comboBoxApptContact.getItems().setAll(AppointmentQuery.getAllContacts());
         comboBoxApptType.getItems().setAll(AppointmentQuery.getAllTypes());
         comboBoxApptCustID.getItems().setAll(AppointmentQuery.getAllCustomerIDs());
