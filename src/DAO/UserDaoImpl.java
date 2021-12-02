@@ -10,7 +10,16 @@ import java.util.TimeZone;
 import java.io.*;
 
 
+/**
+ * The type User dao.
+ */
 public class UserDaoImpl {
+    /**
+     * Test credentials.
+     * Run SQL query with username and password combonation
+     * @param inputUsername the input username
+     * @param inputPassword the input password
+     */
     public static void testCredentials(String inputUsername, String inputPassword) {
         try {
             String userSearch = "select * from users where User_Name = '" + inputUsername +"' and Password = '" + inputPassword +"'";
@@ -25,8 +34,21 @@ public class UserDaoImpl {
             throwables.printStackTrace();
         }
     }
+
+    /**
+     * The constant currentUserID.
+     */
     public static int currentUserID;
+    /**
+     * The constant currentUserName.
+     */
     public static String currentUserName;
+
+    /**
+     * Sets credentials.
+     * Sers user's username for future use
+     * @param userName the user name
+     */
     public static void setCredentials(String userName) {
         try {
             String sql = "select User_ID, User_Name from users where User_Name = '" + userName +"'";
@@ -41,13 +63,32 @@ public class UserDaoImpl {
         }
 
     }
+
+    /**
+     * Get current user id int.
+     *
+     * @return the int
+     */
     public static int getCurrentUserID(){
         return currentUserID;
     }
+
+    /**
+     * Get current user name string.
+     *
+     * @return the string
+     */
     public static String getCurrentUserName(){
         return currentUserName;
     }
 
+    /**
+     * Record login attempts.
+     *
+     * @param username the username
+     * @param success  the success
+     * @throws IOException the io exception
+     */
     public static void recordLoginAttempts(String username, String success) throws IOException{
         if (username.isEmpty()) {
             username = "No username entered";

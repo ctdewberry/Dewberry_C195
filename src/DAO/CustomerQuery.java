@@ -18,8 +18,8 @@ public class CustomerQuery {
 
     /**
      * Gets all customers.
-     * query for populating the table on the main customers page
-     * returns obversvable array list of all customers and their associated info
+     * SQL query for populating the table on the main customers page
+     * returns observable array list of all customers and their associated info
      * @return the all customers
      */
     public static ObservableList<CustomerModel> getAllCustomers() {
@@ -52,7 +52,7 @@ public class CustomerQuery {
 
 
     /**
-     * query for updating data on customer page when a customer is selected
+     * SQL query for updating data on customer page when a customer is selected
      * returns either info about the customers next appointment or info that
      * the customer does not have any future appointments
      *
@@ -148,7 +148,7 @@ public class CustomerQuery {
     /**
      * Get division id from combo box integer.
      * Gets the division id from the division selected from
-     * the division id combo box
+     * the division id comboBox
      * @param selectedDivision the selected division
      * @return the integer
      */
@@ -214,7 +214,8 @@ public class CustomerQuery {
     /**
      * Add customer.
      * Data is parsed and validated on the customer add screen
-     * It is then sent to this SQL function to be finalized
+     * It is then sent to this SQL function to be finalized as a customer insert
+     * into the database
      * @param newCustomer the new customer
      */
     public static void addCustomer(CustomerModel newCustomer) {
@@ -238,7 +239,8 @@ public class CustomerQuery {
     /**
      * Modify customer.
      * Data is parsed and validated on the customer modify screen
-     * It is then sent to this SQL function to be finalized
+     * It is then sent to this SQL function to be finalized as a customer update
+     * into the database
      * @param updateCustomer the update customer
      */
     public static void modifyCustomer(CustomerModel updateCustomer) {

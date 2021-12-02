@@ -16,9 +16,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The type Report b results.
+ * Stage for Report b results. Stage B is embedded in the primary reports stage
+ * See Reports.Java for methods used in all 3 report types
+ */
 public class ReportBResults implements Initializable {
 
-    ObservableList<String> reportTypeList = FXCollections.observableArrayList("Appointments by type/month","Appointments by contact","Appointments by user/contact");
 
     /**
      * The Stage.
@@ -70,7 +74,9 @@ public class ReportBResults implements Initializable {
     private ChoiceBox reportTypeBox;
 
 
-
+    /**
+     * Initialize.
+     */
     @FXML
     void initialize() {
 

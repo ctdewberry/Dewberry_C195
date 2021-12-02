@@ -16,13 +16,24 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Report c.
+ */
 public class ReportC implements Initializable {
 
+    /**
+     * The Stage.
+     */
     Stage stage;
+    /**
+     * The Scene.
+     */
     Parent scene;
 
 
-
+    /**
+     * Initialize.
+     */
     @FXML
     void initialize() {
 

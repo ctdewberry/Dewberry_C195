@@ -13,9 +13,16 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 
+/**
+ * The type Appointment query.
+ */
 public class AppointmentQuery {
 
-    //queries for populating table on appointments page
+    /**
+     * Gets all appointments.
+     * SQL queries for populating table on appointments page
+     * @return the all appointments
+     */
     public static ObservableList<AppointmentModel> getAllAppointments() {
         ObservableList<AppointmentModel> allAppointmentsList = FXCollections.observableArrayList();
         try {
@@ -43,6 +50,11 @@ public class AppointmentQuery {
         return allAppointmentsList;
     }
 
+    /**
+     * Gets weekly appointments.
+     * SQL query for updating appointments filtered by current week
+     * @return the weekly appointments
+     */
     public static ObservableList<AppointmentModel> getWeeklyAppointments() {
         ObservableList<AppointmentModel> weeklyAppointmentsList = FXCollections.observableArrayList();
         try {
@@ -71,6 +83,11 @@ public class AppointmentQuery {
         return weeklyAppointmentsList;
     }
 
+    /**
+     * Gets monthly appointments.
+     * SQL query for updating appointments filtered by current month
+     * @return the monthly appointments
+     */
     public static ObservableList<AppointmentModel> getMonthlyAppointments() {
         ObservableList<AppointmentModel> monthlyAppointmentsList = FXCollections.observableArrayList();
         try {
@@ -100,7 +117,11 @@ public class AppointmentQuery {
     }
 
 
-    //query for ensuring the added appointment is the lowest ID possible without conflict
+    /**
+     * Gets highest appointment id.
+     * SQL query for ensuring the added appointment is the lowest ID possible without conflict
+     * @return the highest appointment id
+     */
     public static Integer getHighestAppointmentID() {
         try {
             String sql = "ANALYZE TABLE appointments;";
@@ -124,7 +145,12 @@ public class AppointmentQuery {
     }
 
 
-    //query for sending appointment data to the update screen
+    /**
+     * Get current appointment appointment model.
+     * SQL query for sending appointment data to the update appointment screen
+     * @param currentAppointmentID the current appointment id
+     * @return the appointment model
+     */
     public static AppointmentModel getCurrentAppointment(Integer currentAppointmentID){
         AppointmentModel currentAppointment = null;
         try {
@@ -154,10 +180,13 @@ public class AppointmentQuery {
     }
 
 
-
-
-
-    //queries for ensuring no conflict
+    /**
+     * Gets all appointments for customer.
+     * SQL query for validating no schedule conflicts
+     * when adding an appointment
+     * @param customerID the customer id
+     * @return the all appointments for customer
+     */
     public static ArrayList<AppointmentModel> getAllAppointmentsForCustomer(Integer customerID) {
         ArrayList<AppointmentModel> contactAppointmentList = new ArrayList<AppointmentModel>();
         try {
@@ -178,8 +207,13 @@ public class AppointmentQuery {
     }
 
 
-
-    //queries for populating appointment add/update screens
+    /**
+     * Gets contact id from name.
+     * SQL queries for obtaining contact ID for use when
+     * user selected a name from a comboBox
+     * @param contactName the contact name
+     * @return the contact id from name
+     */
     public static Integer getContactIDFromName(String contactName) {
         Integer contactID = null;
         try {
@@ -195,6 +229,11 @@ public class AppointmentQuery {
         return contactID;
     }
 
+    /**
+     * Gets all contacts.
+     * SQL query to populate contact comboBox
+     * @return the all contacts
+     */
     public static ObservableList<String> getAllContacts() {
         ObservableList<String> allContactsList = FXCollections.observableArrayList();
         try {
@@ -211,6 +250,11 @@ public class AppointmentQuery {
         return allContactsList;
     }
 
+    /**
+     * Gets all types.
+     * SQL query to populate Type comboBox
+     * @return the all types
+     */
     public static ObservableList<String> getAllTypes() {
         ObservableList<String> allTypesList = FXCollections.observableArrayList();
         try {
@@ -227,6 +271,11 @@ public class AppointmentQuery {
         return allTypesList;
     }
 
+    /**
+     * Gets all customer i ds.
+     * SQL query to populate customerID comboBox
+     * @return the all customer i ds
+     */
     public static ObservableList<String> getAllCustomerIDs() {
         ObservableList<String> allCustomerIDsList = FXCollections.observableArrayList();
         try {
@@ -244,6 +293,11 @@ public class AppointmentQuery {
 
     }
 
+    /**
+     * Gets all user IDs.
+     * SQL query to populate UserID comboBox
+     * @return the all user IDs
+     */
     public static ObservableList<String> getAllUserIDs() {
         ObservableList<String> allUserIDsList = FXCollections.observableArrayList();
         try {
@@ -262,7 +316,12 @@ public class AppointmentQuery {
     }
 
 
-    //queries for adding/modifying/deleting appointments to/from database
+    /**
+     * Add appointment.
+     * SQL query to send parsed and validated appointment
+     * information to database as a new appointment
+     * @param newAppointment the new appointment
+     */
     public static void addAppointment(AppointmentModel newAppointment) {
 
         int appointmentID;
@@ -303,6 +362,12 @@ public class AppointmentQuery {
         }
     }
 
+    /**
+     * Update appointment.
+     * SQL query to send parsed and validated appointment
+     * information to database as an update to existing appointment
+     * @param updateAppointment the update appointment
+     */
     public static void updateAppointment(AppointmentModel updateAppointment) {
         Integer appointmentID = updateAppointment.getAppointmentID();
         String newTitle = updateAppointment.getTitle();
@@ -334,15 +399,17 @@ public class AppointmentQuery {
             ps.setInt(9, newUserID);
             int stmt = ps.executeUpdate();
 
-
-
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
 
+    /**
+     * Delete appointment.
+     * SQL query to delete selected appointment
+     * @param selectedAppointment the selected appointment
+     */
     public static void deleteAppointment(Integer selectedAppointment){
         try {
             String sql1 = "DELETE FROM appointments WHERE Appointment_ID = '" + selectedAppointment + "'";
@@ -356,8 +423,13 @@ public class AppointmentQuery {
     }
 
 
-
-    //queries to populate main page
+    /**
+     * Gets next appointment.
+     * SQL query to populate main page with upcoming appointments
+     * If an appointment is found, it is then tested to see if it
+     * is within 15 minutes of login
+     * @return the next appointment
+     */
     public static AppointmentModel getNextAppointment() {
         AppointmentModel nextAppointment = null;
         try {
@@ -385,6 +457,12 @@ public class AppointmentQuery {
         return nextAppointment;
     }
 
+    /**
+     * Check if future appointments boolean.
+     * SQL query to determine if there are any future appointments before
+     * querying details about any future appointments
+     * @return the boolean
+     */
     public static Boolean checkIfFutureAppointments() {
         Boolean futureAppointment = false;
         try {
@@ -407,8 +485,11 @@ public class AppointmentQuery {
 
     /**
      * query to see if appointment is within 15 min of login.
+     * SQL query to check if next appointment starts within 15 minutes
+     * If so, the user is alerted with a pop up every time they visit the main page
+     * and the main page will have text in place indicating an approaching appointment
+     * @return the string
      */
-
     public static String checkIfNextAppointmentIsSoon() {
         String isApptSoon = null;
         Integer timeDiffStart = 0;

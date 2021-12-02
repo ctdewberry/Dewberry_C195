@@ -4,7 +4,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-
+/**
+ * The type Db connection.
+ */
 public class DBConnection {
 
     private static final String protocol = "jdbc";
@@ -18,24 +20,37 @@ public class DBConnection {
 
     private static Connection conn = null;
 
+    /**
+     * Start connection connection.
+     *
+     * @return the connection
+     */
     public static Connection startConnection() {
         try {
             Class.forName(MYSQLJBCDriver);
             conn = DriverManager.getConnection(jdbcURL, username, password);//Fine with Driver manager
 
             System.out.println("Connection successful");
-        } catch (SQLException e) {//Use Printstacktrace for outputting exceptions
+        } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {//Use Printstacktrace for outputting exceptions
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return conn;
     }
 
+    /**
+     * Get connection connection.
+     *
+     * @return the connection
+     */
     public static Connection getConnection(){
         return conn;
     }
 
+    /**
+     * Close connection.
+     */
     public static void closeConnection() {
         try {
             conn.close();

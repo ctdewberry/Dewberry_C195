@@ -15,9 +15,17 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The type Reports query.
+ */
 public class ReportsQuery {
 
-    //queries to populate report option prefills
+    /**
+     * Report month choices observable list.
+     * Populates month comboBox
+     * @return the observable list
+     */
+//queries to populate report option prefills
     public static ObservableList<String> ReportMonthChoices(){
         ObservableList<String> ReportMonthOptions = FXCollections.observableArrayList();
         try {
@@ -35,6 +43,11 @@ public class ReportsQuery {
         return ReportMonthOptions;
     }
 
+    /**
+     * Report type choices observable list.
+     * Populates type comboBox
+     * @return the observable list
+     */
     public static ObservableList<String> ReportTypeChoices(){
         ObservableList<String> ReportTypeOptions = FXCollections.observableArrayList();
         try {
@@ -52,6 +65,11 @@ public class ReportsQuery {
         return ReportTypeOptions;
     }
 
+    /**
+     * Report contact choices observable list.
+     * Populates contact comboBox
+     * @return the observable list
+     */
     public static ObservableList<String> ReportContactChoices(){
         ObservableList<String> ReportContactOptions = FXCollections.observableArrayList();
         try {
@@ -69,6 +87,11 @@ public class ReportsQuery {
         return ReportContactOptions;
     }
 
+    /**
+     * Report location choices observable list.
+     * Populates location comboBox
+     * @return the observable list
+     */
     public static ObservableList<String> ReportLocationChoices(){
         ObservableList<String> ReportContactOptions = FXCollections.observableArrayList();
         try {
@@ -86,26 +109,36 @@ public class ReportsQuery {
         return ReportContactOptions;
     }
 
-    //queries to run reports
+    /**
+     * Report A totals query integer.
+     * SQL query to obtain Report A results
+     * @param reportMonth the report month
+     * @param reportYear  the report year
+     * @param reportType  the report type
+     * @return the integer
+     */
+//queries to run reports
     public static Integer ReportATotalsQuery(Integer reportMonth, Integer reportYear, String reportType){
         int ReportATotals = 0;
         try {
             String sql = "select count(*) from appointments where Type = '" + reportType + "' and year(Start) = " + reportYear + " and month(Start) = " +reportMonth;
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
                 ReportATotals = rs.getInt(1);
-
-
             }
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return ReportATotals;
     }
 
+    /**
+     * Report B appointments by contact observable list.
+     * SQL query to obtain Report B results
+     * @param reportContactName the report contact name
+     * @return the observable list
+     */
     public static ObservableList<AppointmentModel> ReportBAppointmentsByContact(String reportContactName) {
         ObservableList<AppointmentModel> contactAppointmentList = FXCollections.observableArrayList();
         try {
@@ -134,6 +167,12 @@ public class ReportsQuery {
         return contactAppointmentList;
     }
 
+    /**
+     * Report C appointments by location observable list.
+     * SQL query to obtain Report C results
+     * @param reportByLocation the report by location
+     * @return the observable list
+     */
     public static ObservableList<AppointmentModel> ReportCAppointmentsByLocation(String reportByLocation) {
         ObservableList<AppointmentModel> reportAppointmentList = FXCollections.observableArrayList();
         try {

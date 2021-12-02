@@ -17,6 +17,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The type Report a results.
+ * Stage for Report a results. Stage A is embedded in the primary reports stage
+ * See Reports.Java for methods used in all 3 report types
+ */
 public class ReportAResults implements Initializable {
 
 
@@ -42,8 +47,9 @@ public class ReportAResults implements Initializable {
     private ChoiceBox reportTypeBox;
 
 
-
-
+    /**
+     * Initialize.
+     */
     @FXML
     void initialize() {
 

@@ -19,9 +19,18 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Report a.
+ */
 public class ReportA implements Initializable {
 
+    /**
+     * The Stage.
+     */
     Stage stage;
+    /**
+     * The Scene.
+     */
     Parent scene;
 
     @FXML
@@ -31,6 +40,9 @@ public class ReportA implements Initializable {
     private ChoiceBox choiceBoxType;
 
 
+    /**
+     * Initialize.
+     */
     @FXML
     void initialize() {
     }
