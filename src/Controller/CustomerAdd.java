@@ -160,6 +160,9 @@ public class CustomerAdd implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxCountry.getItems().setAll(CustomerQuery.getAllCountries());
+        //lambda to update division list based on country selected. running lambda on both country and division clicked prevents a invalid division from being chosen
+        comboBoxCountry.setOnMouseClicked((e -> updateDivisionList()));
+        //lambda to update division list based on country selected
         comboBoxDivision.setOnMouseClicked((e -> updateDivisionList()));
         newCustomerID.setText(String.valueOf(CustomerQuery.getHighestCustomerID()));
 

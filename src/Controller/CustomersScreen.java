@@ -131,6 +131,7 @@ public class CustomersScreen implements Initializable {
         custCountryIDCol.setCellValueFactory(new PropertyValueFactory<>("customerCountryID"));
         custCountryCol.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
         customerTableView.getSortOrder().add(custIDCol);
+        //lambda to refresh selected customer (provides a quick look into the customers next appointment)
         customerTableView.setOnMouseClicked(e -> refreshSelectedCustomer());
 
     }
