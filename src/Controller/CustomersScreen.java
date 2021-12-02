@@ -141,7 +141,7 @@ public class CustomersScreen implements Initializable {
             int currentCustomer = customerTableView.getSelectionModel().getSelectedItem().getCustomerID();
             nextAppointment.setText(CustomerQuery.getNextAppointment(currentCustomer));
         } catch (Exception e) {
-            System.out.println("No selected customers");
+            //exception, no customers selected
         }
     }
 
@@ -164,6 +164,8 @@ public class CustomersScreen implements Initializable {
                 alertConfirmCustomerIsDeleted.setHeaderText("Delete customer");
                 alertConfirmCustomerIsDeleted.setContentText(currentName + " has been deleted.");
                 Optional<ButtonType> result2 = alertConfirmCustomerIsDeleted.showAndWait();
+                customerTableView.getSortOrder().add(custIDCol);
+
             }
         } catch (Exception e) {
             Alert noCustomerSelectedForDeletion = new Alert(Alert.AlertType.INFORMATION);

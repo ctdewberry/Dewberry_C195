@@ -67,19 +67,6 @@ public class MainPage implements Initializable {
     void onActionBackToLogin(ActionEvent event) throws IOException {
         LogIn.logOutUser();
 
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("/view/LogIn.fxml"));
-//
-//        LogIn LogIn = loader.getController();
-//
-//        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-//
-//        Parent scene = loader.getRoot();
-//        stage.setScene(new Scene(scene));
-//        stage.setTitle("Log In");
-//        stage.show();
-
-
 
         ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -113,7 +100,6 @@ public class MainPage implements Initializable {
 
     @FXML
     void onActionReports(ActionEvent event) throws IOException {
-//        Query.testAccess();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/Reports.fxml"));

@@ -157,11 +157,6 @@ public class AppointmentsScreen implements Initializable {
 
 
 
-//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-//        scene = FXMLLoader.load(getClass().getResource("/view/AppointmentsModify.fxml"));
-//        stage.setScene(new Scene(scene));
-//        stage.setTitle("Modify Appointments");
-//        stage.show();
     }
 
     @FXML
@@ -183,6 +178,7 @@ public class AppointmentsScreen implements Initializable {
                 alertConfirmAppointmentIsDeleted.setHeaderText("Delete appointment");
                 alertConfirmAppointmentIsDeleted.setContentText("Appointment " + currentAppointment + " for: " + currentType + " has been deleted.");
                 Optional<ButtonType> result2 = alertConfirmAppointmentIsDeleted.showAndWait();
+                appointmentsTableView.getSortOrder().add(apptIDCol);
             }
         } catch (Exception e) {
             Alert noAppointmentsSelectedForDeletion = new Alert(Alert.AlertType.INFORMATION);

@@ -48,8 +48,6 @@ public class CustomerModify implements Initializable {
 
     public void sendCustomer(CustomerModel CustomerModel)
     {
-//        System.out.println(currentCustomer);
-//        System.out.println(CustomerQuery.getCurrentCustomer(currentCustomer).getCustomerName());
         currentCustomerID.setText(String.valueOf(CustomerModel.getCustomerID()));
         custAddy.setText(String.valueOf(CustomerModel.getCustomerAddress()));
         custName.setText(String.valueOf(CustomerModel.getCustomerName()));
@@ -150,11 +148,6 @@ public class CustomerModify implements Initializable {
 
 
 
-//            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-//            scene = FXMLLoader.load(getClass().getResource("/View/CustomersScreen.fxml"));
-//            stage.setScene(new Scene(scene));
-//            stage.setTitle("Customers");
-//            stage.show();
 
         }
     }

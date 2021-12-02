@@ -32,8 +32,6 @@ public class AppointmentQuery {
                 String type = rs.getString("Type");
                 LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
-//                LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
-
                 int customerID = rs.getInt("Customer_ID");
                 int userID = rs.getInt("User_ID");
                 AppointmentModel A = new AppointmentModel(appointmentID, title, description, location, contactName, type, startDateTime, endDateTime, customerID, userID, contactID);
@@ -59,8 +57,6 @@ public class AppointmentQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = rs.getString("Contact_Name");
                 String type = rs.getString("Type");
-//                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
-//                String endDateTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
                 LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
                 int customerID = rs.getInt("Customer_ID");
@@ -89,8 +85,6 @@ public class AppointmentQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = rs.getString("Contact_Name");
                 String type = rs.getString("Type");
-//                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
-//                String endDateTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
                 LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
                 int customerID = rs.getInt("Customer_ID");
@@ -108,14 +102,24 @@ public class AppointmentQuery {
 
     //query for ensuring the added appointment is the lowest ID possible without conflict
     public static Integer getHighestAppointmentID() {
+        try {
+            String sql = "ANALYZE TABLE appointments;";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
         Integer newAppointmentID = null;
         try {
-            String sql = "select MAX(Appointment_ID) from appointments";
-//            String sql = "select AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA = 'client_schedule' and TABLE_NAME = 'appointments'";
+//            String sql = "select MAX(Appointment_ID) from appointments";
+//            String sql = "ANALYZE TABLE appointments; select auto_increment from information_schema.TABLES where (TABLE_NAME = 'appointments');";
+            String sql = "select auto_increment from information_schema.TABLES where (TABLE_NAME = 'appointments');";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                newAppointmentID = rs.getInt("MAX(Appointment_ID)")+1;
+                newAppointmentID = rs.getInt("AUTO_INCREMENT");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -153,7 +157,6 @@ public class AppointmentQuery {
         return currentAppointment;
     }
 
-    //--code--
 
 
 
@@ -265,8 +268,7 @@ public class AppointmentQuery {
 
     //queries for adding/modifying/deleting appointments to/from database
     public static void addAppointment(AppointmentModel newAppointment) {
-        //run db insert command to add customer
-        //INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, 'test2', 'testAddy', 'testCode', 'Phone', '104');
+
         int appointmentID;
         String newTitle = newAppointment.getTitle();
         String newDesc = newAppointment.getDescription();
@@ -283,7 +285,6 @@ public class AppointmentQuery {
         int newCustomerID = newAppointment.getCustomerID();
         int newUserID = newAppointment.getUserID();
         try {
-//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', " + newContactID + ", '" + newType + "', ?, ?, " + newCustomerID + ", " + newUserID + ");";
             String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -299,9 +300,6 @@ public class AppointmentQuery {
             int stmt = ps.executeUpdate();
 
 
-//            '" + Timestamp.valueOf(newStartDateTime) + "', '" + Timestamp.valueOf(newEndDateTime) + "'
-//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', '" + newContactID + "', '" + newType + "', '" + newStartDate + " " + newStartTime + "', '" + newEndDate + " " + newEndTime + "', '" + newCustomerID + "', '" + newUserID + "');";
-
 
 
         } catch (SQLException throwables) {
@@ -310,8 +308,6 @@ public class AppointmentQuery {
     }
 
     public static void updateAppointment(AppointmentModel updateAppointment) {
-        //run db insert command to add customer
-        //INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, 'test2', 'testAddy', 'testCode', 'Phone', '104');
         Integer appointmentID = updateAppointment.getAppointmentID();
         String newTitle = updateAppointment.getTitle();
         String newDesc = updateAppointment.getDescription();
@@ -328,7 +324,6 @@ public class AppointmentQuery {
         int newCustomerID = updateAppointment.getCustomerID();
         int newUserID = updateAppointment.getUserID();
         try {
-//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', " + newContactID + ", '" + newType + "', ?, ?, " + newCustomerID + ", " + newUserID + ");";
             String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Contact_ID = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ? WHERE Appointment_ID = " + appointmentID + ";";
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -344,9 +339,6 @@ public class AppointmentQuery {
             int stmt = ps.executeUpdate();
 
 
-//            '" + Timestamp.valueOf(newStartDateTime) + "', '" + Timestamp.valueOf(newEndDateTime) + "'
-//            String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Contact_ID, Type, Start, End, Customer_ID, User_ID) VALUES (DEFAULT, '" + newTitle + "', '" + newDesc + "', '" + newLoc + "', '" + newContactID + "', '" + newType + "', '" + newStartDate + " " + newStartTime + "', '" + newEndDate + " " + newEndTime + "', '" + newCustomerID + "', '" + newUserID + "');";
-
 
 
         } catch (SQLException throwables) {
@@ -354,7 +346,6 @@ public class AppointmentQuery {
         }
     }
 
-    //public static void modifyAppointment(AppointmentModel updateAppointment){}
 
     public static void deleteAppointment(Integer selectedAppointment){
         try {
@@ -362,7 +353,6 @@ public class AppointmentQuery {
             Statement stmt = DBConnection.getConnection().createStatement();
             stmt.executeUpdate(sql1);
 
-            //test
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -386,7 +376,6 @@ public class AppointmentQuery {
                 int contactID = 0;
                 String contactName = null;
                 String type = rs.getString("Type");
-//                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
                 LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime endDateTime = null;
                 int customerID = 0;
@@ -433,7 +422,6 @@ public class AppointmentQuery {
 
                 int appointmentID = rs.getInt("Appointment_ID");
                 String startDateTime = rs.getTimestamp("Start").toLocalDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
-                ////???
                 timeDiffStart = Math.toIntExact(Duration.between(ZonedDateTime.now(), timeApptStart).getSeconds() / 60);
                 if (timeDiffStart <= 15) {
                     isApptSoon = "Your next appointment is within 15 minutes";

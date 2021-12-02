@@ -50,9 +50,7 @@ public class ReportCResults implements Initializable {
 
     @FXML
     void onActionReportOptions(ActionEvent event) throws IOException {
-//        String selectedReportType = (String) reportTypeBox.getValue();
-//        System.out.println(selectedReportType);
-//        System.out.println(reportTypeList.indexOf(reportTypeBox.getValue()));
+
 
         int selectedReportIndex = reportTypeList.indexOf(reportTypeBox.getValue());
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

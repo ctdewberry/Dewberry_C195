@@ -209,7 +209,6 @@ public class AppointmentsAdd implements Initializable {
 
         //ensure appointment is during business hours
 
-        //<editor-fold desc="Description">
         //setup checks for start of appointment
         ZonedDateTime localZoneStartOfAppointment = startDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime localZoneEndOfAppointment = endDateTime.atZone(ZoneId.systemDefault());
@@ -232,7 +231,6 @@ public class AppointmentsAdd implements Initializable {
         scheduleErrorsSetMessage("officeClosed");
         return;
     }
-        //</editor-fold>
 
 
 
@@ -310,15 +308,7 @@ public class AppointmentsAdd implements Initializable {
         }
 
         String type = null;
-//        try {
-//            type = comboBoxApptType.getSelectionModel().getSelectedItem().toString();
-//        } catch (Exception entryError) {
-//            formatErrorsAddMessage("Type", "empty");
-//        }
 
-//        if (comboBoxApptType.getSelectionModel().isEmpty()) {
-//            formatErrorsAddMessage("Type", "empty");
-//        }
 
         Boolean noText = true;
         if (comboBoxApptType.getEditor().getText().isEmpty()) {

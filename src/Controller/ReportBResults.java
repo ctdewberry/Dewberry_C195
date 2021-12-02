@@ -65,49 +65,10 @@ public class ReportBResults implements Initializable {
     @FXML
     private TableColumn<AppointmentModel, Integer> apptUserIDCol;
 
-//    @FXML
-//    void onActionBack(ActionEvent event) throws IOException {
-//
-//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-//        scene = FXMLLoader.load(getClass().getResource("/View/MainPage.fxml"));
-//        stage.setScene(new Scene(scene));
-//        stage.setTitle("Main Menu");
-//
-//        stage.show();
-//    }
 
     @FXML
     private ChoiceBox reportTypeBox;
 
-//    @FXML
-//    void onActionReportOptions(ActionEvent event) throws IOException {
-////        String selectedReportType = (String) reportTypeBox.getValue();
-////        System.out.println(selectedReportType);
-////        System.out.println(reportTypeList.indexOf(reportTypeBox.getValue()));
-//
-//        int selectedReportIndex = reportTypeList.indexOf(reportTypeBox.getValue());
-//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-//
-//        switch (selectedReportIndex) {
-//            case 0:
-//                scene = FXMLLoader.load(getClass().getResource("/view/ReportA.fxml"));
-//                break;
-//            case 1:
-//                scene = FXMLLoader.load(getClass().getResource("/view/ReportB.fxml"));
-//                break;
-//            case 2:
-//                scene = FXMLLoader.load(getClass().getResource("/view/ReportC.fxml"));
-//                break;
-//        }
-//
-//        stage.setScene(new Scene(scene));
-//        stage.setTitle("Reports");
-//
-//        stage.show();
-//
-//
-//
-//    }
 
 
     @FXML

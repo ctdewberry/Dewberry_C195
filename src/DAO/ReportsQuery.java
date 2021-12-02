@@ -122,8 +122,6 @@ public class ReportsQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = null;
                 String type = rs.getString("Type");
-//                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
-//                String endDateTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
                 LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
                 int customerID = rs.getInt("Customer_ID");
@@ -152,8 +150,7 @@ public class ReportsQuery {
                 int contactID = rs.getInt("Contact_ID");
                 String contactName = null;
                 String type = rs.getString("Type");
-//                String startDateTime = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
-//                String endDateTime = rs.getTimestamp("End").toLocalDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a"));
+
                 LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
                 int customerID = rs.getInt("Customer_ID");

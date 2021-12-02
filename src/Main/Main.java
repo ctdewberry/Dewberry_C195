@@ -36,10 +36,7 @@ public class Main extends Application {
         DBConnection.closeConnection();
     }
 
-//    public void updateTitle(String title) {
-//        primaryStage.setTitle(title);
-//    }
+
 
 }
 
-//test test 123 tester 12341234

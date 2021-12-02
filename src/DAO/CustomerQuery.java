@@ -66,13 +66,20 @@ public class CustomerQuery {
 
     //query for ensuring the added customer is the lowest ID possible without conflict
     public static Integer getHighestCustomerID(){
+        try {
+            String sql = "ANALYZE TABLE customers;";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         Integer newCustomerID = null;
         try {
-            String sql = "select MAX(Customer_ID) from customers";
+            String sql = "select auto_increment from information_schema.TABLES where (TABLE_NAME = 'customers');";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                newCustomerID = rs.getInt("MAX(Customer_ID)")+1;
+                newCustomerID = rs.getInt("AUTO_INCREMENT");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -163,8 +170,7 @@ public class CustomerQuery {
 
     //queries for adding/modifying/deleting appointments to/from database
     public static void addCustomer(CustomerModel newCustomer) {
-        //run db insert command to add customer
-        //INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, 'test2', 'testAddy', 'testCode', 'Phone', '104');
+
         String newName = newCustomer.getCustomerName();
         String newAddy = newCustomer.getCustomerAddress();
         String newCode = newCustomer.getCustomerCode();
@@ -182,8 +188,7 @@ public class CustomerQuery {
     }
 
     public static void modifyCustomer(CustomerModel updateCustomer) {
-        //run db insert command to add customer
-        //INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (DEFAULT, 'test2', 'testAddy', 'testCode', 'Phone', '104');
+
         Integer custID = updateCustomer.getCustomerID();
         String newName = updateCustomer.getCustomerName();
         String newAddy = updateCustomer.getCustomerAddress();
@@ -214,14 +219,6 @@ public class CustomerQuery {
             throwables.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
 
 
 

@@ -31,7 +31,6 @@ public class LogIn implements Initializable {
     private ResourceBundle rbLang = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
 
 
-//    boolean loggedIn = false;
 
     @FXML
     private Label login1;
@@ -40,10 +39,6 @@ public class LogIn implements Initializable {
     private Button login2;
 
     public static void logInUser(){
-//        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm:ss z");
-//        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-//        System.out.println(formatter.format(System.currentTimeMillis()));
-//
         loggedIn = true;
     }
     public static void logOutUser(){
@@ -94,7 +89,6 @@ public class LogIn implements Initializable {
 
     @FXML
     void onActionLogin(ActionEvent event) throws IOException {
-//        System.out.println(username.getText());
         UserDaoImpl.testCredentials(username.getText(), password.getText());
 
         if (loggedIn) {
@@ -142,11 +136,9 @@ public class LogIn implements Initializable {
         login2.setFont(new Font("System", Integer.valueOf(rbLang.getString("login2"))));
         loginSuccess.setMaxWidth(260);
         if(Boolean.valueOf(rbLang.getString("loginSuccessWrap")) == Boolean.TRUE) {
-            System.out.println("true bro");
             loginSuccess.setWrapText(true);
         }
         userLocation.setText(getUserTimeZone());
-        System.out.println(Locale.getDefault());
 
     }
 

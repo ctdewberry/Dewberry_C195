@@ -129,15 +129,6 @@ public class Reports implements Initializable {
 
 
 
-
-
-    //Report C Stuff
-//    @FXML
-//    private ComboBox comboBoxContact = new ComboBox();
-//
-//    @FXML
-//    private ComboBox comboBoxUser = new ComboBox();
-
     @FXML
     private Button runReportC;
 
@@ -168,8 +159,6 @@ public class Reports implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportA.fxml"));
                     loader.setController(this);
                     mainPain.setCenter(loader.load());
-//                    System.out.println(ReportsQuery.ReportMonthChoices());
-//                    System.out.println(ReportsQuery.ReportTypeChoices());
                 } catch (Exception e) {
                     e.printStackTrace();
 
@@ -235,9 +224,7 @@ public class Reports implements Initializable {
     @FXML
     void onActionRunReportB(ActionEvent event) {
         try {
-            System.out.println("here");
             String chosenContact = comboBoxContact.getSelectionModel().getSelectedItem().toString();
-            System.out.println(chosenContact);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportBResults.fxml"));
             loader.setController(this);
             mainPain.setCenter(loader.load());
@@ -252,20 +239,7 @@ public class Reports implements Initializable {
             apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
             apptLocCol.setCellValueFactory(new PropertyValueFactory<>("location"));
             apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-//            apptStartDateTimeCol.setCellValueFactory(
-//                    startDateString -> {
-//                        SimpleStringProperty property = new SimpleStringProperty();
-//                        property.set(startDateString.getValue().getStartDateTimeString());
-//                        return property;
-//                    }
-//            );
-//            apptEndDateTimeCol.setCellValueFactory(
-//                    endDateString -> {
-//                        SimpleStringProperty property = new SimpleStringProperty();
-//                        property.set(endDateString.getValue().getEndDateTimeString());
-//                        return property;
-//                    }
-//            );
+
             //lambda to get the start date and time formatted for use in table
             apptStartDateTimeCol.setCellValueFactory( startDateString -> new ReadOnlyStringWrapper(startDateString.getValue().getStartDateTimeString()));
             //lambda to get the end date and time formatted for use in table
@@ -282,9 +256,7 @@ public class Reports implements Initializable {
     @FXML
     void onActionRunReportC(ActionEvent event) {
         try {
-            System.out.println("here");
             String chosenLocation = comboBoxLocation.getSelectionModel().getSelectedItem().toString();
-            System.out.println(chosenLocation);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportCResults.fxml"));
             loader.setController(this);
             mainPain.setCenter(loader.load());
@@ -298,20 +270,7 @@ public class Reports implements Initializable {
             apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
             apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
             apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-//            apptStartDateTimeCol.setCellValueFactory(
-//                    startDateString -> {
-//                        SimpleStringProperty property = new SimpleStringProperty();
-//                        property.set(startDateString.getValue().getStartDateTimeString());
-//                        return property;
-//                    }
-//            );
-//            apptEndDateTimeCol.setCellValueFactory(
-//                    endDateString -> {
-//                        SimpleStringProperty property = new SimpleStringProperty();
-//                        property.set(endDateString.getValue().getEndDateTimeString());
-//                        return property;
-//                    }
-//            );
+
             //lambda to get the start date and time formatted for use in table
             apptStartDateTimeCol.setCellValueFactory( startDateString -> new ReadOnlyStringWrapper(startDateString.getValue().getStartDateTimeString()));
             //lambda to get the end date and time formatted for use in table
