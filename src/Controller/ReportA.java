@@ -19,17 +19,14 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/**
- * The type Report a.
+/**Report A. Initializes Report A subscene within the Reports scene
  */
 public class ReportA implements Initializable {
 
-    /**
-     * The Stage.
+    /**The Stage.
      */
     Stage stage;
-    /**
-     * The Scene.
+    /**The Scene.
      */
     Parent scene;
 
@@ -40,8 +37,7 @@ public class ReportA implements Initializable {
     private ChoiceBox choiceBoxType;
 
 
-    /**
-     * Initialize.
+    /**Initialize. Initialize Report A Screen
      */
     @FXML
     void initialize() {

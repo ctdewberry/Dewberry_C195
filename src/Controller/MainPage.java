@@ -23,19 +23,16 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-/**
- * The type Main page.
+/**Main page. Initializes MainPage
  */
 public class MainPage implements Initializable {
 
 
-    /**
-     * The Stage.
+    /**The Stage.
      */
     Stage stage;
 
-    /**
-     * The Scene.
+    /**The Scene.
      */
     Parent scene;
 

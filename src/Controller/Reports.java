@@ -24,26 +24,17 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-/**
- * The type Reports.
+/**Initialize Reports. Initialize master Reports Screen
  */
 public class Reports implements Initializable {
 
-    /**
-     * The Report type list.
-     * Observable list used for report
-     * type selection choice box.
-     * This choice box will be available for use while
-     * any report subscene is displayed
-     */
+    //The Report type list. Observable list used for report type options
     ObservableList<String> reportTypeList = FXCollections.observableArrayList("Appointments by type/month", "Appointments by contact", "Appointments by location");
 
-    /**
-     * The Stage.
+    /**The Stage.
      */
     Stage stage;
-    /**
-     * The Scene.
+    /**The Scene.
      */
     Parent scene;
 
@@ -59,9 +50,8 @@ public class Reports implements Initializable {
     @FXML
     private MenuItem view_b;
 
-    /**
-     * Report A assets
-     */
+    //Report A assets
+
 
     @FXML
     private ComboBox comboBoxMonth = new ComboBox();
@@ -82,9 +72,7 @@ public class Reports implements Initializable {
     private Button runReportA;
 
 
-    /**
-     * Report B assets
-     */
+    //Report B assets
 
     @FXML
     private ComboBox comboBoxContact = new ComboBox();
@@ -131,9 +119,8 @@ public class Reports implements Initializable {
     private Text reportBContact;
 
 
-    /**
-     * Report C Assets
-     */
+    //Report C Assets
+
     @FXML
     private TableColumn<AppointmentModel, Integer> apptContactIDCol;
 
@@ -149,13 +136,9 @@ public class Reports implements Initializable {
     private Button runReportC;
 
 
-    /**
-    * Primary Report Assets
-     *
-     *
-     *
-     * On action back.
-     * Navigate back to main screen
+    //Primary Report Assets
+
+     /** On action back. Navigate back to main screen
      * @param event the event
      * @throws IOException the io exception
      */
@@ -173,10 +156,7 @@ public class Reports implements Initializable {
     private ChoiceBox reportTypeBox;
 
 
-    /**
-     * On action report options.
-     * get selected report type and load selected report type options
-     * to embedded scene
+    /**On action report options. Get selected report type. Load associated option to scene.
      * @param event the event
      * @throws IOException the io exception
      */
@@ -219,11 +199,7 @@ public class Reports implements Initializable {
     }
 
 
-    /**
-     * On action run report A.
-     * Gather selected options for report A, query the results with
-     * ReportsQuery.ReportATotalsQuery and populate report A subscene
-     * with results
+    /**On action run report A. Query results for Report A
      * @param event the event
      * @throws IOException the io exception
      */
@@ -255,11 +231,7 @@ public class Reports implements Initializable {
     }
 
 
-    /**
-     * On action run report B.
-     * Gather selected options for report B, query the results with
-     * ReportsQuery.ReportBAppointmentsByContact and populate report B subscene
-     * with results
+    /**On action run report B. Query results for Report B
      * @param event the event
      * @throws IOException the io exception
      */
@@ -282,11 +254,13 @@ public class Reports implements Initializable {
             apptLocCol.setCellValueFactory(new PropertyValueFactory<>("location"));
             apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
 
-            /**
-             * lambda methods to format the start dates of appointments listed on table in an easily readable format
-             * while also localizing the date and time to the current timezone
+            /** Format dateTime for column. Lambda to format the start datesTimes
+             * for use in table columns. Localizes time in addition to formatting.
              */
             apptStartDateTimeCol.setCellValueFactory( startDateString -> new ReadOnlyStringWrapper(startDateString.getValue().getStartDateTimeString()));
+            /** Format dateTime for column. Lambda to format the end datesTimes
+             * for use in table columns. Localizes time in addition to formatting.
+             */
             apptEndDateTimeCol.setCellValueFactory( endDateString -> new ReadOnlyStringWrapper(endDateString.getValue().getEndDateTimeString()));
 
             apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
@@ -300,11 +274,7 @@ public class Reports implements Initializable {
         }
     }
 
-    /**
-     * On action run report C.
-     * Gather selected options for report C, query the results with
-     * ReportsQuery.ReportCAppointmentsByLocation and populate report C subscene
-     * with results
+    /**On action run report C. Query results for Report C
      * @param event the event
      * @throws IOException the io exception
      */
@@ -326,11 +296,13 @@ public class Reports implements Initializable {
             apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
             apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
 
-            /**
-             * lambda methods to format the start dates of appointments listed on table in an easily readable format
-             * while also localizing the date and time to the current timezone
+            /** Format dateTime for column. Lambda to format the start datesTimes
+             * for use in table columns. Localizes time in addition to formatting.
              */
             apptStartDateTimeCol.setCellValueFactory( startDateString -> new ReadOnlyStringWrapper(startDateString.getValue().getStartDateTimeString()));
+            /** Format dateTime for column. Lambda to format the end datesTimes
+             * for use in table columns. Localizes time in addition to formatting.
+             */
             apptEndDateTimeCol.setCellValueFactory( endDateString -> new ReadOnlyStringWrapper(endDateString.getValue().getEndDateTimeString()));
 
             apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
@@ -346,9 +318,7 @@ public class Reports implements Initializable {
     }
 
 
-    /**
-     * Initialize.
-     * Populate choice and combo boxes
+    /**Initialize Reports. Populate choice and combo boxes
      */
     @FXML
     void initialize() {

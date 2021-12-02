@@ -16,10 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * The type Report c results.
- * Stage for Report c results. Stage C is embedded in the primary reports stage
- * See Reports.Java for methods used in all 3 report types
+/**Report C results. Initialize stage for Report C results
  */
 public class ReportCResults implements Initializable {
 

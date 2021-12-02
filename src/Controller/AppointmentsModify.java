@@ -23,17 +23,14 @@ package Controller;
         import static DAO.AppointmentQuery.getAllAppointmentsForCustomer;
         import static DAO.AppointmentQuery.getContactIDFromName;
 
-/**
- * The type Appointments modify.
- */
+/** AppointmentsModify. Sets the scene for the Modify Appointments screen
+ * */
 public class AppointmentsModify implements Initializable {
 
-    /**
-     * The Stage.
+    /**The Stage.
      */
     Stage stage;
-    /**
-     * The Scene.
+    /** The Scene.
      */
     Parent scene;
 
@@ -74,12 +71,9 @@ public class AppointmentsModify implements Initializable {
     private ComboBox comboBoxApptUserID = new ComboBox();
 
 
-    /**
-     * Sent appointment.
-     * Obtain appointment information from selected appointment
-     * and prepopulate input fields
-     * @param AppointmentModel the appointment model
-     */
+    /** sentAppointment. Obtain appointment information from selected appointment to prepopulate input fields
+
+     @param AppointmentModel the appointment model*/
     public void sentAppointment(AppointmentModel AppointmentModel)
     {
         currentApptID.setText(String.valueOf(AppointmentModel.getAppointmentID()));
@@ -96,27 +90,16 @@ public class AppointmentsModify implements Initializable {
         comboBoxApptUserID.getSelectionModel().select(Integer.valueOf(AppointmentModel.getUserID()));
     }
 
-    /**
-     * The Formatting errors.
-     * This array compiles a list of errors collected upon new appointment update attempt
-     * The results will be output to the user for correction before being allowed
-     * to update an appointment
-     */
+    /** formattingErrors. Keeps track of formatting errors */
     static ArrayList<String> formattingErrors = new ArrayList<String>();
-    /**
-     * The Schedule errors.
-     * Sets schedule errors to null until an error is detected
-     */
+    /** scheduleErrors. Keeps track of schedule errors */
     static String scheduleErrors = null;
 
 
-    /**
-     * Format errors add message.
-     * Formatting errors detected call this method to provide details to the
-     * list of compiled errors that will be presented to the user
+    /** Format errors add message. Appends new formatting errors to present to the user
      *
      * @param errorMessage the error message
-     * @param type         the type
+     * @param type         the type of format error
      */
     public static void formatErrorsAddMessage(String errorMessage, String type) {
 
@@ -131,17 +114,11 @@ public class AppointmentsModify implements Initializable {
         if (type == "dateTime") {
             formattingErrors.add(errorMessage);
         }
-
-
-
     }
 
-    /**
-     * Schedule errors set message.
-     * Scheduling errors detected call this method to provide details to
-     * the list of compiled error that will be presented to the user
+    /** Schedule errors add message. Appends new scheduling errors to present to the user
      *
-     * @param type the type
+     * @param type the type of scheduling error
      */
     public static void scheduleErrorsSetMessage(String type) {
 
@@ -172,25 +149,19 @@ public class AppointmentsModify implements Initializable {
 
 
 
-    /**
-     * Clears the list of error messages for appointment update reattempt
-     */
+    /** Clear Format Errors. Clears the list of format error messages for appointment update reattempt */
 
     private void clearFormatErrorMessages() {
         formattingErrors.clear();
     }
 
+    /** Clear Schedule Errors. Clears the list of schedule error messages for appointment update reattempt */
     private void clearScheduleErrorMessages() {
         scheduleErrors = null;
     }
 
 
-    /**
-     * Date time conversion local date time.
-     * Parses date and time input fields
-     * Distinguishes between text and date picker
-     * Once parsed it returns a local date time to be used
-     * for appointment update
+    /** Date time conversion. Parses datetime input fields
      *
      * @param dateInput the date input
      * @param timeInput the time input
@@ -209,53 +180,40 @@ public class AppointmentsModify implements Initializable {
         }
 
 
-        /**
-         * Checks date picker field for text. If found it parses the date
-         */
+        // Checks date picker field for text. If found it parses the date
         if (!dateInput.getEditor().getText().isEmpty()) {
             try {
                 String myTextDate = dateInput.getEditor().getText();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/[uuuu][uu]");
                 myInputDate = LocalDate.parse(myTextDate, formatter);
-                /**
-                 * Reset value of dateInput to rectify bug when users uses date picker to select
-                 * a date, deletes it, and then attempts to type in a date
-                 */
+                //Reset value of dateInput to rectify bug when users uses date picker to select
+                // a date, deletes it, and then attempts to type in a date
+
                 dateInput.setValue(null);
                 dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
             } catch (Exception d) {
-                /**
-                 * Catches error in inputted text, text entered is unable to be parsed
-                 * Add error code to aggregated error messages
-                 */
+                //Catches error in inputted text, text entered is unable to be parsed
+                //Add error code to aggregated error messages
                 formatErrorsAddMessage("Error in date input (via text input)", "dateTime");
             }
 
-            /**
-             * Attempt to obtain value of date when user used datepicker instead of entering text
-             */
+            //Attempt to obtain value of date when user used datepicker instead of entering text
+
         } else if (dateInput.getValue() != null) {
             try {
                 myInputDate = dateInput.getValue();
                 dateInput.getEditor().setText(myInputDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
             } catch (Exception datePickerError) {
-                /**
-                 * Catches error in attempting to extract date picker date
-                 */
+                // Catches error in attempting to extract date picker date
                 formatErrorsAddMessage("Error in date input (via Date Picker input)", "dateTime");
             }
         } else {
-            /**
-             * No information is in date picker field. Return error of an empty field
-             */
+            // No information is in date picker field. Return error of an empty field
             formatErrorsAddMessage("Date entry is empty", "dateTime");
         }
 
 
-        /**
-         * Attempt parsing of entered time, allowing for use of various commonly used
-         * formats when entering
-         */
+        // Attempt parsing of entered time, allowing for use of various commonly used formats when entering
         try {
             DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("h:mm[ ][]a");
             DateTimeFormatter convertFormat = DateTimeFormatter.ofPattern("H:mm:ss");
@@ -263,15 +221,11 @@ public class AppointmentsModify implements Initializable {
             String correctCaps = timeInput.getText().replace("am", "AM").replace("pm", "PM");
             myInputTime = LocalTime.parse(correctCaps, parseFormat);
         } catch (Exception e) {
-            /**
-             * Catches exception, unable to parse entered time
-             */
+           // Catches exception, unable to parse entered time
             formatErrorsAddMessage("Error in time input", "dateTime");
         }
 
-        /**
-         * If both date and time pass all parsing requirements, combine to create a localDateTime and return
-         */
+        // If both date and time pass all parsing requirements, combine to create a localDateTime and return
         if (myInputDate != null && myInputTime != null) {
             convertedDateTime = LocalDateTime.of(myInputDate, myInputTime);
         }

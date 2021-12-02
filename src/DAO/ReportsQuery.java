@@ -15,15 +15,12 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * The type Reports query.
+/**Reports queries. Various reports database queries.
  */
 public class ReportsQuery {
 
-    /**
-     * Report month choices observable list.
-     * Populates month comboBox
-     * @return the observable list
+    /**ReportMonthChoices. SQL query to populate month comboBox for reports
+     * @return the observable list of months with appointments
      */
 //queries to populate report option prefills
     public static ObservableList<String> ReportMonthChoices(){
@@ -43,10 +40,8 @@ public class ReportsQuery {
         return ReportMonthOptions;
     }
 
-    /**
-     * Report type choices observable list.
-     * Populates type comboBox
-     * @return the observable list
+    /**ReportTypeChoices. SQL query to populate type comboBox choices for reports.
+     * @return the observable list of appointment types
      */
     public static ObservableList<String> ReportTypeChoices(){
         ObservableList<String> ReportTypeOptions = FXCollections.observableArrayList();

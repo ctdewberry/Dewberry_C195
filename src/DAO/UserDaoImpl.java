@@ -10,13 +10,10 @@ import java.util.TimeZone;
 import java.io.*;
 
 
-/**
- * The type User dao.
+/**The class userDAO. SQL queries related to logging in
  */
 public class UserDaoImpl {
-    /**
-     * Test credentials.
-     * Run SQL query with username and password combonation
+    /**Test credentials. Run SQL query with username and password combo
      * @param inputUsername the input username
      * @param inputPassword the input password
      */
@@ -44,9 +41,7 @@ public class UserDaoImpl {
      */
     public static String currentUserName;
 
-    /**
-     * Sets credentials.
-     * Sers user's username for future use
+    /** setCredentials. Set user's username for future use
      * @param userName the user name
      */
     public static void setCredentials(String userName) {
@@ -64,28 +59,21 @@ public class UserDaoImpl {
 
     }
 
-    /**
-     * Get current user id int.
-     *
+    /**Get current user id. Get userID for future use
      * @return the int
      */
     public static int getCurrentUserID(){
         return currentUserID;
     }
 
-    /**
-     * Get current user name string.
-     *
+    /** Get current user name. Get username for future use
      * @return the string
      */
     public static String getCurrentUserName(){
         return currentUserName;
     }
 
-    /**
-     * Record login attempts.
-     * Creates a log file if one doesnt exist and appends
-     * to it all log in attempts
+    /** Record login. Create or append to file login attempts
      * @param username the username
      * @param success  the success
      * @throws IOException the io exception

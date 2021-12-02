@@ -23,17 +23,14 @@ import java.util.*;
 import static DAO.AppointmentQuery.getAllAppointmentsForCustomer;
 import static DAO.AppointmentQuery.getContactIDFromName;
 
-/**
- * The type Appointments add.
- */
+/** AppointmentsAdd. Sets the scene for the Add Appointment screen
+ * */
 public class AppointmentsAdd implements Initializable {
 
-    /**
-     * The Stage.
+    /** The Stage.
      */
     Stage stage;
-    /**
-     * The Scene.
+    /** The Scene.
      */
     Parent scene;
 

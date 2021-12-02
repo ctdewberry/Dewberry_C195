@@ -21,23 +21,19 @@ package Controller;
         import java.util.ResourceBundle;
         import java.util.Locale;
 
-/**
- * The type Log in.
+/**Log in. Initializes login screen
  */
 public class LogIn implements Initializable {
 
     private static boolean loggedIn;
-    /**
-     * The Stage.
+    /**The Stage.
      */
     Stage stage;
-    /**
-     * The Scene.
+    /**The Scene.
      */
     Parent scene;
 
-    /**
-     * Obtains resource bundle
+    /**Resource bundle. Loads resource bundle
      */
     @FXML
 //    private ResourceBundle rbLang = ResourceBundle.getBundle("Main/rbLang", Locale.FRANCE);

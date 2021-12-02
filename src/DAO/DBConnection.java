@@ -4,8 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-/**
- * The type Db connection.
+/**Initialize database connected. Prepare to connect to DB
  */
 public class DBConnection {
 
@@ -20,9 +19,7 @@ public class DBConnection {
 
     private static Connection conn = null;
 
-    /**
-     * Start connection connection.
-     *
+    /**Start connection. Attempt database connection
      * @return the connection
      */
     public static Connection startConnection() {
@@ -39,9 +36,7 @@ public class DBConnection {
         return conn;
     }
 
-    /**
-     * Get connection connection.
-     *
+    /**Get connection. Allow access to connection once established
      * @return the connection
      */
     public static Connection getConnection(){

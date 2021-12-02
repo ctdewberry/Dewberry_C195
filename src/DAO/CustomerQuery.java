@@ -10,17 +10,13 @@ import Model.CustomerModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- * The type Customer query.
+/**Customer queries. Various customer database queries
  */
 public class CustomerQuery {
 
 
-    /**
-     * Gets all customers.
-     * SQL query for populating the table on the main customers page
-     * returns observable array list of all customers and their associated info
-     * @return the all customers
+    /**Get all customers. SQL query to populate the table on main customers page
+     * @return AllCustomers ObservableList
      */
     public static ObservableList<CustomerModel> getAllCustomers() {
         ObservableList<CustomerModel> customerList = FXCollections.observableArrayList();
@@ -51,11 +47,8 @@ public class CustomerQuery {
 
 
 
-    /**
-     * SQL query for updating data on customer page when a customer is selected
-     * returns either info about the customers next appointment or info that
-     * the customer does not have any future appointments
-     *
+    /** getNextAppointment. SQL query for updating data on customer page when a customer is selected
+     *updates main page with upcoming appointment info
      * @param currCust the curr cust
      * @return next appointment
      */
@@ -80,14 +73,8 @@ public class CustomerQuery {
     }
 
 
-    /**
-     * Get highest customer id integer.
-     * This ensures that the auto generated ID matches with
-     * what the customer id will be if and when a new customer
-     * is created. Looks for the lowest ID possible that has
-     * not risk of conflict. Returns the id for use on the add customer
-     * screen before customer creation is finalized
-     * @return the integer
+    /**Get highest customer id. SQL query to prevent conflict when adding customer
+     * @return integer with the next customer ID on add
      */
     public static Integer getHighestCustomerID(){
         try {
@@ -113,9 +100,7 @@ public class CustomerQuery {
     }
 
 
-    /**
-     * Gets current customer.
-     * query for sending selected customer data to the customer update screen
+    /**Gets current customer. SQL query for sending selected customer data to update screen
      * @param currentCustomerID the current customer id
      * @return the current customer
      */
@@ -145,12 +130,9 @@ public class CustomerQuery {
     }
 
 
-    /**
-     * Get division id from combo box integer.
-     * Gets the division id from the division selected from
-     * the division id comboBox
-     * @param selectedDivision the selected division
-     * @return the integer
+    /**Parse divisionID. SQL to get divisionID from selectedDivision
+     * @param selectedDivision the selected division from combobox
+     * @return the associated divisionID of the selected division
      */
     public static Integer getDivisionIDFromComboBox(String selectedDivision){
         Integer divisionID = null;

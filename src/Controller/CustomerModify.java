@@ -21,17 +21,14 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/**
- * The type Customer modify.
+/**CustomerModify. Sets the scene for the Modify Customer Screen
  */
 public class CustomerModify implements Initializable {
 
-    /**
-     * The Stage.
+    /**The Stage.
      */
     Stage stage;
-    /**
-     * The Scene.
+    /**The Scene.
      */
     Parent scene;
 

@@ -20,17 +20,14 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/**
- * The type Appointments screen.
- */
+/** The Appointments screen. This is where the Appointments screen is initialized
+ * */
 public class AppointmentsScreen implements Initializable {
 
-    /**
-     * The Stage.
+    /**The Stage.
      */
     Stage stage;
-    /**
-     * The Scene.
+    /**The Scene.
      */
     Parent scene;
 
@@ -88,13 +85,12 @@ public class AppointmentsScreen implements Initializable {
     private Label userZone;
 
 
-    /**
-     * On click all appointments.
-     * Sets the table view to view all appointments, sorted by appointment id
-     * @param event the event
-     * @throws IOException the io exception
-     */
+
     @FXML
+    /** onClickAllAppointments. Sets the table view to view all appointments, sorted by appointment id
+     @param event the event
+     @throws IOException the io exception
+     */
     void onClickAllAppointments(ActionEvent event) throws IOException {
         appointmentsTableView.setItems(DAO.AppointmentQuery.getAllAppointments());
         appointmentsTableView.getSortOrder().add(apptIDCol);

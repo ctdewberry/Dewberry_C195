@@ -21,17 +21,14 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-/**
- * The type Customers screen.
+/**CustomersScreen. Sets the scene for the primary Customers Screen
  */
 public class CustomersScreen implements Initializable {
 
-    /**
-     * The Stage.
+    /**The Stage.
      */
     Stage stage;
-    /**
-     * The Scene.
+    /**The Scene.
      */
     Parent scene;
 
@@ -72,9 +69,7 @@ public class CustomersScreen implements Initializable {
 
 
 
-    /**
-     * On action back.
-     * Takes user back to main page
+    /** On action back. Takes user back to main page
      * @param event the event
      * @throws IOException the io exception
      */
@@ -90,9 +85,7 @@ public class CustomersScreen implements Initializable {
 
 
 
-    /**
-     * On action add customer.
-     * Opens window for user to add a new customer
+    /** On action add customer. Opens window for user to add a new customer
      * @param event the event
      * @throws IOException the io exception
      */
@@ -106,9 +99,7 @@ public class CustomersScreen implements Initializable {
     }
 
 
-    /**
-     * On action modify customer.
-     * Opens window for user to modify customer info
+    /** On action modify customer. Opens window for user to modify customer info
      * @param event the event
      * @throws IOException the io exception
      */
@@ -116,10 +107,7 @@ public class CustomersScreen implements Initializable {
     void onActionModifyCustomer(ActionEvent event) throws IOException {
 
         try {
-            /**
-             * Attempts to get information about selected customer to send
-             * to modify custoemr screen
-             */
+            //Attempts to get information about selected customer to send to modify custoemr screen
 
         int currentCustomer = customerTableView.getSelectionModel().getSelectedItem().getCustomerID();
         FXMLLoader loader = new FXMLLoader();
@@ -133,23 +121,21 @@ public class CustomersScreen implements Initializable {
         stage.setTitle("Modify Customer");
         stage.show();
                 } catch (NullPointerException e) {
-            /**
-             * catches exception if no customer selected when user clicks modify
-             */
+            // catches exception if no customer selected when user clicks modify
             return;
         }
     }
 
 
-    /**
-     * Initialize.
-     * Populate customer table on load
-     */
+    /** Initialize. Initialize
+     * */
     @FXML
     void initialize() {
 
     }
 
+    /** Initialize. Populate customer table on load
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -165,31 +151,25 @@ public class CustomersScreen implements Initializable {
         custCountryIDCol.setCellValueFactory(new PropertyValueFactory<>("customerCountryID"));
         custCountryCol.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
         customerTableView.getSortOrder().add(custIDCol);
-        /**
-         * Lambda method to refresh customer's next appointment information (below the table) when a customer is selected in the table
+        /** Refresh Selected Customer. Lambda to update selected customers next appointment information
+         * This updates the appointment information below the customerTableView
          * This allows the user a quick glance into a customers future schedule without having to run a report or switch to the appointments screen
          */
         customerTableView.setOnMouseClicked(e -> refreshSelectedCustomer());
     }
 
-    /**
-     * Method to detect the selected customer and send their customer ID to query the customers next appointment
-     * for use on the quick-glance info at the bottom of the screen
-     */
+    /** Refresh Implementation. Method to detect the selected customer and query their next appointment*/
 
     private void refreshSelectedCustomer() {
         try {
             int currentCustomer = customerTableView.getSelectionModel().getSelectedItem().getCustomerID();
             nextAppointment.setText(CustomerQuery.getNextAppointment(currentCustomer));
         } catch (Exception e) {
-            /**
-             * Catches exception if no customers are selected
-             */
+            //Catches exception if no customers are selected
         }
     }
 
-    /**
-     * On action delete customer.
+    /**onActionDeleteCustomer.Deletes selected customer
      * Prompts user before delete.
      * Deletes customers appointments before deleting customer
      * @param event the event

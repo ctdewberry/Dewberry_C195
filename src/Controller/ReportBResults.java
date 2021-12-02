@@ -16,20 +16,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * The type Report b results.
- * Stage for Report b results. Stage B is embedded in the primary reports stage
- * See Reports.Java for methods used in all 3 report types
- */
+/**Report B results. Initialize stage for Report B results.
+ * */
 public class ReportBResults implements Initializable {
 
 
-    /**
-     * The Stage.
+    /**The Stage.
      */
     Stage stage;
-    /**
-     * The Scene.
+    /**The Scene.
      */
     Parent scene;
 
@@ -74,8 +69,7 @@ public class ReportBResults implements Initializable {
     private ChoiceBox reportTypeBox;
 
 
-    /**
-     * Initialize.
+    /** Initialize. Initialized Report B Results Screen
      */
     @FXML
     void initialize() {

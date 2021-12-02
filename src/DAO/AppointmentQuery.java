@@ -13,15 +13,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 
-/**
- * The type Appointment query.
+/**Appointment queries. Various appointment database queries
  */
 public class AppointmentQuery {
 
-    /**
-     * Gets all appointments.
-     * SQL queries for populating table on appointments page
-     * @return the all appointments
+    /**Get all appointments. SQL queries for populating table on appointments page
+     * @return Observable List with all appointments currently scheduled
      */
     public static ObservableList<AppointmentModel> getAllAppointments() {
         ObservableList<AppointmentModel> allAppointmentsList = FXCollections.observableArrayList();
@@ -50,10 +47,8 @@ public class AppointmentQuery {
         return allAppointmentsList;
     }
 
-    /**
-     * Gets weekly appointments.
-     * SQL query for updating appointments filtered by current week
-     * @return the weekly appointments
+    /**Get weekly appointments. SQL query for updating appointments filtered by current week
+     * @return Observable List of all appointments this week
      */
     public static ObservableList<AppointmentModel> getWeeklyAppointments() {
         ObservableList<AppointmentModel> weeklyAppointmentsList = FXCollections.observableArrayList();
@@ -83,10 +78,8 @@ public class AppointmentQuery {
         return weeklyAppointmentsList;
     }
 
-    /**
-     * Gets monthly appointments.
-     * SQL query for updating appointments filtered by current month
-     * @return the monthly appointments
+    /**Get monthly appointments. SQL query for updating appointments filtered by current month
+     * @return Observable List with all appointments this month
      */
     public static ObservableList<AppointmentModel> getMonthlyAppointments() {
         ObservableList<AppointmentModel> monthlyAppointmentsList = FXCollections.observableArrayList();
@@ -117,10 +110,8 @@ public class AppointmentQuery {
     }
 
 
-    /**
-     * Gets highest appointment id.
-     * SQL query for ensuring the added appointment is the lowest ID possible without conflict
-     * @return the highest appointment id
+    /**Get highest Appointment Id. SQL query to prevent conflict when adding appointment.
+     * @return integer with the next appointment ID on add
      */
     public static Integer getHighestAppointmentID() {
         try {
@@ -145,11 +136,9 @@ public class AppointmentQuery {
     }
 
 
-    /**
-     * Get current appointment appointment model.
-     * SQL query for sending appointment data to the update appointment screen
+    /**Get current appointment. SQL query for sending selected appointment for update
      * @param currentAppointmentID the current appointment id
-     * @return the appointment model
+     * @return the appointment model being updated
      */
     public static AppointmentModel getCurrentAppointment(Integer currentAppointmentID){
         AppointmentModel currentAppointment = null;
@@ -180,12 +169,9 @@ public class AppointmentQuery {
     }
 
 
-    /**
-     * Gets all appointments for customer.
-     * SQL query for validating no schedule conflicts
-     * when adding an appointment
+    /**all appointments for customer. SQL query for validating no schedule conflicts when adding an appointment
      * @param customerID the customer id
-     * @return the all appointments for customer
+     * @return all appointments for selected customer
      */
     public static ArrayList<AppointmentModel> getAllAppointmentsForCustomer(Integer customerID) {
         ArrayList<AppointmentModel> contactAppointmentList = new ArrayList<AppointmentModel>();
@@ -207,12 +193,9 @@ public class AppointmentQuery {
     }
 
 
-    /**
-     * Gets contact id from name.
-     * SQL queries for obtaining contact ID for use when
-     * user selected a name from a comboBox
+    /**Get contact id from name. SQL queries for obtaining contact ID of combobox selection
      * @param contactName the contact name
-     * @return the contact id from name
+     * @return the contact id associated with the selected name
      */
     public static Integer getContactIDFromName(String contactName) {
         Integer contactID = null;
@@ -229,10 +212,8 @@ public class AppointmentQuery {
         return contactID;
     }
 
-    /**
-     * Gets all contacts.
-     * SQL query to populate contact comboBox
-     * @return the all contacts
+    /**Get All Contacts. SQL query to populate contact comboBox
+     * @return ObservableList of all contacts
      */
     public static ObservableList<String> getAllContacts() {
         ObservableList<String> allContactsList = FXCollections.observableArrayList();
@@ -250,10 +231,8 @@ public class AppointmentQuery {
         return allContactsList;
     }
 
-    /**
-     * Gets all types.
-     * SQL query to populate Type comboBox
-     * @return the all types
+    /** Get All Types. SQL query to populate Type comboBox
+     * @return ObservableList of all types
      */
     public static ObservableList<String> getAllTypes() {
         ObservableList<String> allTypesList = FXCollections.observableArrayList();
@@ -271,10 +250,8 @@ public class AppointmentQuery {
         return allTypesList;
     }
 
-    /**
-     * Gets all customer i ds.
-     * SQL query to populate customerID comboBox
-     * @return the all customer i ds
+    /**Get All CustomerIDs. SQL query to populate customerID comboBox
+     * @return ObservableList of all customerIDs
      */
     public static ObservableList<String> getAllCustomerIDs() {
         ObservableList<String> allCustomerIDsList = FXCollections.observableArrayList();
@@ -293,10 +270,8 @@ public class AppointmentQuery {
 
     }
 
-    /**
-     * Gets all user IDs.
-     * SQL query to populate UserID comboBox
-     * @return the all user IDs
+    /**Gets all user IDs. SQL query to populate UserID comboBox
+     * @return ObservableList of all user IDs
      */
     public static ObservableList<String> getAllUserIDs() {
         ObservableList<String> allUserIDsList = FXCollections.observableArrayList();
@@ -316,11 +291,8 @@ public class AppointmentQuery {
     }
 
 
-    /**
-     * Add appointment.
-     * SQL query to send parsed and validated appointment
-     * information to database as a new appointment
-     * @param newAppointment the new appointment
+    /** Add appointment. SQL query to create appointment
+     * @param newAppointment newAppointment to be inserted into database
      */
     public static void addAppointment(AppointmentModel newAppointment) {
 
@@ -362,11 +334,8 @@ public class AppointmentQuery {
         }
     }
 
-    /**
-     * Update appointment.
-     * SQL query to send parsed and validated appointment
-     * information to database as an update to existing appointment
-     * @param updateAppointment the update appointment
+    /**Update appointment. SQL query to update appointment
+     * @param updateAppointment updateAppointment to be updated to database
      */
     public static void updateAppointment(AppointmentModel updateAppointment) {
         Integer appointmentID = updateAppointment.getAppointmentID();
@@ -405,10 +374,8 @@ public class AppointmentQuery {
     }
 
 
-    /**
-     * Delete appointment.
-     * SQL query to delete selected appointment
-     * @param selectedAppointment the selected appointment
+    /** Delete appointment. SQL query to delete selected appointment
+     * @param selectedAppointment to be deleted from database
      */
     public static void deleteAppointment(Integer selectedAppointment){
         try {
@@ -423,12 +390,8 @@ public class AppointmentQuery {
     }
 
 
-    /**
-     * Gets next appointment.
-     * SQL query to populate main page with upcoming appointments
-     * If an appointment is found, it is then tested to see if it
-     * is within 15 minutes of login
-     * @return the next appointment
+    /** Get next appointment. SQL query to check for a future appointment
+     * @return nextAppointment upcoming appointment for current user
      */
     public static AppointmentModel getNextAppointment() {
         AppointmentModel nextAppointment = null;
@@ -457,10 +420,7 @@ public class AppointmentQuery {
         return nextAppointment;
     }
 
-    /**
-     * Check if future appointments boolean.
-     * SQL query to determine if there are any future appointments before
-     * querying details about any future appointments
+    /** Check if future appointments. SQL query to determine if future appointment exists
      * @return the boolean
      */
     public static Boolean checkIfFutureAppointments() {
@@ -483,33 +443,24 @@ public class AppointmentQuery {
     }
 
 
-    /**
-     * query to see if appointment is within 15 min of login.
-     * SQL query to check if next appointment starts within 15 minutes
-     * If so, the user is alerted with a pop up every time they visit the main page
-     * and the main page will have text in place indicating an approaching appointment
+    /**appointment within 15. query to see if appointment is within 15 min of login.
+     * Alert users if so
      * @return the string
      */
     public static String checkIfNextAppointmentIsSoon() {
         String isApptSoon = null;
         Integer timeDiffStart = 0;
-        /**
-         * SQL query to get data from soonest appointment
-         */
+         //SQL query to get data from soonest appointment
         try {
             String sql = "select Appointment_ID, Start, Type, User_ID from appointments WHERE (Start >= CURRENT_TIMESTAMP()) AND User_ID = " + UserDaoImpl.getCurrentUserID() + " ORDER By Start ASC LIMIT 1;";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            /**
-             * If an appointment is found, get the details to present to the user
-             */
+           // If an appointment is found, get the details to present to the user
             if (rs.next()) {
                 ZonedDateTime timeApptStart = rs.getTimestamp("Start").toLocalDateTime().atZone(ZoneId.systemDefault());
                 int appointmentID = rs.getInt("Appointment_ID");
                 String startDateTime = timeApptStart.format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a z"));
-                /**
-                 * Check to see if the next appointment is within 15 minutes. If so, trigger an alert to the user every time they visit the Main Page
-                 */
+                //Check to see if the next appointment is within 15 minutes. If so, trigger an alert to the user every time they visit the Main Page
                 timeDiffStart = Math.toIntExact(Duration.between(ZonedDateTime.now(), timeApptStart).getSeconds() / 60);
                 if (timeDiffStart <= 15) {
                     isApptSoon = "Your next appointment \nis within 15 minutes";
@@ -521,7 +472,6 @@ public class AppointmentQuery {
                 } else {
                     isApptSoon = "No appointments within \n15 minutes for "+ UserDaoImpl.getCurrentUserName();
                 }
-
             } else {
                 isApptSoon = "No appointments within \n15 minutes for user: "+ UserDaoImpl.getCurrentUserName();
             }
