@@ -11,11 +11,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /** Main. Starts Main application.
- * <b>
  *  C195 Final Project
  *  @author Caleb Dewberry
  *  WGU Student ID: #001222626
- * </b>>
  */
 
 public class Main extends Application {
