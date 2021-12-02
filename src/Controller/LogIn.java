@@ -109,21 +109,21 @@ public class LogIn implements Initializable {
      */
     @FXML
     void onActionLogin(ActionEvent event) throws IOException {
-        /**
-         * Sent username and password entered to UserDaoImpl for testing
+        /*
+          Sent username and password entered to UserDaoImpl for testing
          */
         UserDaoImpl.testCredentials(username.getText(), password.getText());
-        /**
-         * Loads Main Page if login successful
+        /*
+          Loads Main Page if login successful
          */
 
         if (loggedIn) {
-            /**
-             * Sets username for future use
+            /*
+              Sets username for future use
              */
             UserDaoImpl.setCredentials(username.getText());
-            /**
-             * Send login attempt (successful) to be written to logfile
+            /*
+              Send login attempt (successful) to be written to logfile
              */
             UserDaoImpl.recordLoginAttempts(username.getText(), "Log In Attempt Successful");
             FXMLLoader loader = new FXMLLoader();
@@ -138,14 +138,14 @@ public class LogIn implements Initializable {
 
         } else {
 
-            /**
-             * Notifies user of unsuccessful login in native language
-             * Misc formatting based on language settings to preserve consistency between languages
+            /*
+              Notifies user of unsuccessful login in native language
+              Misc formatting based on language settings to preserve consistency between languages
              */
             loginSuccess.setText(rbLang.getString("Invalid credentials"));
             loginSuccess.setLayoutX(Integer.valueOf(rbLang.getString("loginUnsuccessX")));
-            /**
-             * Send login attempt (unsuccessful) to be written to logfile
+            /*
+              Send login attempt (unsuccessful) to be written to logfile
              */
             UserDaoImpl.recordLoginAttempts(username.getText(), "Log In Attempt Unsuccessful");
 
@@ -176,11 +176,16 @@ public class LogIn implements Initializable {
 
     }
 
+    /**
+     * Initialize, formatting assets.
+     * Formatting of assets on screen to preserve consistent layout between languages
+     * Sets local date and timezone for user clarification
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /**
-         * Formatting of assets on screen to preserve consistent layout between languages
-         */
+
         login1.setFont(new Font("System",Integer.valueOf(rbLang.getString("login1"))));
         login2.setFont(new Font("System", Integer.valueOf(rbLang.getString("login2"))));
         userLocation.setLayoutX(Integer.valueOf(rbLang.getString("dateXCoord")));
@@ -192,9 +197,6 @@ public class LogIn implements Initializable {
         if(Boolean.valueOf(rbLang.getString("loginSuccessWrap")) == Boolean.TRUE) {
             loginSuccess.setWrapText(true);
         }
-        /**
-         * Sets local date and timezone for user clarification
-         */
         userLocation.setText(getUserTimeZone());
     }
 }

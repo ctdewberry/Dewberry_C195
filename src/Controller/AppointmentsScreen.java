@@ -224,8 +224,8 @@ public class AppointmentsScreen implements Initializable {
                 Optional<ButtonType> result2 = alertConfirmAppointmentIsDeleted.showAndWait();
                 appointmentsTableView.getSortOrder().add(apptIDCol);
             }
-            /**
-             * Catches exception if user presses delete and no appointment is selected
+            /*
+              Catches exception if user presses delete and no appointment is selected
              */
         } catch (Exception e) {
             Alert noAppointmentsSelectedForDeletion = new Alert(Alert.AlertType.INFORMATION);

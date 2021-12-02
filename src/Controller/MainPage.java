@@ -155,30 +155,38 @@ public class MainPage implements Initializable {
 
     }
 
+    /**
+     * Initialize Main Page. various setup procedures
+     * obtain entered username, check for future appointments
+     * tests to see if there are future appointments and if so
+     * if they are within 15 minutes. If so, user is notified
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /**
-         * Sets the username for the currently logged in user, viewable on the main page.
+        /*
+          Sets the username for the currently logged in user, viewable on the main page.
          */
         username.setText(UserDaoImpl.getCurrentUserName());
-        /**
-         * Checks to see if any future appointments at all
+        /*
+          Checks to see if any future appointments at all
          */
         if(DAO.AppointmentQuery.checkIfFutureAppointments()) {
-            /**
-             * Gets details for future appointments for current user, not necessarily within 15 minutes.
+            /*
+              Gets details for future appointments for current user, not necessarily within 15 minutes.
              */
             AppointmentModel upcomingAppointment = DAO.AppointmentQuery.getNextAppointment();
-            /**
-             * If a future appointment is scheduled, fill out the details on the main page for quick reference for the user.
+            /*
+              If a future appointment is scheduled, fill out the details on the main page for quick reference for the user.
              */
             nextApptID.setText(String.valueOf(upcomingAppointment.getAppointmentID()));
             nextApptDateTime.setText(String.valueOf(upcomingAppointment.getStartDateTime().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("MM/dd/yy hh:mm a z"))));
             nextApptType.setText(String.valueOf(upcomingAppointment.getType()));
             //check if appointment within 15 minutes
-            /**
-             * Checks to see if future appointment is within 15 minutes of login. The method will provide the prompt for the
-             * upcoming appointment to the user and return text indicating if there is an upcoming appointment within 15 minutes or not.
+            /*
+              Checks to see if future appointment is within 15 minutes of login. The method will provide the prompt for the
+              upcoming appointment to the user and return text indicating if there is an upcoming appointment within 15 minutes or not.
              */
             upcomingAppointments.setText(AppointmentQuery.checkIfNextAppointmentIsSoon());
         }
