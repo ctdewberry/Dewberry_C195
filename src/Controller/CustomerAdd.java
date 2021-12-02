@@ -20,9 +20,18 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Customer add.
+ */
 public class CustomerAdd implements Initializable {
 
+    /**
+     * The Stage.
+     */
     Stage stage;
+    /**
+     * The Scene.
+     */
     Parent scene;
 
     @FXML
@@ -46,8 +55,21 @@ public class CustomerAdd implements Initializable {
     @FXML
     private TextField custPostal;
 
+    /**
+     * The Error messages.
+     * This array compiles a list of errors collected upon new customer creation attempt
+     * The results will be output to the user for correction before being allowed
+     * to create a customer
+     */
     ArrayList<String> errorMessages = new ArrayList<String>();
 
+    /**
+     * Add Error Messages
+     * Entry errors detected call this method to provide details to the
+     * list of compiled errors that will be presented to the user
+     * @param errorMessage
+     * @param type
+     */
     private void errorMessagesAdd(String errorMessage, String type){
 
         if (type == "empty") {
@@ -59,15 +81,32 @@ public class CustomerAdd implements Initializable {
     }
 
 
+    /**
+     * Returns the list of collected error messages to be presented
+     * to the user for correction
+     * @return
+     */
     private ArrayList getErrorMessagesTotal() {
         return errorMessages;
     }
 
+    /**
+     * Clears the list of error messages for customer creation reattempt
+     */
     private void clearErrorMessages() {
         errorMessages.clear();
     }
 
 
+    /**
+     * On action add customer.
+     * Parse data from entry fields
+     * Confirm all data is valid and not null
+     * Confirm with user with details of the customer
+     * to be created
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionAddCustomer(ActionEvent event) throws IOException {
         Alert alertConfirmCustomerCreation = new Alert(Alert.AlertType.CONFIRMATION);
@@ -114,6 +153,10 @@ public class CustomerAdd implements Initializable {
                 alert.showAndWait();
                 clearErrorMessages();
             } else {
+
+                /**
+                 * If no entry errors, send parsed entries to addCustomer for insert into database
+                 */
                 CustomerQuery.addCustomer(new CustomerModel(id, name, addy, postal, phone, div, null, 0, null));
 
                 Alert alertConfirmCustomerIsAdded = new Alert(Alert.AlertType.INFORMATION);
@@ -132,6 +175,12 @@ public class CustomerAdd implements Initializable {
 
     }
 
+    /**
+     * On action cancel.
+     * Confirm with user that they want to cancel creating a customer
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
 
@@ -152,6 +201,9 @@ public class CustomerAdd implements Initializable {
     }
 
 
+    /**
+     * Initialize.
+     */
     @FXML
     void initialize() {
 
@@ -160,22 +212,37 @@ public class CustomerAdd implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxCountry.getItems().setAll(CustomerQuery.getAllCountries());
-        //lambda to update division list based on country selected. running lambda on both country and division clicked prevents a invalid division from being chosen
+
+        /**
+         * lambda to update division list based on country selected.
+         * running lambda on both country and division comboBox clicks prevents an
+         * invalid division from being shown to user
+         */
         comboBoxCountry.setOnMouseClicked((e -> updateDivisionList()));
-        //lambda to update division list based on country selected
+        /**
+         * lambda to update division comboBox option based on the selected country
+         */
         comboBoxDivision.setOnMouseClicked((e -> updateDivisionList()));
+        /**
+         * query next available customer ID
+         */
         newCustomerID.setText(String.valueOf(CustomerQuery.getHighestCustomerID()));
-
-
     }
 
+    /**
+     * update division comboBox based on country selected
+     * send country to getFilteredDivisions query and set division list based
+     * on resulting observableList
+     */
     private void updateDivisionList(){
         try {
             String currentCountry = (String) comboBoxCountry.getSelectionModel().getSelectedItem();
             comboBoxDivision.getItems().setAll(CustomerQuery.getFilteredDivisions(currentCountry));
         }
         catch (Exception e) {
+            /**
+             * Catch exception cause by invalid selection
+             */
         }
     }
-
 }

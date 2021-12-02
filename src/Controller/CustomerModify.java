@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.awt.event.*;
 
 import java.awt.event.ItemListener;
@@ -20,9 +21,18 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Customer modify.
+ */
 public class CustomerModify implements Initializable {
 
+    /**
+     * The Stage.
+     */
     Stage stage;
+    /**
+     * The Scene.
+     */
     Parent scene;
 
     @FXML
@@ -46,8 +56,14 @@ public class CustomerModify implements Initializable {
     @FXML
     private TextField custPostal;
 
-    public void sendCustomer(CustomerModel CustomerModel)
-    {
+    /**
+     * Send customer.
+     * Obtains details from selected customer to prepoulate
+     * the modify customer screen
+     *
+     * @param CustomerModel the customer model
+     */
+    public void sendCustomer(CustomerModel CustomerModel) {
         currentCustomerID.setText(String.valueOf(CustomerModel.getCustomerID()));
         custAddy.setText(String.valueOf(CustomerModel.getCustomerAddress()));
         custName.setText(String.valueOf(CustomerModel.getCustomerName()));
@@ -58,9 +74,23 @@ public class CustomerModify implements Initializable {
     }
 
 
+    /**
+     * The Error messages.
+     * This array compiles a list of errors collected upon customer update attempt
+     * The results will be output to the user for correction before being allowed
+     * to modify a customer
+     */
     ArrayList<String> errorMessages = new ArrayList<String>();
 
-    private void errorMessagesAdd(String errorMessage, String type){
+    /**
+     * Add Error Messages
+     * Entry errors detected call this method to provide details to the
+     * list of compiled errors that will be presented to the user
+     *
+     * @param errorMessage
+     * @param type
+     */
+    private void errorMessagesAdd(String errorMessage, String type) {
 
         if (type == "empty") {
             errorMessages.add(errorMessage + " field cannot be empty");
@@ -70,20 +100,36 @@ public class CustomerModify implements Initializable {
         }
     }
 
-
+    /**
+     * Returns the list of collected error messages to be presented
+     * to the user for correction
+     *
+     * @return
+     */
     private ArrayList getErrorMessagesTotal() {
         return errorMessages;
     }
 
+    /**
+     * Clears the list of error messages for customer update reattempt
+     */
     private void clearErrorMessages() {
         errorMessages.clear();
     }
 
 
-
-
+    /**
+     * On action update customer.
+     * Parse data from entry fields
+     * Confirm all data is valid and not null
+     * Confirm with user with details of the customer
+     * to be update
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
-    void onActionUpdateCustomer(ActionEvent event) throws IOException{
+    void onActionUpdateCustomer(ActionEvent event) throws IOException {
         Alert alertConfirmCustomerModify = new Alert(Alert.AlertType.CONFIRMATION);
         alertConfirmCustomerModify.setTitle("Modify Customer Info");
         alertConfirmCustomerModify.setHeaderText("Modify Customer Info");
@@ -129,6 +175,9 @@ public class CustomerModify implements Initializable {
                 clearErrorMessages();
             } else {
 
+                /**
+                 * If no entry errors, send parsed entries to modifyCustomer for update of database
+                 */
                 CustomerQuery.modifyCustomer(new CustomerModel(id, name, addy, postal, phone, div, null, 0, null));
 
                 try {
@@ -147,11 +196,16 @@ public class CustomerModify implements Initializable {
             }
 
 
-
-
         }
     }
 
+    /**
+     * On action cancel.
+     * Confirm with user that they want to cancel modifying a customer
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
 
@@ -172,7 +226,9 @@ public class CustomerModify implements Initializable {
     }
 
 
-
+    /**
+     * Initialize.
+     */
     @FXML
     void initialize() {
 
@@ -181,20 +237,34 @@ public class CustomerModify implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxCountry.getItems().setAll(CustomerQuery.getAllCountries());
-        //lambda to update division list based on country selected. running lambda on both country and division clicked prevents a invalid division from being chosen
+
+        /**
+         * lambda to update division list based on country selected.
+         * running lambda on both country and division comboBox clicks prevents an
+         * invalid division from being shown to user
+         */
         comboBoxCountry.setOnMouseClicked((e -> updateDivisionList()));
-        //lambda to update division list based on country selected
+        /**
+         * lambda to update division comboBox option based on the selected country
+         */
         comboBoxDivision.setOnMouseClicked((e -> updateDivisionList()));
 
     }
 
-    private void updateDivisionList(){
+    /**
+     * update division comboBox based on country selected
+     * send country to getFilteredDivisions query and set division list based
+     * on resulting observableList
+     */
+    private void updateDivisionList() {
         try {
             String currentCountry = (String) comboBoxCountry.getSelectionModel().getSelectedItem();
             comboBoxDivision.getItems().setAll(CustomerQuery.getFilteredDivisions(currentCountry));
         }
         catch (Exception e) {
+            /**
+             * Catch exception cause by invalid selection
+             */
         }
     }
-
 }
