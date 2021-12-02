@@ -234,41 +234,33 @@ public class AppointmentsModify implements Initializable {
         return convertedDateTime;
     }
 
-    /**
-     * Validate appointments.
-     * Validate appointments based on various criteria
+    /**Validate appointments. Validate appointments based on various criteria
      * @param startDateTime the start date time
      * @param endDateTime   the end date time
      * @param customerID    the customer id
      * @param appointmentID the appointment id
      */
     public void validateAppointments(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer customerID, Integer appointmentID) {
-        /**
-         * Method will not return anything, but will add to aggregated error list if there are any issues
-         * notifying the user of what needs to be corrected
-         */
+        //Method will not return anything, but will add to aggregated error list if there are any issues
+        //notifying the user of what needs to be corrected
 
 
-        /**
-         * Validation 1:
-         * Ensure end date of appointment comes after start date
-         */
+
+        /**Validation 1. Ensure end date of appointment comes after start date*/
         if (!(startDateTime.compareTo(endDateTime) < 0)) {
             scheduleErrorsSetMessage("endBeforeStart");
             return;
         }
 
 
-        /**
-         * Validation 2:
-         * Ensure appointment is scheduled during business hours
+        /**Validation 2. Ensure appointment is scheduled during business hours
          */
 
-        /**
-         * Prepare variables for use in checking business hours
-         * Convert requested appointment date to zoned date time of the business (EST)
-         * and convert to local date time for comparison
-         */
+        //Prepare variables for use in checking business hours
+        //Convert requested appointment date to zoned date time of the business (EST)
+        //and convert to local date time for comparison
+
+
         ZonedDateTime localZoneStartOfAppointment = startDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime localZoneEndOfAppointment = endDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime targetZoneStartOfAppointment = localZoneStartOfAppointment.withZoneSameInstant(ZoneId.of("US/Eastern"));
@@ -276,19 +268,18 @@ public class AppointmentsModify implements Initializable {
         LocalDateTime localizedAppointmentStartTime = targetZoneStartOfAppointment.toLocalDateTime();
         LocalDateTime localizedAppointmentEndTime = targetZoneEndOfAppointment.toLocalDateTime();
 
-        /**
-         * Parse and convert business operating hours to local date time for comparison
-         */
+        //Parse and convert business operating hours to local date time for comparison
+
+
         LocalDate localDate = localizedAppointmentStartTime.toLocalDate();
         LocalTime localOpeningHours = LocalTime.of(8,0);
         LocalTime localClosingHours = LocalTime.of(22,0);
         LocalDateTime localOpeningTime = LocalDateTime.of(localDate,localOpeningHours);
         LocalDateTime localClosingTime = LocalDateTime.of(localDate,localClosingHours);
 
-        /**
-         * Compare operating hours of business with requested appointment time.
-         * Return appropriate error
-         */
+        //Compare operating hours of business with requested appointment time.
+        //Return appropriate error
+
 
 
         long timeDiffStart = ChronoUnit.MINUTES.between(localOpeningTime,localizedAppointmentStartTime);
@@ -304,9 +295,7 @@ public class AppointmentsModify implements Initializable {
 
 
 
-        /**
-         * Validation 3:
-         * Compare requested appointment time with any other appointments for the same customer
+        /**Validation 3. Compare requested appointment time with any other appointments for the same customer
          * Exclude current appointment from search
          */
 
@@ -314,35 +303,35 @@ public class AppointmentsModify implements Initializable {
         for (AppointmentModel A : comparisonArray) {
             if (A.getAppointmentID() != appointmentID) {
 
-                /**
-                 * Variables condensed for easier handling
-                 * ES = [E]xisting [S]tart - Start DateTime of existing appointments
-                 * EE = [E]xisting [E]nd - End DateTime of existing appointments
-                 * NS = [N]ew [S]tart - Start DateTime of requested appointment
-                 * NE = [N]ew [E]nd - End DateTime of requested appointment
-                 */
+
+                //Variables condensed for easier handling
+                // ES = [E]xisting [S]tart - Start DateTime of existing appointments
+                // EE = [E]xisting [E]nd - End DateTime of existing appointments
+                // NS = [N]ew [S]tart - Start DateTime of requested appointment
+                // NE = [N]ew [E]nd - End DateTime of requested appointment
+
+
                 LocalDateTime ES = A.getStartDateTime();
                 LocalDateTime EE = A.getEndDateTime();
                 LocalDateTime NS = startDateTime;
                 LocalDateTime NE = endDateTime;
 
-                /**
-                 * Check to see if requested appointment will start during an existing appointment
-                 */
+
+                //Check to see if requested appointment will start during an existing appointment
+
                 boolean startOverlap = ((NS.isAfter(ES) || NS.isEqual(ES)) && NS.isBefore(EE));
-                /**
-                 * Check to see if requested appointment will end during an existing appointment
-                 */
+
+                //Check to see if requested appointment will end during an existing appointment
+
                 boolean endOverlap = (NE.isAfter(ES) && (NE.isEqual(EE) || NE.isBefore(EE)));
-                /**
-                 * Check to see if requested appointment will overlap an existing appointment
-                 */
+
+                //Check to see if requested appointment will overlap an existing appointment
+
                 boolean startEndOverlap = ((NS.isBefore(ES) || NS.isEqual(ES)) && (NE.isAfter(EE) || NE.isEqual(EE)));
 
 
-                /**
-                 * Return the appropriate error from the previous comparisons
-                 */
+               //Return the appropriate error from the previous comparisons
+
                 if (startEndOverlap) {
                     scheduleErrorsSetMessage("startEndOverlap");
                     return;
@@ -364,18 +353,15 @@ public class AppointmentsModify implements Initializable {
     }
 
 
-    /**
-     * On action modify appointment.
-     * Parses data from entered fields to sent to UpdateAppointment query
+    /**On action modify appointment. Gather data to update appointment
      * @param event the event
      * @throws IOException the io exception
      */
     @FXML
     void onActionModifyAppointment(ActionEvent event) throws IOException {
 
-        /**
-         * Check all fields for empty or erroneous data
-         */
+        //Check all fields for empty or erroneous data
+
 
 
         int appointmentID = Integer.parseInt(currentApptID.getText());

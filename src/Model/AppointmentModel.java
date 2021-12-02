@@ -8,8 +8,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-/**
- * The type Appointment model.
+/**Appointment model. Appointment model
  */
 public class AppointmentModel {
     private int appointmentID;
@@ -25,8 +24,7 @@ public class AppointmentModel {
     private int userID;
 
 
-    /**
-     * Instantiates a new Appointment model.
+    /**Instantiates a new Appointment model.
      *
      * @param appointmentID the appointment id
      * @param title         the title
@@ -55,8 +53,7 @@ public class AppointmentModel {
 
     }
 
-    /**
-     * Instantiates a new Appointment model.
+    /**Instantiates a new Appointment model.
      *
      * @param appointmentID the appointment id
      * @param startDateTime the start date time
@@ -69,8 +66,7 @@ public class AppointmentModel {
 
     }
 
-    /**
-     * Gets appointment id.
+    /**Gets appointment id.
      *
      * @return the appointment id
      */
@@ -78,8 +74,7 @@ public class AppointmentModel {
         return appointmentID;
     }
 
-    /**
-     * Sets appointment id.
+    /**Sets appointment id.
      *
      * @param appointmentID the appointment id
      */
@@ -87,8 +82,7 @@ public class AppointmentModel {
         this.appointmentID = appointmentID;
     }
 
-    /**
-     * Gets title.
+    /**Gets title.
      *
      * @return the title
      */
@@ -96,8 +90,7 @@ public class AppointmentModel {
         return title;
     }
 
-    /**
-     * Sets title.
+    /**Sets title.
      *
      * @param title the title
      */
@@ -105,8 +98,7 @@ public class AppointmentModel {
         this.title = title;
     }
 
-    /**
-     * Gets description.
+    /**Gets description.
      *
      * @return the description
      */
@@ -114,8 +106,7 @@ public class AppointmentModel {
         return description;
     }
 
-    /**
-     * Sets description.
+    /**Sets description.
      *
      * @param description the description
      */
@@ -123,8 +114,7 @@ public class AppointmentModel {
         this.description = description;
     }
 
-    /**
-     * Gets location.
+    /**Gets location.
      *
      * @return the location
      */
@@ -132,8 +122,7 @@ public class AppointmentModel {
         return location;
     }
 
-    /**
-     * Sets location.
+    /**Sets location.
      *
      * @param location the location
      */
@@ -141,8 +130,7 @@ public class AppointmentModel {
         this.location = location;
     }
 
-    /**
-     * Gets contact id.
+    /**Gets contact id.
      *
      * @return the contact id
      */
@@ -150,8 +138,7 @@ public class AppointmentModel {
         return contactID;
     }
 
-    /**
-     * Sets contact id.
+    /**Sets contact id.
      *
      * @param contactID the contact id
      */
@@ -159,8 +146,7 @@ public class AppointmentModel {
         this.contactID = contactID;
     }
 
-    /**
-     * Gets contact name.
+    /**Gets contact name.
      *
      * @return the contact name
      */
@@ -168,8 +154,7 @@ public class AppointmentModel {
         return contactName;
     }
 
-    /**
-     * Sets contact name.
+    /**Sets contact name.
      *
      * @param contactName the contact name
      */
@@ -177,8 +162,7 @@ public class AppointmentModel {
         this.contactName = contactName;
     }
 
-    /**
-     * Gets type.
+    /**Gets type.
      *
      * @return the type
      */
@@ -186,8 +170,7 @@ public class AppointmentModel {
         return type;
     }
 
-    /**
-     * Sets type.
+    /**Sets type.
      *
      * @param type the type
      */
@@ -196,8 +179,7 @@ public class AppointmentModel {
     }
 
 
-    /**
-     * Gets start date time.
+    /**Gets start date time.
      *
      * @return the start date time
      */
@@ -207,8 +189,7 @@ public class AppointmentModel {
 
     }
 
-    /**
-     * Get start date time string string.
+    /**Get start date time string string.
      *
      * @return the string
      */
@@ -218,8 +199,7 @@ public class AppointmentModel {
     }
 
 
-    /**
-     * Get start date local date.
+    /**Get start date local date.
      *
      * @return the local date
      */
@@ -227,8 +207,7 @@ public class AppointmentModel {
         return this.startDateTime.toLocalDate();
     }
 
-    /**
-     * Gets start time.
+    /**Gets start time.
      *
      * @return the start time
      */
@@ -236,8 +215,7 @@ public class AppointmentModel {
         return this.startDateTime.toLocalTime();
     }
 
-    /**
-     * Get start time string string.
+    /**Get start time string string.
      *
      * @return the string
      */
@@ -246,8 +224,7 @@ public class AppointmentModel {
     }
 
 
-    /**
-     * Sets start date time.
+    /**Sets start date time.
      *
      * @param startDateTime the start date time
      */
@@ -256,8 +233,7 @@ public class AppointmentModel {
     }
 
 
-    /**
-     * Gets end date time.
+    /**Gets end date time.
      *
      * @return the end date time
      */
@@ -265,8 +241,7 @@ public class AppointmentModel {
         return endDateTime;
     }
 
-    /**
-     * Get end date time string string.
+    /**Get end date time string string.
      *
      * @return the string
      */
@@ -275,8 +250,7 @@ public class AppointmentModel {
 
     }
 
-    /**
-     * Get end date local date.
+    /**Get end date local date.
      *
      * @return the local date
      */
@@ -285,8 +259,7 @@ public class AppointmentModel {
         return this.endDateTime.toLocalDate();
     }
 
-    /**
-     * Gets end time.
+    /**Gets end time.
      *
      * @return the end time
      */
@@ -294,8 +267,7 @@ public class AppointmentModel {
         return this.endDateTime.toLocalTime();
     }
 
-    /**
-     * Get end time string string.
+    /**Get end time string string.
      *
      * @return the string
      */
@@ -304,8 +276,7 @@ public class AppointmentModel {
     }
     //
 
-    /**
-     * Sets end date time.
+    /**Sets end date time.
      *
      * @param endDateTime the end date time
      */
@@ -314,8 +285,7 @@ public class AppointmentModel {
     }
 
 
-    /**
-     * Gets customer id.
+    /**Gets customer id.
      *
      * @return the customer id
      */
@@ -323,8 +293,7 @@ public class AppointmentModel {
         return customerID;
     }
 
-    /**
-     * Sets customer id.
+    /**Sets customer id.
      *
      * @param customerID the customer id
      */
@@ -332,8 +301,7 @@ public class AppointmentModel {
         this.customerID = customerID;
     }
 
-    /**
-     * Gets user id.
+    /**Gets user id.
      *
      * @return the user id
      */
@@ -341,8 +309,7 @@ public class AppointmentModel {
         return userID;
     }
 
-    /**
-     * Sets user id.
+    /**Sets user id.
      *
      * @param userID the user id
      */

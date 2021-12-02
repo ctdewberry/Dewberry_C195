@@ -53,11 +53,7 @@ public class CustomerModify implements Initializable {
     @FXML
     private TextField custPostal;
 
-    /**
-     * Send customer.
-     * Obtains details from selected customer to prepoulate
-     * the modify customer screen
-     *
+    /**Send customer. Sends selected customer to update screen
      * @param CustomerModel the customer model
      */
     public void sendCustomer(CustomerModel CustomerModel) {
@@ -71,16 +67,14 @@ public class CustomerModify implements Initializable {
     }
 
 
-    /**
-     * The Error messages.
+    /**The Error messages.
      * This array compiles a list of errors collected upon customer update attempt
      * The results will be output to the user for correction before being allowed
      * to modify a customer
      */
     ArrayList<String> errorMessages = new ArrayList<String>();
 
-    /**
-     * Add Error Messages
+    /**Add Error Messages
      * Entry errors detected call this method to provide details to the
      * list of compiled errors that will be presented to the user
      *
@@ -97,26 +91,21 @@ public class CustomerModify implements Initializable {
         }
     }
 
-    /**
-     * Returns the list of collected error messages to be presented
-     * to the user for correction
-     *
+    /**Get total errors. Returns the list of collected error messages
      * @return
      */
     private ArrayList getErrorMessagesTotal() {
         return errorMessages;
     }
 
-    /**
-     * Clears the list of error messages for customer update reattempt
+    /**Clear errors. Clears the list of error messages for customer update reattempt
      */
     private void clearErrorMessages() {
         errorMessages.clear();
     }
 
 
-    /**
-     * On action update customer.
+    /**On action update customer. Gather information from user input.
      * Parse data from entry fields
      * Confirm all data is valid and not null
      * Confirm with user with details of the customer
@@ -172,9 +161,8 @@ public class CustomerModify implements Initializable {
                 clearErrorMessages();
             } else {
 
-                /**
-                 * If no entry errors, send parsed entries to modifyCustomer for update of database
-                 */
+               //If no entry errors, send parsed entries to modifyCustomer for update of database
+
                 CustomerQuery.modifyCustomer(new CustomerModel(id, name, addy, postal, phone, div, null, 0, null));
 
                 try {
@@ -196,10 +184,7 @@ public class CustomerModify implements Initializable {
         }
     }
 
-    /**
-     * On action cancel.
-     * Confirm with user that they want to cancel modifying a customer
-     *
+    /**On action cancel. Confirm cancellation
      * @param event the event
      * @throws IOException the io exception
      */
@@ -223,8 +208,7 @@ public class CustomerModify implements Initializable {
     }
 
 
-    /**
-     * Initialize.
+    /**Initialize.
      */
     @FXML
     void initialize() {
@@ -235,24 +219,18 @@ public class CustomerModify implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxCountry.getItems().setAll(CustomerQuery.getAllCountries());
 
-        /**
-         * lambda to update division list based on country selected.
-         * running lambda on both country and division comboBox clicks prevents an
-         * invalid division from being shown to user
+        /**Update Division List. lambda to update division list based on selected country.
+         * prevents invalid data from being shown to user
          */
         comboBoxCountry.setOnMouseClicked((e -> updateDivisionList()));
-        /**
-         * lambda to update division comboBox option based on the selected country
-         * this ensures that the user only sees valid options
+        /**Update Division List. lambda to update division list based on selected country.
+         * prevents invalid data from being shown to user
          */
         comboBoxDivision.setOnMouseClicked((e -> updateDivisionList()));
 
     }
 
-    /**
-     * update division comboBox based on country selected
-     * send country to getFilteredDivisions query and set division list based
-     * on resulting observableList
+    /**update division comboBox. updates combobox filtered by country
      */
     private void updateDivisionList() {
         try {
@@ -260,9 +238,7 @@ public class CustomerModify implements Initializable {
             comboBoxDivision.getItems().setAll(CustomerQuery.getFilteredDivisions(currentCountry));
         }
         catch (Exception e) {
-            /**
-             * Catch exception cause by invalid selection
-             */
+            //Catch exception cause by invalid selection
         }
     }
 }

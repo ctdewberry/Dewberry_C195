@@ -60,9 +60,7 @@ public class ReportsQuery {
         return ReportTypeOptions;
     }
 
-    /**
-     * Report contact choices observable list.
-     * Populates contact comboBox
+    /**Report contact choices. Populates contact comboBox
      * @return the observable list
      */
     public static ObservableList<String> ReportContactChoices(){
@@ -82,9 +80,7 @@ public class ReportsQuery {
         return ReportContactOptions;
     }
 
-    /**
-     * Report location choices observable list.
-     * Populates location comboBox
+    /**Report location choices. Populates location comboBox
      * @return the observable list
      */
     public static ObservableList<String> ReportLocationChoices(){
@@ -104,9 +100,7 @@ public class ReportsQuery {
         return ReportContactOptions;
     }
 
-    /**
-     * Report A totals query integer.
-     * SQL query to obtain Report A results
+    /**Report A totals. SQL query to obtain Report A results
      * @param reportMonth the report month
      * @param reportYear  the report year
      * @param reportType  the report type
@@ -128,9 +122,7 @@ public class ReportsQuery {
         return ReportATotals;
     }
 
-    /**
-     * Report B appointments by contact observable list.
-     * SQL query to obtain Report B results
+    /**Report B appointments. SQL query to obtain Report B results
      * @param reportContactName the report contact name
      * @return the observable list
      */
@@ -162,9 +154,7 @@ public class ReportsQuery {
         return contactAppointmentList;
     }
 
-    /**
-     * Report C appointments by location observable list.
-     * SQL query to obtain Report C results
+    /**Report C appointments by location. SQL query to obtain Report C results
      * @param reportByLocation the report by location
      * @return the observable list
      */

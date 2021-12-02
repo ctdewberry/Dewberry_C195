@@ -1,7 +1,6 @@
 package Model;
 
-/**
- * The type Customer model.
+/**Customer model. Customer model
  */
 public class CustomerModel {
     private int customerID;
@@ -15,8 +14,7 @@ public class CustomerModel {
     private String customerCountry;
 
 
-    /**
-     * Instantiates a new Customer model.
+    /**Instantiates a new Customer model.
      *
      * @param customerID         the customer id
      * @param customerName       the customer name
@@ -40,8 +38,7 @@ public class CustomerModel {
         this.customerCountry = customerCountry;
     }
 
-    /**
-     * Gets customer id.
+    /**Gets customer id.
      *
      * @return the customer id
      */
@@ -49,8 +46,7 @@ public class CustomerModel {
         return customerID;
     }
 
-    /**
-     * Sets customer id.
+    /**Sets customer id.
      *
      * @param customerID the customer id
      */
@@ -58,8 +54,7 @@ public class CustomerModel {
         this.customerID = customerID;
     }
 
-    /**
-     * Gets customer name.
+    /**Gets customer name.
      *
      * @return the customer name
      */
@@ -67,8 +62,7 @@ public class CustomerModel {
         return customerName;
     }
 
-    /**
-     * Sets customer name.
+    /**Sets customer name.
      *
      * @param customerName the customer name
      */
@@ -76,8 +70,7 @@ public class CustomerModel {
         this.customerName = customerName;
     }
 
-    /**
-     * Gets customer address.
+    /**Gets customer address.
      *
      * @return the customer address
      */
@@ -85,8 +78,7 @@ public class CustomerModel {
         return customerAddress;
     }
 
-    /**
-     * Sets customer address.
+    /**Sets customer address.
      *
      * @param customerAddress the customer address
      */
@@ -94,8 +86,7 @@ public class CustomerModel {
         this.customerAddress = customerAddress;
     }
 
-    /**
-     * Gets customer code.
+    /**Gets customer code.
      *
      * @return the customer code
      */
@@ -103,8 +94,7 @@ public class CustomerModel {
         return customerCode;
     }
 
-    /**
-     * Sets customer code.
+    /**Sets customer code.
      *
      * @param customerCode the customer code
      */
@@ -112,8 +102,7 @@ public class CustomerModel {
         this.customerCode = customerCode;
     }
 
-    /**
-     * Gets customer phone.
+    /**Gets customer phone.
      *
      * @return the customer phone
      */
@@ -121,8 +110,7 @@ public class CustomerModel {
         return customerPhone;
     }
 
-    /**
-     * Sets customer phone.
+    /**Sets customer phone.
      *
      * @param customerPhone the customer phone
      */
@@ -130,8 +118,7 @@ public class CustomerModel {
         this.customerPhone = customerPhone;
     }
 
-    /**
-     * Gets customer division id.
+    /**Gets customer division id.
      *
      * @return the customer division id
      */
@@ -139,8 +126,7 @@ public class CustomerModel {
         return customerDivisionID;
     }
 
-    /**
-     * Sets customer division id.
+    /**Sets customer division id.
      *
      * @param customerDivisionID the customer division id
      */
@@ -148,8 +134,7 @@ public class CustomerModel {
         this.customerDivisionID = customerDivisionID;
     }
 
-    /**
-     * Gets customer division.
+    /**Gets customer division.
      *
      * @return the customer division
      */
@@ -157,8 +142,7 @@ public class CustomerModel {
         return customerDivision;
     }
 
-    /**
-     * Sets customer division.
+    /**Sets customer division.
      *
      * @param customerDivision the customer division
      */
@@ -166,8 +150,7 @@ public class CustomerModel {
         this.customerDivision = customerDivision;
     }
 
-    /**
-     * Gets customer country id.
+    /**Gets customer country id.
      *
      * @return the customer country id
      */
@@ -175,8 +158,7 @@ public class CustomerModel {
         return customerCountryID;
     }
 
-    /**
-     * Sets customer country id.
+    /**Sets customer country id.
      *
      * @param customerCountryID the customer country id
      */
@@ -184,8 +166,7 @@ public class CustomerModel {
         this.customerCountryID = customerCountryID;
     }
 
-    /**
-     * Gets customer country.
+    /**Gets customer country.
      *
      * @return the customer country
      */
@@ -193,8 +174,7 @@ public class CustomerModel {
         return customerCountry;
     }
 
-    /**
-     * Sets customer country.
+    /**Sets customer country.
      *
      * @param customerCountry the customer country
      */

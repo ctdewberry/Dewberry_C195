@@ -51,9 +51,7 @@ public class MainPage implements Initializable {
     @FXML
     private Text upcomingAppointments;
 
-    /**
-     * On action customers.
-     * Method that loads the customer screen where the user can view/add/update/delete customers
+    /**On action customers. Loads the customer screen.
      * @param event the event
      * @throws IOException the io exception
      */

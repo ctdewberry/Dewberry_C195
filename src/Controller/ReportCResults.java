@@ -21,12 +21,10 @@ import java.util.ResourceBundle;
 public class ReportCResults implements Initializable {
 
 
-    /**
-     * The Stage.
+    /**The Stage.
      */
     Stage stage;
-    /**
-     * The Scene.
+    /**The Scene.
      */
     Parent scene;
 
@@ -35,8 +33,7 @@ public class ReportCResults implements Initializable {
     private ChoiceBox reportTypeBox;
 
 
-    /**
-     * Initialize.
+    /**Initialize. Initialize Report C screen
      */
     @FXML
     void initialize() {
