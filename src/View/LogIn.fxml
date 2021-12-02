@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LogIn">
    <children>
-      <Label fx:id="login1" layoutX="36.0" layoutY="10.0" prefHeight="88.0" prefWidth="232.0" text="%Log In">
+      <Label fx:id="login1" layoutX="40.0" layoutY="10.0" prefHeight="88.0" prefWidth="232.0" text="%Log In">
          <font>
             <Font size="64.0" />
          </font>

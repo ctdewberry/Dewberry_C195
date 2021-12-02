@@ -45,7 +45,7 @@ public class LogIn implements Initializable {
 
 
     /**
-     *
+     * xxxxxxx
      */
     @FXML
     private Label login1;
@@ -166,6 +166,7 @@ public class LogIn implements Initializable {
         login2.setFont(new Font("System", Integer.valueOf(rbLang.getString("login2"))));
         userLocation.setLayoutX(Integer.valueOf(rbLang.getString("dateXCoord")));
         loginSuccess.setLayoutX(Integer.valueOf(rbLang.getString("loginCred")));
+        login1.setLayoutX(Integer.valueOf(rbLang.getString("loginXCoord")));
         loginSuccess.setMaxWidth(260);
         dateText.setLayoutX(Integer.valueOf(rbLang.getString("dateTextXCoord")));
         exitButton.setFont(new Font("System", Integer.valueOf(rbLang.getString("exitSize"))));
