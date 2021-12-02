@@ -71,7 +71,7 @@ Interface: refreshSelectedCustomer
 
 Implementation: customerTableView.setOnMouseClicked(e -> refreshSelectedCustomer());
 
-Usefulness:  This Lambda is used to update a text field right beneath the tableView for customer. If the selected customer has any future appointments, some basic info about the appointment will populate the text field. Though this was not part of the requirements, in the real world this would be a great feature for the user as they would be able to quickly see the customers next appointment without having to switch to the appointment screen or report screen. 
+Usefulness:  This Lambda is used to update a text field right beneath the tableView for customer. If the selected customer has any future appointments, some basic info about the appointment will populate the text field. Though this was not part of the requirements, in the real world this would be a great feature for the user as they would be able to quickly see the customers next appointment without having to switch to the appointment screen or report screen.
 
 
 AppointmentsScreen.java:
@@ -80,7 +80,7 @@ Interface: java.util (No discrete interface aside from the inherent Functionalnt
 
 apptStartDateTimeCol.setCellValueFactory( startDateString -> new ReadOnlyStringWrapper(startDateString.getValue().getStartDateTimeString()));
 
-Usefulness: This lambda expression is used to retrieve, parse, format, and localize the time and date of the appointments that are populating the tableView on this page. I used this because it was the only way I could find to properly format and localize the dateTime for proper use in the table column. 
+Usefulness: This lambda expression is used to retrieve, parse, format, and localize the time and date of the appointments that are populating the tableView on this page. I used this because it was the only way I could find to properly format and localize the dateTime for proper use in the table column.
 
 
 These lambdas were each used several times, so you may come across multiple usages of each.
