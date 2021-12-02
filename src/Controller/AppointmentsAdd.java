@@ -267,10 +267,8 @@ public class AppointmentsAdd implements Initializable {
         /**
          * Method will not return anything, but will add to aggregated error list if there are any issues
          * notifying the user of what needs to be corrected
-         */
-
-
-        /**
+         *
+         *
          * Validation 1:
          * Ensure end date of appointment comes after start date
          */
@@ -286,9 +284,8 @@ public class AppointmentsAdd implements Initializable {
         /**
          * Validation 2:
          * Ensure appointment is scheduled during business hours
-         */
-
-        /**
+         *
+         *
          * Prepare variables for use in checking business hours
          * Convert requested appointment date to zoned date time of the business (EST)
          * and convert to local date time for comparison

@@ -246,6 +246,7 @@ public class CustomerModify implements Initializable {
         comboBoxCountry.setOnMouseClicked((e -> updateDivisionList()));
         /**
          * lambda to update division comboBox option based on the selected country
+         * this ensures that the user only sees valid options
          */
         comboBoxDivision.setOnMouseClicked((e -> updateDivisionList()));
 

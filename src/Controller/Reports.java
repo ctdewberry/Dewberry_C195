@@ -151,9 +151,9 @@ public class Reports implements Initializable {
 
     /**
     * Primary Report Assets
-    */
-
-    /**
+     *
+     *
+     *
      * On action back.
      * Navigate back to main screen
      * @param event the event

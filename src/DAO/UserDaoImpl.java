@@ -84,7 +84,8 @@ public class UserDaoImpl {
 
     /**
      * Record login attempts.
-     *
+     * Creates a log file if one doesnt exist and appends
+     * to it all log in attempts
      * @param username the username
      * @param success  the success
      * @throws IOException the io exception

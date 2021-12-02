@@ -167,6 +167,7 @@ public class CustomersScreen implements Initializable {
         customerTableView.getSortOrder().add(custIDCol);
         /**
          * Lambda method to refresh customer's next appointment information (below the table) when a customer is selected in the table
+         * This allows the user a quick glance into a customers future schedule without having to run a report or switch to the appointments screen
          */
         customerTableView.setOnMouseClicked(e -> refreshSelectedCustomer());
     }

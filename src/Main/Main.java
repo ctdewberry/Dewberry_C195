@@ -11,13 +11,13 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
+ * <b>
  * C195 Final Project
  * @author Caleb Dewberry
  * WGU Student ID: #001222626
- */
-
-
-/**
+ * </b>
+ *
+ *
  * The type Main.
  */
 public class Main extends Application {
