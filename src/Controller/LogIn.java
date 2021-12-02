@@ -56,6 +56,9 @@ public class LogIn implements Initializable {
     @FXML
     private Button exitButton;
 
+    @FXML
+    private Label dateText;
+
 
     /**
      * Log in user.
@@ -133,6 +136,7 @@ public class LogIn implements Initializable {
             stage.show();
         } else {
             loginSuccess.setText(rbLang.getString("Invalid credentials"));
+            loginSuccess.setLayoutX(Integer.valueOf(rbLang.getString("loginUnsuccessX")));
             UserDaoImpl.recordLoginAttempts(username.getText(), "Log In Attempt Unsuccessful");
 
             System.out.println("invalid credentials");
@@ -160,8 +164,10 @@ public class LogIn implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login1.setFont(new Font("System",Integer.valueOf(rbLang.getString("login1"))));
         login2.setFont(new Font("System", Integer.valueOf(rbLang.getString("login2"))));
+        userLocation.setLayoutX(Integer.valueOf(rbLang.getString("dateXCoord")));
         loginSuccess.setLayoutX(Integer.valueOf(rbLang.getString("loginCred")));
         loginSuccess.setMaxWidth(260);
+        dateText.setLayoutX(Integer.valueOf(rbLang.getString("dateTextXCoord")));
         exitButton.setFont(new Font("System", Integer.valueOf(rbLang.getString("exitSize"))));
         if(Boolean.valueOf(rbLang.getString("loginSuccessWrap")) == Boolean.TRUE) {
             loginSuccess.setWrapText(true);

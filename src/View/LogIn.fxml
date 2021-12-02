@@ -23,7 +23,7 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="446.0" layoutY="38.0" text="%Date and time zone:" textAlignment="RIGHT" />
+      <Label fx:id="dateText" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="446.0" layoutY="38.0" text="%Date and time zone:" textAlignment="RIGHT" />
       <Label fx:id="userLocation" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="460.0" layoutY="66.0" text="USER_TIME_ZONE" textAlignment="RIGHT">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -40,7 +40,7 @@
             <Font size="34.0" />
          </font>
       </Button>
-      <Label fx:id="loginSuccess" alignment="CENTER_RIGHT" layoutX="340.0" layoutY="135.0" text="%Login credentials" textAlignment="RIGHT">
+      <Label fx:id="loginSuccess" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="340.0" layoutY="135.0" text="%Login credentials" textAlignment="RIGHT">
          <font>
             <Font size="20.0" />
          </font>

@@ -71,6 +71,7 @@ public class MainPage implements Initializable {
         LogIn.logOutUser();
 
 
+//        ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.FRENCH);
         ResourceBundle rb = ResourceBundle.getBundle("Main/rbLang", Locale.getDefault());
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load((getClass().getResource("/view/LogIn.fxml")), rb);
