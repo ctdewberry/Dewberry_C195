@@ -49,13 +49,19 @@ public class UserDaoImpl {
     }
 
     public static void recordLoginAttempts(String username, String success) throws IOException{
+        if (username.isEmpty()) {
+            username = "No username entered";
+        }
+        String filename = "login_activity.txt", login;
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm:ss z");
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         String loginTime = formatter.format(System.currentTimeMillis());
-//        System.out.println(formatter.format(System.currentTimeMillis()));
-//        System.out.println(username);
-//        System.out.println(success);
+
+        FileWriter fwriter = new FileWriter(filename, true);
+        PrintWriter loginFile = new PrintWriter(fwriter);
+        loginFile.println("Attempted login with username: " + username + " on " + loginTime + ". Result: " + success);
         System.out.println("Attempted login with username: " + username + " on " + loginTime + ". Result: " + success);
+        loginFile.close();
 
 
     }

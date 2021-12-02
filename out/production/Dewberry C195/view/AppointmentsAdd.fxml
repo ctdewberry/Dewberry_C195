@@ -35,7 +35,7 @@
         <DatePicker fx:id="datePickerApptStartDate" layoutX="50.0" layoutY="440.0" promptText="Format: 12/08/1987" />
       <TextField fx:id="apptStartTime" layoutX="250.0" layoutY="440.0" promptText="Format: 04:30 PM " />
         <DatePicker fx:id="datePickerApptEndDate" layoutX="50.0" layoutY="500.0" promptText="Format: 1/1/01" />
-      <TextField fx:id="apptEndTime" layoutX="250.0" layoutY="500.0" promptText="Format: 6:30 pm" />
+      <TextField fx:id="apptEndTime" layoutX="250.0" layoutY="500.0" promptText="Format: 6:30pm" />
         <ComboBox fx:id="comboBoxApptCustID" layoutX="50.0" layoutY="560.0" prefWidth="150.0" />
         <ComboBox fx:id="comboBoxApptUserID" layoutX="250.0" layoutY="560.0" prefWidth="150.0" />
         <Button layoutX="50.0" layoutY="640.0" mnemonicParsing="false" onAction="#onActionAddAppointment" text="Add Appointment" />
