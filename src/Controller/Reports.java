@@ -196,7 +196,7 @@ public class Reports implements Initializable {
 
     //Report A Action
     @FXML
-    void onActionRunReportA(ActionEvent event) {
+    void onActionRunReportA(ActionEvent event) throws IOException{
 
         String chosenMonthYear = comboBoxMonth.getSelectionModel().getSelectedItem().toString();
         String selectedMonthString = YearMonth.parse(chosenMonthYear,DateTimeFormatter.ofPattern("MM-yyyy")).getMonth().name().toString();
@@ -224,7 +224,7 @@ public class Reports implements Initializable {
 
 
     @FXML
-    void onActionRunReportB(ActionEvent event) {
+    void onActionRunReportB(ActionEvent event) throws IOException{
         try {
             String chosenContact = comboBoxContact.getSelectionModel().getSelectedItem().toString();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportBResults.fxml"));
@@ -258,7 +258,7 @@ public class Reports implements Initializable {
     }
 
     @FXML
-    void onActionRunReportC(ActionEvent event) {
+    void onActionRunReportC(ActionEvent event) throws IOException{
         try {
             String chosenLocation = comboBoxLocation.getSelectionModel().getSelectedItem().toString();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportCResults.fxml"));

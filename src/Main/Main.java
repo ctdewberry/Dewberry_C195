@@ -56,6 +56,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         /**
          * Connects to the database through DBConnection in DAO
+         * Closes connection afterwards
          */
         DBConnection.startConnection();
         launch(args);

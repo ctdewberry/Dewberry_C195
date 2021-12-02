@@ -21,7 +21,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-
+/**
+ * The type Customers screen.
+ */
 public class CustomersScreen implements Initializable {
 
     /**
@@ -69,6 +71,12 @@ public class CustomersScreen implements Initializable {
     private Text nextAppointment;
 
 
+    /**
+     * On action back.
+     * Takes user back to main page
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionBack(ActionEvent event) throws IOException {
 
@@ -79,6 +87,12 @@ public class CustomersScreen implements Initializable {
         stage.show();
     }
 
+    /**
+     * On action add customer.
+     * Opens window for user to add a new customer
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionAddCustomer(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -89,10 +103,20 @@ public class CustomersScreen implements Initializable {
     }
 
 
+    /**
+     * On action modify customer.
+     * Opens window for user to modify customer info
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionModifyCustomer(ActionEvent event) throws IOException {
 
         try {
+            /**
+             * Attempts to get information about selected customer to send
+             * to modify custoemr screen
+             */
 
         int currentCustomer = customerTableView.getSelectionModel().getSelectedItem().getCustomerID();
         FXMLLoader loader = new FXMLLoader();
@@ -106,11 +130,18 @@ public class CustomersScreen implements Initializable {
         stage.setTitle("Modify Customer");
         stage.show();
                 } catch (NullPointerException e) {
+            /**
+             * catches exception if no customer selected when user clicks modify
+             */
             return;
         }
     }
 
 
+    /**
+     * Initialize.
+     * Populate customer table on load
+     */
     @FXML
     void initialize() {
 
@@ -132,19 +163,35 @@ public class CustomersScreen implements Initializable {
         custCountryCol.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
         customerTableView.getSortOrder().add(custIDCol);
         //lambda to refresh selected customer (provides a quick look into the customers next appointment)
+        /**
+         * Refreshes customer's next appointment information (below the table) when a customer is selected in the table
+         */
         customerTableView.setOnMouseClicked(e -> refreshSelectedCustomer());
-
     }
+
+    /**
+     * Method to detect the selected customer and send their customer ID to query the customers next appointment
+     * for use on the quick-glance info at the bottom of the screen
+     */
 
     private void refreshSelectedCustomer() {
         try {
             int currentCustomer = customerTableView.getSelectionModel().getSelectedItem().getCustomerID();
             nextAppointment.setText(CustomerQuery.getNextAppointment(currentCustomer));
         } catch (Exception e) {
-            //exception, no customers selected
+            /**
+             * Catches exception if no customers are selected
+             */
         }
     }
 
+    /**
+     * On action delete customer.
+     * Prompts user before delete.
+     * Deletes customers appointments before deleting customer
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionDeleteCustomer(ActionEvent event) throws IOException {
         try {
@@ -168,6 +215,9 @@ public class CustomersScreen implements Initializable {
 
             }
         } catch (Exception e) {
+            /**
+             * Exception caught if no customer selected when user clicks delete
+             */
             Alert noCustomerSelectedForDeletion = new Alert(Alert.AlertType.INFORMATION);
             noCustomerSelectedForDeletion.setTitle("Delete customer");
             noCustomerSelectedForDeletion.setHeaderText("Delete customer");

@@ -20,6 +20,9 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Appointments screen.
+ */
 public class AppointmentsScreen implements Initializable {
 
     /**
@@ -31,10 +34,6 @@ public class AppointmentsScreen implements Initializable {
      */
     Parent scene;
 
-    /**
-     * The Error messages.
-     * Array list for gathering error messages when user tries to modify a part
-     */
 
 
     @FXML
@@ -51,8 +50,6 @@ public class AppointmentsScreen implements Initializable {
 
     @FXML
     private RadioButton currentWeekBtn;
-//    AppointmentModel, Integer
-
 
     @FXML
     private TableColumn<AppointmentModel, Integer> apptIDCol;
@@ -91,8 +88,12 @@ public class AppointmentsScreen implements Initializable {
     private Label userZone;
 
 
-
-
+    /**
+     * On click all appointments.
+     * Sets the table view to view all appointments, sorted by appointment id
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onClickAllAppointments(ActionEvent event) throws IOException {
         appointmentsTableView.setItems(DAO.AppointmentQuery.getAllAppointments());
@@ -100,6 +101,12 @@ public class AppointmentsScreen implements Initializable {
 
     }
 
+    /**
+     * On click current month.
+     * Sets the table view to view all appointments in current month, sorted by appointment id
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onClickCurrentMonth(ActionEvent event) throws IOException {
         appointmentsTableView.setItems(DAO.AppointmentQuery.getMonthlyAppointments());
@@ -107,6 +114,12 @@ public class AppointmentsScreen implements Initializable {
 
     }
 
+    /**
+     * On click current week.
+     * Sets the table view to view all appointments in current week, sorted by appointment id
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onClickCurrentWeek(ActionEvent event) throws IOException{
         appointmentsTableView.setItems(DAO.AppointmentQuery.getWeeklyAppointments());
@@ -115,6 +128,12 @@ public class AppointmentsScreen implements Initializable {
     }
 
 
+    /**
+     * On action back.
+     * Returns to main page
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionBack(ActionEvent event) throws IOException {
 
@@ -126,6 +145,12 @@ public class AppointmentsScreen implements Initializable {
     }
 
 
+    /**
+     * On action add appointment.
+     * Opens window to add a new appointment
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionAddAppointment(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -136,11 +161,18 @@ public class AppointmentsScreen implements Initializable {
     }
 
 
+    /**
+     * On action modify appointment.
+     * Opens window to modify seleted appointment
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionModifyAppointment(ActionEvent event) throws IOException {
-
+        /**
+         * Attempts to get selected appointment to send to the modify appointment screen
+         */
         try {
-
             int currentAppointment = appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentID();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/AppointmentsModify.fxml"));
@@ -153,6 +185,9 @@ public class AppointmentsScreen implements Initializable {
             stage.setTitle("Modify Appointment");
             stage.show();
         } catch (NullPointerException e) {
+            /**
+             * Catches exception if no user selected when attempting to modify
+             */
             return;
         }
 
@@ -160,8 +195,17 @@ public class AppointmentsScreen implements Initializable {
 
     }
 
+    /**
+     * On action delete appointment.
+     * Deletes the selected appointment
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void onActionDeleteAppointment(ActionEvent event) throws IOException {
+        /**
+         * Attempts to delete selected appointment
+         */
         try {
             int currentAppointment = appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentID();
             String currentType = appointmentsTableView.getSelectionModel().getSelectedItem().getType();
@@ -170,10 +214,12 @@ public class AppointmentsScreen implements Initializable {
             alertConfirmAppointmentDelete.setHeaderText("Delete appointment");
             alertConfirmAppointmentDelete.setContentText("Do you want to delete appointment " + currentAppointment + " for: " + currentType + "?");
             Optional<ButtonType> result = alertConfirmAppointmentDelete.showAndWait();
+            /**
+             * Confirmation window on delete
+             */
             if (result.get() == ButtonType.OK) {
                 AppointmentQuery.deleteAppointment(currentAppointment);
                 appointmentsTableView.setItems(DAO.AppointmentQuery.getAllAppointments());
-
                 Alert alertConfirmAppointmentIsDeleted = new Alert(Alert.AlertType.INFORMATION);
                 alertConfirmAppointmentIsDeleted.setTitle("Delete appointment");
                 alertConfirmAppointmentIsDeleted.setHeaderText("Delete appointment");
@@ -181,6 +227,9 @@ public class AppointmentsScreen implements Initializable {
                 Optional<ButtonType> result2 = alertConfirmAppointmentIsDeleted.showAndWait();
                 appointmentsTableView.getSortOrder().add(apptIDCol);
             }
+            /**
+             * Catches exception if user presses delete and no appointment is selected
+             */
         } catch (Exception e) {
             Alert noAppointmentsSelectedForDeletion = new Alert(Alert.AlertType.INFORMATION);
             noAppointmentsSelectedForDeletion.setTitle("Delete appointment");
@@ -191,6 +240,9 @@ public class AppointmentsScreen implements Initializable {
     }
 
 
+    /**
+     * Initialize.
+     */
     @FXML
     void initialize() {
 
@@ -198,6 +250,9 @@ public class AppointmentsScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        /**
+         *  Initializes table view and various labels and buttons on appointment screen
+         */
 
         userZone.setText(LogIn.getUserTimeZone());
         appointmentsTableView.setItems(DAO.AppointmentQuery.getAllAppointments());
@@ -208,10 +263,15 @@ public class AppointmentsScreen implements Initializable {
         apptContactIDCol.setCellValueFactory(new PropertyValueFactory<>("contactID"));
         apptContactNameCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
         apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-        //lambda to get the start date and time formatted for use in table
+
+        /**
+         * lambda methods to format the start dates of appointments listed on table in an easily readable format
+         * while also localizing the date and time to the current timezone
+         */
         apptStartDateTimeCol.setCellValueFactory( startDateString -> new ReadOnlyStringWrapper(startDateString.getValue().getStartDateTimeString()));
-        //lambda to get the end date and time formatted for use in table
         apptEndDateTimeCol.setCellValueFactory( endDateString -> new ReadOnlyStringWrapper(endDateString.getValue().getEndDateTimeString()));
+
+
         apptCustIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
         appointmentsTableView.getSortOrder().add(apptIDCol);

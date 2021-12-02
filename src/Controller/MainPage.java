@@ -104,7 +104,7 @@ public class MainPage implements Initializable {
 
     /**
      * On action appointments.
-     * Method that loads the customer screen where the user can view/add/update/delete appointments
+     * Method that loads the appointments screen where the user can view/add/update/delete appointments
      * @param event the event
      * @throws IOException the io exception
      */

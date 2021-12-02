@@ -10,11 +10,18 @@ import Model.CustomerModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * The type Customer query.
+ */
 public class CustomerQuery {
 
 
-
-    //query for populating table on customers page
+    /**
+     * Gets all customers.
+     * query for populating the table on the main customers page
+     * returns obversvable array list of all customers and their associated info
+     * @return the all customers
+     */
     public static ObservableList<CustomerModel> getAllCustomers() {
         ObservableList<CustomerModel> customerList = FXCollections.observableArrayList();
         try {
@@ -42,7 +49,16 @@ public class CustomerQuery {
     }
 
 
-    //query for updating data on customer page when a customer is selected
+
+
+    /**
+     * query for updating data on customer page when a customer is selected
+     * returns either info about the customers next appointment or info that
+     * the customer does not have any future appointments
+     *
+     * @param currCust the curr cust
+     * @return next appointment
+     */
     public static String getNextAppointment(int currCust) {
 
         String customerNextAppointment = null;
@@ -64,7 +80,15 @@ public class CustomerQuery {
     }
 
 
-    //query for ensuring the added customer is the lowest ID possible without conflict
+    /**
+     * Get highest customer id integer.
+     * This ensures that the auto generated ID matches with
+     * what the customer id will be if and when a new customer
+     * is created. Looks for the lowest ID possible that has
+     * not risk of conflict. Returns the id for use on the add customer
+     * screen before customer creation is finalized
+     * @return the integer
+     */
     public static Integer getHighestCustomerID(){
         try {
             String sql = "ANALYZE TABLE customers;";
@@ -89,7 +113,12 @@ public class CustomerQuery {
     }
 
 
-    //query for sending customer data to update screen
+    /**
+     * Gets current customer.
+     * query for sending selected customer data to the customer update screen
+     * @param currentCustomerID the current customer id
+     * @return the current customer
+     */
     public static CustomerModel getCurrentCustomer(Integer currentCustomerID) {
         CustomerModel currentCustomer = null;
         try {
@@ -108,7 +137,6 @@ public class CustomerQuery {
                 String customerCountry = rs.getString("Country");
 
                 currentCustomer = new CustomerModel(customerID, customerName, customerAddress, customerCode, customerPhone, customerDivisionID, customerDivision, customerCountryID, customerCountry);
-//            return currentCustomer;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -117,9 +145,14 @@ public class CustomerQuery {
     }
 
 
-    //queries for populating add/update screens
+    /**
+     * Get division id from combo box integer.
+     * Gets the division id from the division selected from
+     * the division id combo box
+     * @param selectedDivision the selected division
+     * @return the integer
+     */
     public static Integer getDivisionIDFromComboBox(String selectedDivision){
-        //SELECT first_level_divisions.Division_ID from countries JOIN first_level_divisions ON countries.Country_ID = first_level_divisions.Country_ID WHERE Division = 'Florida';
         Integer divisionID = null;
         try {
             String sql = "SELECT first_level_divisions.Division_ID from countries JOIN first_level_divisions ON countries.Country_ID = first_level_divisions.Country_ID WHERE Division ='" + selectedDivision +"'";
@@ -134,6 +167,11 @@ public class CustomerQuery {
         return divisionID;
     }
 
+    /**
+     * Get all countries observable list.
+     * queries all countries to populate the counties combo box
+     * @return the observable list
+     */
     public static ObservableList<String> getAllCountries(){
         ObservableList<String> countryList = FXCollections.observableArrayList();
         try {
@@ -150,6 +188,12 @@ public class CustomerQuery {
         return countryList;
     }
 
+    /**
+     * Get filtered divisions observable list.
+     * populates the division combo box based on country selected
+     * @param selectedCountry the selected country
+     * @return the observable list
+     */
     public static ObservableList<String> getFilteredDivisions(String selectedCountry){
         ObservableList<String> divisionList = FXCollections.observableArrayList();
         try {
@@ -167,8 +211,12 @@ public class CustomerQuery {
     }
 
 
-
-    //queries for adding/modifying/deleting appointments to/from database
+    /**
+     * Add customer.
+     * Data is parsed and validated on the customer add screen
+     * It is then sent to this SQL function to be finalized
+     * @param newCustomer the new customer
+     */
     public static void addCustomer(CustomerModel newCustomer) {
 
         String newName = newCustomer.getCustomerName();
@@ -187,6 +235,12 @@ public class CustomerQuery {
         }
     }
 
+    /**
+     * Modify customer.
+     * Data is parsed and validated on the customer modify screen
+     * It is then sent to this SQL function to be finalized
+     * @param updateCustomer the update customer
+     */
     public static void modifyCustomer(CustomerModel updateCustomer) {
 
         Integer custID = updateCustomer.getCustomerID();
@@ -206,6 +260,12 @@ public class CustomerQuery {
         }
     }
 
+    /**
+     * Delete customer.
+     * When customer confirms a delete on the customer screen
+     * this sql function is used to finalize the deletion
+     * @param selectedCustomer the selected customer
+     */
     public static void deleteCustomer(Integer selectedCustomer) {
         try {
             String sql1 = "DELETE FROM appointments WHERE Customer_ID = '" + selectedCustomer + "'";
